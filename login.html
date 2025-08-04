@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Login - Ouve Matão</title>
+</head>
+
+<body class="login-page">
+    <div class="container">
+        <!-- Esquerda: Logo e textos -->
+        <div class="left-side">
+            <img src="img/logo-header.png" alt="Ouve Matão" class="logo">
+            <div class="links">
+                <a href="termos.html">TERMOS E POLÍTICAS</a>
+                <a href="sobre.html">SOBRE NÓS</a>
+            </div>
+        </div>
+
+        <!-- Direita: Caixa de login  -->
+        <div class="right-side">
+            <form class="login-form">
+                <div class="form-heading">Login</div>
+                <div class="input-group">
+                    <input required placeholder="Digite o CPF cadastrado" name="cpf" id="cpf" type="text" />
+                    <label class="label" for="cpf">Usuário</label>
+                </div>
+                <div class="input-group">
+                    <input required placeholder="Digite sua senha definida" name="password" id="password"
+                        type="password" />
+                    <label class="label" for="password">Senha</label>
+                </div>
+                <div class="forgot-password">
+                    <a href="#">Esqueci minha senha</a>
+                </div>
+                <button class="submit" type="submit">Acessar</button>
+                <div class="signup-link">
+                    Não tem cadastro? <a href="cadastro.html">Clique aqui</a><br />
+                    É ouvidor? <a href="#">Clique aqui</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- CONTATO -->
+    <section id="contato">
+        <div class="info">
+            <h1>Contato</h1>
+            <p>Rua Alegre, 123, Cidade Brasileira</p>
+            <p>Tel: (12) 3456-7890</p>
+            <p>ola@grandesite.com.br</p>
+        </div>
+        <div class="social">
+            <div class="social-content">
+                <h2>Siga a gente<br />nas redes sociais</h2>
+                <div class="redes">
+                    <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
+                    <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
+                    <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
+                </div>
+                <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Transição de página com logo -->
+    <div id="pageTransitionLogo" class="page-transition-logo hide">
+        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

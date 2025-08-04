@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Cadastro - Ouve Matão</title>
+
+</head>
+
+<body class="cadastro-page">
+    <div class="container">
+        <!-- Esquerda: Logo e textos -->
+        <div class="left-side">
+            <img src="img/logo-header.png" alt="Ouve Matão" class="logo">
+            <div class="links">
+                <a href="termos.html">TERMOS E POLÍTICAS</a>
+                <a href="sobre.html">SOBRE NÓS</a>
+            </div>
+        </div>
+
+        <!-- Direita: Caixa de cadastro -->
+        <div class="right-side">
+            <form class="cadastro-form">
+                <div class="form-heading">Cadastro</div>
+                <div class="input-group">
+                    <input required placeholder="Digite seu nome completo" name="nome" id="nome" type="text" />
+                    <label class="label" for="nome">Nome Completo</label>
+                </div>
+                <div class="input-group">
+                    <input required placeholder="Digite seu CPF" name="cpf" id="cpf" type="text" />
+                    <label class="label" for="cpf">CPF</label>
+                </div>
+                <div class="input-group">
+                    <input required placeholder="Digite seu e-mail" name="email" id="email" type="email" />
+                    <label class="label" for="email">E-mail</label>
+                </div>
+                <div class="input-group">
+                    <input required placeholder="Crie uma senha" name="password" id="password" type="password" />
+                    <label class="label" for="password">Senha</label>
+                </div>
+                <button class="submit" type="submit">Cadastrar</button>
+                <div class="login-link">
+                    Já tem cadastro? <a href="login.html">Clique aqui</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Transição de página com logo -->
+    <div id="pageTransitionLogo" class="page-transition-logo hide">
+        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

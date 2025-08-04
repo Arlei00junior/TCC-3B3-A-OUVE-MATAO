@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Termos e Políticas - Ouve matão</title>
+</head>
+
+<body class="termos-page">
+
+    <!-- HEADER -->
+    <!-- MENU LATERAL RESPONSIVO PARA MOBILE -->
+    <nav class="mobile-sidebar">
+        <div class="mobile-header">
+            <button class="menu-toggle" aria-label="Abrir menu"
+                onclick="document.querySelector('.mobile-sidebar-menu').classList.toggle('open')">
+                <span class="menu-icon">&#9776;</span>
+            </button>
+        </div>
+        <div class="mobile-sidebar-menu">
+            <a href="login.html">FAÇA LOGIN</a>
+            <a href="#termos">TERMOS E POLÍTICAS</a>
+            <a href="sobre.html">SOBRE NÓS</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="logo">
+            <img src="img/logo-header.png" alt="Logo" />
+        </div>
+        <nav class="nav-links">
+            <div class="divider"></div>
+            <a href="login.html">FAÇA LOGIN</a>
+            <a href="#termos">TERMOS E POLÍTICAS</a>
+            <a href="sobre.html">SOBRE NÓS</a>
+        </nav>
+    </header>
+    <style>
+        body.termos-page {
+            background: #f4f6fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        .termos-container {
+            max-width: 980px;
+            margin: 150px auto 0 auto;
+            padding: 48px 36px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 32px rgba(20, 48, 74, 0.12);
+        }
+
+        .termos-title {
+            font-size: 2.7rem;
+            margin-bottom: 44px;
+            color: #14304a;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .termos-section {
+            margin-bottom: 44px;
+        }
+
+        .termos-section h2 {
+            font-size: 1.4rem;
+            color: #14304a;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+
+        .termos-section p {
+            font-size: 1.12rem;
+            color: #444;
+            line-height: 1.75;
+        }
+
+        a {
+            color: #14304a;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #f9c846;
+        }
+
+        @media (max-width: 700px) {
+            .termos-container {
+                padding: 24px 10px;
+            }
+
+            .termos-title {
+                font-size: 1.6rem;
+            }
+
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 18px;
+            }
+
+            .nav-links {
+                gap: 18px;
+            }
+        }
+
+        a:hover {
+            color: #f9c846;
+            /* amarelo padrão */
+        }
+
+        @media (max-width: 700px) {
+            .termos-container {
+                padding: 20px 8px;
+            }
+
+            .termos-title {
+                font-size: 1.5rem;
+            }
+
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 16px;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+        }
+    </style>
+    <main id="termos" class="termos-container">
+        <h1 class="termos-title" style="text-align:center; margin-top: 32px;">Termos e Políticas</h1>
+
+        <section class="termos-section">
+            <h2>1. Introdução e Objetivo</h2>
+            <p>
+                A Ouve Matão é um canal de ouvidoria criado para garantir a comunicação entre cidadãos, empresas e
+                entidades,
+                assegurando a transparência e a resolução de demandas. Nosso compromisso é fornecer um atendimento
+                imparcial, ético
+                e eficiente, recebendo, analisando e encaminhando sugestões, reclamações, elogios e outras manifestações
+                dos usuários,
+                promovendo soluções adequadas e melhorias contínuas nos serviços prestados.
+            </p>
+        </section>
+
+        <section class="termos-section">
+            <h2>2. Tipos de Manifestações e Forma de Atendimento</h2>
+            <p>
+                A Ouve Matão aceita reclamações, sugestões, elogios e denúncias, garantindo sigilo e confidencialidade
+                conforme a Lei
+                Geral de Proteção de Dados Pessoais (LGPD). As manifestações podem ser registradas pelos seguintes
+                canais: site oficial
+                (24h por dia), e-mail (envio de relatos detalhados), telefone (segunda a sexta-feira, das 8h às 18h) e
+                atendimento presencial
+                (mediante agendamento prévio).
+
+            </p>
+        </section>
+
+        <section class="termos-section">
+            <h2>3. Prazos de Resposta e Responsabilidades</h2>
+            <p>
+                A Ouve Matão, conforme a Lei 13.460/2017, artigo 16 (<a
+                    href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm" target="_blank"
+                    rel="noopener">acesse a lei</a>), encaminhará a decisão administrativa final ao usuário,
+                observado o prazo de 30 (trinta) dias, prorrogável de forma justificada uma única vez, por igual
+                período. Ao registrar um
+                relato, o solicitante deve cadastrar o maior número possível de informações (se possível, anexar
+                documentação ou fotos
+                que ajudem a comprovar os fatos denunciados).
+
+            </p>
+        </section>
+
+        <section class="termos-section">
+            <h2>4. Penalidades, Alterações e Contato</h2>
+            <p>
+                O uso indevido da ouvidoria, como manifestações falsas ou ofensivas, pode resultar no bloqueio do acesso
+                ao serviço e
+                em medidas legais. Os termos podem ser atualizados periodicamente, e os usuários serão informados sobre
+                alterações
+                relevantes. Para mais informações ou dúvidas, entre em contato pelos canais oficiais disponíveis.
+            </p><br>
+            <p>Em caso de dúvidas ou para mais informações sobre o Canal de Ouvidoria, entre em contato conosco pelo
+                telefone (16)
+                3383-3125 ou pelo e-mail
+                ouvidoria@matao.sp.gov.br.
+            </p>
+        </section>
+    </main>
+
+
+    <!-- Transição de página com logo -->
+    <div id="pageTransitionLogo" class="page-transition-logo hide">
+        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

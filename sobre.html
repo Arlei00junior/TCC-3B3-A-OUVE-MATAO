@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Ouve Matão</title>
+</head>
+
+<body class="sobre-page">
+
+
+    <!-- HEADER -->
+    <header>
+    <!-- HEADER -->
+    <!-- MENU LATERAL RESPONSIVO PARA MOBILE -->
+    <nav class="mobile-sidebar">
+        <div class="mobile-header">
+            <button class="menu-toggle" aria-label="Abrir menu" onclick="document.querySelector('.mobile-sidebar-menu').classList.toggle('open')">
+                <span class="menu-icon">&#9776;</span>
+            </button>
+        </div>
+        <div class="mobile-sidebar-menu">
+            <a href="login.html">FAÇA LOGIN</a>
+            <a href="#termos">TERMOS E POLÍTICAS</a>
+            <a href="sobre.html">SOBRE NÓS</a>
+        </div>
+    </nav>
+
+        <div class="logo">
+            <img src="img/logo-header.png" alt="Logo" />
+        </div>
+        <nav class="nav-links">
+            <div class="divider"></div>
+            <a href="login.html">FAÇA LOGIN</a>
+            <a href="termos.html">TERMOS E POLÍTICAS</a>
+            <a href="sobre.html">SOBRE NÓS</a>
+        </nav>
+    </header>
+
+    <!-- BANNER -->
+    <section class="banner-sobre">
+        <div class="banner-left-sobre"></div>
+        <div class="banner-right-sobre">
+
+            <div>
+                <h1>Sobre Nós</h1>
+                <p>
+                    Fundada com o propósito de dar voz à população e fortalecer a
+                    comunicação entre cidadãos e instituições, a Ouve Matão nasceu
+                    como referência em ouvidoria e atendimento humanizado. Com
+                    uma equipe especializada em escuta ativa e mediação de
+                    demandas, nossa empresa se destaca pela transparência, ética e
+                    compromisso em oferecer soluções eficientes para cada relato
+                    recebido.
+
+                </p>
+                <p>
+                    Atendendo tanto o setor público quanto privado, a Ouve Matão é
+                    sinônimo de confiança e inovação na gestão de reclamações,
+                    sugestões e elogios. Nossa missão é garantir que cada
+                    manifestação seja tratada com respeito, promovendo melhorias
+                    contínuas nos serviços prestados por empresas e órgãos públicos.
+                </p>
+                <p>
+                    Com uma plataforma digital intuitiva e acessível, a Ouve Matão
+                    facilita o registro de manifestações, assegurando que cada voz
+                    seja ouvida e valorizada. Nossa visão é ser a principal
+                    referência em ouvidoria no Brasil, contribuindo para uma
+                    sociedade mais justa e participativa.
+
+                    
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+        <div class="info">
+            <h1>Contato</h1>
+            <p>Rua Alegre, 123, Cidade Brasileira</p>
+            <p>Tel: (12) 3456-7890</p>
+            <p>ola@grandesite.com.br</p>
+        </div>
+        <div class="social">
+            <div class="social-content">
+                <h2>Siga a gente<br />nas redes sociais</h2>
+                <div class="redes">
+                    <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
+                    <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
+                    <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
+                </div>
+                <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Transição de página com logo -->
+    <div id="pageTransitionLogo" class="page-transition-logo hide">
+        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+    </div>
+
+<script src="script.js"></script>
+</body>
+
+</html>

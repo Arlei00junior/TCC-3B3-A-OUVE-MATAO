@@ -1,0 +1,821 @@
+/* ==========================================================
+  RESET E PADRÕES COMPARTILHADOS
+  (Reset de margens, paddings e box-sizing para todos os elementos)
+========================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo da página: fonte, largura máxima e centralização */
+body {
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  max-width: 1903px;
+  margin: 0 auto;
+}
+
+/* ==========================================================
+  HEADER
+  (Estilização do cabeçalho fixo e seus elementos)
+========================================================== */
+header {
+  position: fixed; /* Cabeçalho fixo no topo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #0d7b87;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px;
+  z-index: 999;
+}
+
+/* Logo do cabeçalho */
+.logo img {
+  max-height: 85px;
+}
+
+/* Links de navegação do cabeçalho */
+.nav-links {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Divisor visual entre links */
+.divider {
+  border-left: 3px solid #ccc;
+  height: 55px;
+  margin-left: 30px;
+  margin-right: 10px;
+}
+
+/* Estilo dos links do cabeçalho */
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Hover nos links do cabeçalho */
+.nav-links a:hover {
+  color: #007bff;
+}
+
+/* ==========================================================
+  HOME PAGE
+  (Banner principal da página inicial)
+========================================================== */
+.home-page .banner {
+  display: flex;
+  height: 100vh;
+  margin-top: 80px;
+}
+
+/* Lado esquerdo do banner (imagem) */
+.home-page .banner-left {
+  width: 45vw;
+  background-image: url("../img/banner_inicial.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Lado direito do banner (conteúdo) */
+.home-page .banner-right {
+  width: 55vw;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 3vw;
+}
+
+/* Texto do banner direito */
+.home-page .banner-right p {
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+/* Container do botão "Começar" */
+.home-page .btn-start-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Botão "Começar" */
+.home-page .btn-start {
+  background-color: #0d7b87;
+  color: white;
+  font-size: 1.5rem;
+  padding: 2rem 2.5rem;
+  border: none;
+  border-radius: 45px;
+  cursor: pointer;
+}
+
+/* ==========================================================
+  LOGIN & CADASTRO PAGE
+  (Estilos das páginas de login e cadastro)
+========================================================== */
+.login-page,
+.cadastro-page {
+  background-color: #10848b;
+}
+
+/* Container principal das páginas de login/cadastro */
+.login-page .container,
+.cadastro-page .container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Lado esquerdo (logo e links) */
+.login-page .left-side,
+.cadastro-page .left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo nas páginas de login/cadastro */
+.login-page .logo,
+.cadastro-page .logo {
+  width: 600px;
+  max-width: 90%;
+  margin-bottom: 20px;
+}
+
+/* Links abaixo do logo */
+.login-page .links,
+.cadastro-page .links {
+  margin-top: 60px;
+  display: flex;
+  gap: 40px;
+}
+
+/* Estilo dos links abaixo do logo */
+.login-page .links a,
+.cadastro-page .links a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+/* Lado direito (formulário) */
+.login-page .right-side,
+.cadastro-page .right-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Formulário de login/cadastro */
+.login-page .login-form,
+.cadastro-page .cadastro-form {
+  background: #fff;
+  padding: 84px 63px;
+  border-radius: 27px;
+  box-shadow: 0 20px 76px rgba(0, 0, 0, 0.15);
+  min-width: 540px;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Título do formulário */
+.login-page .form-heading,
+.cadastro-page .form-heading {
+  font-size: 28px;
+  font-weight: bold;
+  color: #10848b;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Grupo de input do formulário */
+.login-page .input-group,
+.cadastro-page .input-group {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+/* Input dos formulários */
+.login-page .input-group input,
+.cadastro-page .input-group input {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+/* Input focado */
+.login-page .input-group input:focus,
+.cadastro-page .input-group input:focus {
+  border-color: #10848b;
+}
+
+/* Label dos inputs */
+.login-page .label,
+.cadastro-page .label {
+  position: absolute;
+  left: 12px;
+  top: -10px;
+  background: #fff;
+  padding: 0 4px;
+  font-size: 13px;
+  color: #10848b;
+}
+
+/* Link "Esqueci minha senha" */
+.login-page .forgot-password {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+/* Estilo do link "Esqueci minha senha" */
+.login-page .forgot-password a {
+  color: #10848b;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+/* Botão de envio dos formulários */
+.login-page .submit,
+.cadastro-page .submit {
+  background: #10848b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Hover no botão de envio */
+.login-page .submit:hover,
+.cadastro-page .submit:hover {
+  background: #0a5a5e;
+}
+
+/* Link para cadastro/login abaixo do formulário */
+.login-page .signup-link,
+.cadastro-page .login-link {
+  text-align: center;
+  font-size: 15px;
+  color: #333;
+}
+
+/* Estilo do link para cadastro/login */
+.login-page .signup-link a,
+.cadastro-page .login-link a {
+  color: #10848b;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* ==========================================================
+  CADASTRO PAGE TRANSIÇÃO
+  (Transição animada entre páginas de cadastro)
+========================================================== */
+.cadastro-page .container {
+  flex-direction: row-reverse;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animação para deslizar à esquerda */
+.cadastro-page.slide-left .container {
+  transform: translateX(-100vw);
+}
+
+/* Animação para deslizar à direita */
+.cadastro-page.slide-right .container {
+  transform: translateX(100vw);
+}
+
+/* ==========================================================
+  COMPONENTE GLOBAL - CONTATO
+  (Seção de contato global)
+========================================================== */
+#contato {
+  width: 100vw;
+  min-height: 100vh;
+  background: #0d5e63;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  z-index: 10;
+}
+
+/* Informações de contato */
+#contato .info {
+  flex: 2;
+  padding: 8vw 4vw;
+}
+
+/* Título da seção de contato */
+#contato .info h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* Texto da seção de contato */
+#contato .info p {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Área de redes sociais */
+#contato .social {
+  flex: 1.2;
+  background: #158995;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4vw 3vw;
+  position: relative;
+}
+
+/* Barra vertical decorativa na área social */
+#contato .social::before {
+  content: "";
+  border-left: 10px solid #fff;
+  height: 56%;
+  position: absolute;
+  left: 0;
+  top: 0%;
+}
+
+/* Conteúdo das redes sociais */
+.social-content {
+  margin-left: 2.5vw;
+}
+
+/* Título das redes sociais */
+.social-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Ícones das redes sociais */
+.social-content .redes {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Link das redes sociais */
+.social-content .redes a {
+  background: #0d5e63;
+  border-radius: 10px;
+  padding: 0.5rem 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Imagem dos ícones das redes sociais */
+.social-content .redes img {
+  width: 40px;
+  height: 40px;
+}
+
+/* Logo da ouvidoria */
+.logo-ouvidoria {
+  width: 257px;
+  margin-left: -251px;
+  margin-top: -25px;
+}
+
+/* ==========================================================
+  TRANSIÇÃO DE PÁGINAS
+  (Animação de transição entre páginas)
+========================================================== */
+.page-transition-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0d7b87;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Esconde a animação de transição */
+.page-transition-logo.hide {
+  opacity: 0;
+}
+
+/* Logo da animação de transição */
+.page-transition-logo img {
+  width: 120px;
+  transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+}
+
+/* Animação de escala e opacidade do logo */
+.page-transition-logo.hide img {
+  transform: scale(12);
+  opacity: 0;
+}
+
+/* ==========================================================
+  MOBILE SIDEBAR MENU
+  (Menu lateral para dispositivos móveis)
+========================================================== */
+@media (max-width: 600px) {
+  /* Esconde links de navegação no mobile */
+  .nav-links {
+   display: none !important;
+  }
+
+  /* Sidebar do menu mobile */
+  .mobile-sidebar {
+   display: block;
+   position: fixed;
+   top: 30px;
+   right: 0;
+   left: 30px;
+   z-index: 1000;
+   width: 100vw;
+   background: transparent;
+  }
+
+  /* Cabeçalho mobile */
+  .mobile-header {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 10px 16px;
+   background: #0d7b87;
+   position: absolute;
+  }
+
+  /* Botão de abrir menu mobile */
+  .mobile-header .menu-toggle {
+   position: absolute;
+   right: 16px;
+   top: 50%;
+   transform: translateY(-50%);
+   background: none;
+   border: none;
+   color: #fff;
+   font-size: 2rem;
+   cursor: pointer;
+   z-index: 2;
+  }
+
+  /* Logo no cabeçalho mobile */
+  .mobile-header .logo {
+   margin: 0 auto;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+  }
+
+  /* Ícone do menu mobile */
+  .menu-icon {
+   font-size: 2.2rem;
+  }
+
+  /* Menu lateral mobile */
+  .mobile-sidebar-menu {
+   display: none;
+   flex-direction: column;
+   background: #0d7b87;
+   position: absolute;
+   top: 52px;
+   right: 30px;
+   width: 100vw;
+   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+   padding: 24px 0;
+   gap: 18px;
+   border-radius: 0px 0px 80px 80px;
+   transition: all 0.3s;
+  }
+
+  /* Exibe menu lateral quando aberto */
+  .mobile-sidebar-menu.open {
+   display: flex;
+  }
+
+  /* Links do menu lateral mobile */
+  .mobile-sidebar-menu a {
+   margin-bottom: -10px;
+   color: #fff;
+   text-decoration: none;
+   font-size: 1.2rem;
+   font-weight: bold;
+   padding: 12px 50px;
+   transition: background 0.2s;
+  }
+
+  /* Hover nos links do menu lateral */
+  .mobile-sidebar-menu a:hover {
+   background: #158995;
+  }
+}
+
+/* Esconde sidebar mobile em telas maiores */
+@media (min-width: 601px) {
+  .mobile-sidebar {
+   display: none !important;
+  }
+}
+
+/* ==========================================================
+  MOBILE AJUSTES
+  (Ajustes gerais para dispositivos móveis)
+========================================================== */
+@media (max-width: 600px) {
+  /* Fonte menor no mobile */
+  body {
+   font-size: 15px;
+  }
+
+  /* Cabeçalho ajustado no mobile */
+  header {
+   flex-direction: column;
+   padding: 10px 10px;
+   gap: 8px;
+  }
+
+  /* Logo menor no mobile */
+  .logo img {
+   max-height: 60px;
+  }
+
+  /* Esconde divisor no mobile */
+  .divider {
+   display: none;
+  }
+
+  /* Banner da home em coluna no mobile */
+  .home-page .banner {
+   flex-direction: column;
+   height: auto;
+   margin-top: 60px;
+   background: #fff;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+   border-radius: 12px;
+   overflow: hidden;
+  }
+
+  /* Banner ocupa largura total no mobile */
+  .home-page .banner-left,
+  .home-page .banner-right {
+   width: 100vw;
+  }
+
+  /* Banner direito ajustado no mobile */
+  .home-page .banner-right {
+   padding: 23px 14px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+  }
+
+  /* Banner esquerdo ajustado no mobile */
+  .home-page .banner-left {
+   height: 60vh;
+   background-size: cover;
+   background-position: center;
+  }
+
+  /* Texto do banner direito menor no mobile */
+  .home-page .banner-right p {
+   font-size: 1.15rem;
+   margin-bottom: 1.2rem;
+   text-align: center;
+   line-height: 1.5;
+   word-break: break-word;
+  }
+
+  /* Container do botão "Começar" no mobile */
+  .home-page .btn-start-container {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+  }
+
+  /* Botão "Começar" menor no mobile */
+  .home-page .btn-start {
+   font-size: 1.05rem;
+   padding: 0.9rem 1.4rem;
+   border-radius: 32px;
+   transition: background 0.2s;
+  }
+
+  /* Logo menor nas páginas de login/cadastro no mobile */
+  .login-page .logo,
+  .cadastro-page .logo {
+   margin-top: -150px;
+   margin-bottom: -px;
+   width: 170px;
+  }
+
+  /* Container das páginas de login/cadastro em coluna no mobile */
+  .login-page .container,
+  .cadastro-page .container {
+   flex-direction: column;
+   height: auto;
+   min-height: 100vh;
+   padding: 12px 0;
+  }
+  /* Faz o formulário subir um pouco no mobile */
+  .login-page .login-form,
+  .cadastro-page .cadastro-form {
+    margin-top: -290px;
+  }
+  /* Lados do login/cadastro ajustados no mobile */
+  .login-page .left-side,
+  .cadastro-page .left-side,
+  .login-page .right-side,
+  .cadastro-page .right-side {
+   width: 90%;
+   align-items: center;
+   justify-content: center;
+   padding: ;
+   
+  }
+
+  /* Formulário de login/cadastro menor no mobile */
+  .login-page .login-form,
+  .cadastro-page .cadastro-form {
+   min-width: unset;
+   max-width: 98vw;
+   padding: 18px 8px;
+   border-radius: 10px;
+   gap: 18px;
+   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  }
+
+  /* Título do formulário menor no mobile */
+  .form-heading {
+   text-align: center;
+   font-size: 20px;
+  }
+
+  /* Botão de envio menor no mobile */
+  .submit {
+   text-align: center;
+   font-size: 16px;
+   padding: 10px;
+  }
+
+  /* Seção de contato em coluna no mobile */
+  #contato {
+   flex-direction: column;
+   min-height: unset;
+   padding: 0;
+  }
+
+  /* Informações e redes sociais ajustadas no mobile */
+  #contato .info,
+  #contato .social {
+   width: 100%;
+   padding: 18px 10px;
+  }
+
+  /* Título da seção de contato menor no mobile */
+  #contato .info h1 {
+   font-size: 1.5rem;
+  }
+
+  /* Texto da seção de contato menor no mobile */
+  #contato .info p {
+   font-size: 1rem;
+  }
+
+  /* Título das redes sociais menor no mobile */
+  .social-content h2 {
+   font-size: 1.2rem;
+   margin-bottom: 1rem;
+  }
+
+  /* Ícones das redes sociais ajustados no mobile */
+  .social-content .redes {
+   flex-wrap: wrap;
+   gap: 1rem;
+   justify-content: center;
+  }
+
+  /* Imagem dos ícones menor no mobile */
+  .social-content .redes img {
+   width: 22px;
+   height: 22px;
+  }
+
+  /* Logo da ouvidoria menor no mobile */
+  .logo-ouvidoria {
+   width: 110px;
+   margin-left: 0;
+   margin-top: 10px;
+  }
+
+  /* Barra decorativa menor no mobile */
+  #contato .social::before {
+   border-left: 5px solid #fff;
+   height: 30%;
+  }
+}
+
+/* ==========================================================
+  TABLETS
+  (Ajustes para telas de tablet)
+========================================================== */
+@media (max-width: 1024px) {
+  /* Formulários ajustados para tablets */
+  .login-form,
+  .cadastro-form {
+   max-width: 80vw
+  }
+
+  /* Texto do banner direito menor em tablets */
+  .home-page .banner-right p {
+   font-size: 1.6rem;
+  }
+}
+
+/* ==========================================================
+  NOTEBOOKS
+  (Ajustes para telas de notebook)
+========================================================== */
+@media (max-width: 1366px) {
+  /* Texto do banner direito menor em notebooks */
+  .home-page .banner-right p {
+   font-size: 1.8rem;
+  }
+}
+
+/* ==========================================================
+  SOBRE PAGE
+  (Banner da página "Sobre")
+========================================================== */
+.sobre-page .banner-sobre {
+  display: flex; /* Banner em linha */
+  height: 100vh;
+  margin-top: 80px;
+}
+
+/* Lado esquerdo do banner "Sobre" (imagem) */
+.sobre-page .banner-left-sobre {
+  width: 45vw;
+  background-image: url("../img/banner_sobre.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Lado direito do banner "Sobre" (conteúdo) */
+.sobre-page .banner-right-sobre {
+  width: 55vw;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 3vw;
+}
+
+/* Texto do banner direito "Sobre" */
+.sobre-page .banner-right-sobre p {
+  font-size: 1.6rem;
+  margin-bottom: 1.6rem;
+  line-height: 1.6;
+}
+
+/* Título do banner direito "Sobre" */
+.sobre-page .banner-right-sobre h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  margin-top: -6rem;
+  line-height: 1.6;
+}
