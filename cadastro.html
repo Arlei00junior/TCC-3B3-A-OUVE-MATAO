@@ -40,6 +40,11 @@
                     <input required placeholder="Crie uma senha" name="password" id="password" type="password" />
                     <label class="label" for="password">Senha</label>
                 </div>
+                <div class="input-group">
+                    <input required placeholder="Confirme sua senha" name="confirm_password" id="confirm_password"
+                        type="password" />
+                    <label class="label" for="confirm_password">Confirmar Senha</label>
+                </div>
                 <button class="submit" type="submit">Cadastrar</button>
                 <div class="login-link">
                     Já tem cadastro? <a href="login.html">Clique aqui</a>
@@ -48,7 +53,46 @@
         </div>
     </div>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('.cadastro-form');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
 
+        // Adiciona lupa para visualizar senha
+        function addEyeIcon(input) {
+            const wrapper = input.parentElement;
+            wrapper.style.position = 'relative';
+
+            const eye = document.createElement('span');
+            eye.innerHTML = '👁️';
+            eye.style.position = 'absolute';
+            eye.style.right = '10px';
+            eye.style.top = '50%';
+            eye.style.transform = 'translateY(-50%)';
+            eye.style.cursor = 'pointer';
+            eye.title = 'Mostrar/ocultar senha';
+
+            eye.addEventListener('click', function () {
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+
+            wrapper.appendChild(eye);
+        }
+
+        addEyeIcon(password);
+        addEyeIcon(confirmPassword);
+
+        // Validação de senha
+        form.addEventListener('submit', function (e) {
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+                alert('As senhas não coincidem!');
+                confirmPassword.focus();
+            }
+        });
+    });
+    </script>
 
 
 
