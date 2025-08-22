@@ -10,183 +10,238 @@
 </head>
 
 <body class="cadastro-page">
-    <div class="container">
-        <!-- Esquerda: Logo e textos -->
-        <div class="left-side">
-            <img src="img/logo-header.png" alt="Ouve Matão" class="logo">
-            <div class="links">
-                <a href="termos.html">TERMOS E POLÍTICAS</a>
-                <a href="sobre.html">SOBRE NÓS</a>
+    <div class="pg-cadastro">
+        <div class="container">
+            <!-- Esquerda: Logo e textos -->
+            <div class="left-side">
+                <img src="img/logo-header.png" alt="Ouve Matão" class="logo">
+                <div class="links">
+                    <a href="termos.html">TERMOS E POLÍTICAS</a>
+                    <a href="sobre.html">SOBRE NÓS</a>
+                </div>
+            </div>
+
+            <!-- Direita: Caixa de cadastro -->
+            <div class="right-side">
+                <form class="cadastro-form">
+                    <div class="form-heading">Cadastro</div>
+                    <div class="input-group">
+                        <input required placeholder="Digite seu nome completo" name="nome" id="nome" type="text" />
+                        <label class="label" for="nome">Nome Completo</label>
+                    </div>
+                    <div class="input-group">
+                        <input required placeholder="Digite seu CPF" name="cpf" id="cpf" type="text" />
+                        <label class="label" for="cpf">CPF</label>
+                    </div>
+                    <div class="input-group">
+                        <input required placeholder="Digite seu e-mail" name="email" id="email" type="email" />
+                        <label class="label" for="email">E-mail</label>
+                    </div>
+
+
+                    <div class="input-group">
+                        <input required placeholder="Digite seu telefone" name="telefone" id="telefone" type="tel"
+                            maxlength="15" pattern="\(\d{2}\)\s?\d{4,5}-\d{4}" />
+                        <label class="label" for="telefone">Telefone</label>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const telefoneInput = document.getElementById('telefone');
+                                telefoneInput.addEventListener('input', function (e) {
+                                    let value = telefoneInput.value.replace(/\D/g, '');
+                                    if (value.length > 11) value = value.slice(0, 11);
+                                    if (value.length > 10) {
+                                        telefoneInput.value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                                    } else if (value.length > 6) {
+                                        telefoneInput.value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+                                    } else if (value.length > 2) {
+                                        telefoneInput.value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+                                    } else {
+                                        telefoneInput.value = value.replace(/(\d{0,2})/, '($1');
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+
+
+                    <div class="input-group">
+                        <input required placeholder="Digite sua data de nascimento" name="data_nascimento"
+                            id="data_nascimento" type="date" />
+                        <label class="label" for="data_nascimento">Data de Nascimento</label>
+                    </div>
+                    <div class="input-group">
+                        <label class="label" style="top: -18px;">Sexo</label>
+                        <div
+                            style="display: flex; gap: 20px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
+                            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
+                            <input type="radio" name="sexo" value="feminino" required
+                                style="accent-color: #008080; width: 22px; height: 22px;">
+                            Feminino
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
+                            <input type="radio" name="sexo" value="masculino" required
+                                style="accent-color: #008080; width: 22px; height: 22px;">
+                            Masculino
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="radio" name="sexo" value="intersexo" required
+                                    style="accent-color: #008080; width: 22px; height: 22px;">
+                                Intersexo
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="label" style="top: -18px;">Residente do município?</label>
+                        <div
+                            style="display: flex; gap: 30px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
+                            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
+                            <input type="radio" name="reside_municipio" value="sim"
+                                style="accent-color: #008080; width: 22px; height: 22px;">
+                            Sim
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
+                            <input type="radio" name="reside_municipio" value="nao"
+                                style="accent-color: #008080; width: 22px; height: 22px;">
+                            Não
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="input-group">
+                        <input required placeholder="Crie uma senha" name="password" id="password" type="password" />
+                        <label class="label" for="password">Senha</label>
+                    </div>
+                    <div class="input-group">
+                        <input required placeholder="Confirme sua senha" name="confirm_password" id="confirm_password"
+                            type="password" />
+                        <label class="label" for="confirm_password">Confirmar Senha</label>
+                    </div>
+
+                    <button class="submit" type="submit">Cadastrar</button>
+                    <div class="login-link">
+                        Já tem cadastro? <a href="login.html">Clique aqui</a>
+                    </div>
+                </form>
             </div>
         </div>
 
-        <!-- Direita: Caixa de cadastro -->
-        <div class="right-side">
-            <form class="cadastro-form">
-                <div class="form-heading">Cadastro</div>
-                <div class="input-group">
-                    <input required placeholder="Digite seu nome completo" name="nome" id="nome" type="text" />
-                    <label class="label" for="nome">Nome Completo</label>
-                </div>
-                <div class="input-group">
-                    <input required placeholder="Digite seu CPF" name="cpf" id="cpf" type="text" />
-                    <label class="label" for="cpf">CPF</label>
-                </div>
-                <div class="input-group">
-                    <input required placeholder="Digite seu e-mail" name="email" id="email" type="email" />
-                    <label class="label" for="email">E-mail</label>
-                </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('.cadastro-form');
+                const password = document.getElementById('password');
+                const confirmPassword = document.getElementById('confirm_password');
+
+                // Adiciona lupa para visualizar senha
+                function addEyeIcon(input) {
+                    const wrapper = input.parentElement;
+                    wrapper.style.position = 'relative';
+
+                    const eye = document.createElement('img');
+                    eye.src = 'img/olho-fechado.png';
+                    eye.alt = 'Mostrar senha';
+                    eye.style.position = 'absolute';
+                    eye.style.right = '10px';
+                    eye.style.top = '50%';
+                    eye.style.transform = 'translateY(-50%)';
+                    eye.style.cursor = 'pointer';
+                    eye.style.width = '24px';
+                    eye.style.height = '24px';
+                    eye.title = 'Mostrar/ocultar senha';
+
+                    eye.addEventListener('click', function () {
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                            eye.src = 'img/olho-aberto.png';
+                            eye.alt = 'Ocultar senha';
+                        } else {
+                            input.type = 'password';
+                            eye.src = 'img/olho-fechado.png';
+                            eye.alt = 'Mostrar senha';
+                        }
+                    });
+
+                    wrapper.appendChild(eye);
+                }
 
 
-                <div class="input-group">
-                    <input required placeholder="Digite seu telefone" name="telefone" id="telefone" type="tel"
-                        maxlength="15" pattern="\(\d{2}\)\s?\d{4,5}-\d{4}" />
-                    <label class="label" for="telefone">Telefone</label>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const telefoneInput = document.getElementById('telefone');
-                            telefoneInput.addEventListener('input', function (e) {
-                                let value = telefoneInput.value.replace(/\D/g, '');
-                                if (value.length > 11) value = value.slice(0, 11);
-                                if (value.length > 10) {
-                                    telefoneInput.value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-                                } else if (value.length > 6) {
-                                    telefoneInput.value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-                                } else if (value.length > 2) {
-                                    telefoneInput.value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-                                } else {
-                                    telefoneInput.value = value.replace(/(\d{0,2})/, '($1');
-                                }
-                            });
-                        });
-                    </script>
-                </div>
+                addEyeIcon(password);
+                addEyeIcon(confirmPassword);
 
-
-                <div class="input-group">
-                    <input required placeholder="Digite sua data de nascimento" name="data_nascimento"
-                        id="data_nascimento" type="date" />
-                    <label class="label" for="data_nascimento">Data de Nascimento</label>
-                </div>
-                <div class="input-group">
-                    <label class="label" style="top: -18px;">Sexo</label>
-                    <div
-                        style="display: flex; gap: 20px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
-                        <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
-                        <input type="radio" name="sexo" value="feminino" required
-                            style="accent-color: #008080; width: 22px; height: 22px;">
-                        Feminino
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
-                        <input type="radio" name="sexo" value="masculino" required
-                            style="accent-color: #008080; width: 22px; height: 22px;">
-                        Masculino
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 6px;">
-                            <input type="radio" name="sexo" value="intersexo" required
-                                style="accent-color: #008080; width: 22px; height: 22px;">
-                            Intersexo
-                        </label>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label class="label" style="top: -18px;">Residente do município?</label>
-                    <div
-                        style="display: flex; gap: 30px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
-                        <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
-                        <input type="radio" name="reside_municipio" value="sim"
-                            style="accent-color: #008080; width: 22px; height: 22px;">
-                        Sim
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
-                        <input type="radio" name="reside_municipio" value="nao"
-                            style="accent-color: #008080; width: 22px; height: 22px;">
-                        Não
-                        </label>
-                    </div>
-                </div>
-
-
-                <div class="input-group">
-                    <input required placeholder="Crie uma senha" name="password" id="password" type="password" />
-                    <label class="label" for="password">Senha</label>
-                </div>
-                <div class="input-group">
-                    <input required placeholder="Confirme sua senha" name="confirm_password" id="confirm_password"
-                        type="password" />
-                    <label class="label" for="confirm_password">Confirmar Senha</label>
-                </div>
-
-                <button class="submit" type="submit">Cadastrar</button>
-                <div class="login-link">
-                    Já tem cadastro? <a href="login.html">Clique aqui</a>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.querySelector('.cadastro-form');
-            const password = document.getElementById('password');
-            const confirmPassword = document.getElementById('confirm_password');
-
-            // Adiciona lupa para visualizar senha
-            function addEyeIcon(input) {
-                const wrapper = input.parentElement;
-                wrapper.style.position = 'relative';
-
-                const eye = document.createElement('img');
-                eye.src = 'img/olho-fechado.png';
-                eye.alt = 'Mostrar senha';
-                eye.style.position = 'absolute';
-                eye.style.right = '10px';
-                eye.style.top = '50%';
-                eye.style.transform = 'translateY(-50%)';
-                eye.style.cursor = 'pointer';
-                eye.style.width = '24px';
-                eye.style.height = '24px';
-                eye.title = 'Mostrar/ocultar senha';
-
-                eye.addEventListener('click', function () {
-                    if (input.type === 'password') {
-                        input.type = 'text';
-                        eye.src = 'img/olho-aberto.png';
-                        eye.alt = 'Ocultar senha';
-                    } else {
-                        input.type = 'password';
-                        eye.src = 'img/olho-fechado.png';
-                        eye.alt = 'Mostrar senha';
+                // Validação de senha
+                form.addEventListener('submit', function (e) {
+                    if (password.value !== confirmPassword.value) {
+                        e.preventDefault();
+                        alert('As senhas não coincidem!');
+                        confirmPassword.focus();
                     }
                 });
-
-                wrapper.appendChild(eye);
-            }
-
-
-            addEyeIcon(password);
-            addEyeIcon(confirmPassword);
-
-            // Validação de senha
-            form.addEventListener('submit', function (e) {
-                if (password.value !== confirmPassword.value) {
-                    e.preventDefault();
-                    alert('As senhas não coincidem!');
-                    confirmPassword.focus();
-                }
             });
-        });
-    </script>
+        </script>
 
 
 
 
-    <!-- Transição de página com logo -->
-    <div id="pageTransitionLogo" class="page-transition-logo hide">
-        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+
+
+        <!-- Transição de página com logo -->
+        <div id="pageTransitionLogo" class="page-transition-logo hide">
+            <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+        </div>
+
+        <script src="script.js"></script>
+
+
+
+
+        <style>
+            /* Responsividade para os grupos de radio */
+            @media (max-width: 600px) {
+                .input-group .radio-flex {
+                    flex-direction: column !important;
+                    gap: 10px !important;
+                    padding: 12px 10px !important;
+                }
+
+                .input-group .radio-flex label {
+                    font-size: 15px !important;
+                }
+            }
+        </style>
+        <script>
+            // Adiciona classe para facilitar responsividade
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.input-group > div[style*="display: flex"]').forEach(function (div) {
+                    div.classList.add('radio-flex');
+                });
+            });
+        </script>
+        </style>
     </div>
 
-    <script src="script.js"></script>
+
+    <!-- CONTATO -->
+    <section id="contato">
+        <div class="info">
+            <h1>Contato</h1>
+            <p>Rua Alegre, 123, Cidade Brasileira</p>
+            <p>Tel: (12) 3456-7890</p>
+            <p>ola@grandesite.com.br</p>
+        </div>
+        <div class="social">
+            <div class="social-content">
+                <h2>Siga a gente<br />nas redes sociais</h2>
+                <div class="redes">
+                    <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
+                    <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
+                    <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
+                </div>
+                <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
+            </div>
+        </div>
+    </section>
+
 </body>
+
 
 </html>
