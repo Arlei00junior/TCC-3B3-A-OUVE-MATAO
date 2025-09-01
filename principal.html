@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ouve Matão - Home</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+ 
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="img/logo-header.png" alt="Ouve Matão Logo">
+        </div>
+        <div class="header-links">
+            <a href="#">TERMOS E POLÍTICAS</a>
+            <a href="#">SOBRE NÓS</a>
+            <div class="profile">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Perfil" class="profile-img">
+                <span class="profile-name">ERICA</span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <nav class="sidebar">
+            <button class="sidebar-btn active">HISTÓRICO DE MANIFESTAÇÕES<br>E ACOMPANHAMENTOS</button>
+            <button class="sidebar-btn">NOTÍCIAS</button>
+        </nav>
+        <main class="main-content">
+            <h1>Olá, <strong>Erica!</strong> O que temos para hoje?</h1>
+            <form class="form-section">
+                <div class="form-group">
+                    <label class="form-label"><span class="required">*</span> Manifestação:</label>
+                    <textarea maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
+                    <div class="form-hint">* Escreva até 6.000 caracteres</div>
+                </div>
+                <div class="priority-group form-group">
+                    <span>O solicitante deseja prioridade na tramitação conforme a <a
+                            href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm" target="_blank">Lei Federal Nº
+                            9.784/1999</a>?</span>
+                    <label><input type="radio" name="prioridade" value="sim"> Sim</label>
+                    <label><input type="radio" name="prioridade" value="nao" checked> Não</label>
+                </div>
+                <div class="upload-box form-group" id="uploadBox">
+                    <input id="fileInput" type="file" multiple
+                        accept=".aac,.jpg,.mp3,.mp4,.mov,.ogg,.pdf,.png,.rar,.xls,.xlsx,.zip" style="display:none;">
+                    <div id="uploadPreview"
+                        style="min-height:90px; display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:center; margin-bottom:10px;">
+                    </div>
+                    <button type="button" id="chooseFileBtn"
+                        style="background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%); color: #fff; border: none; border-radius: 25px; padding: 12px 35px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 10px;">Escolher
+                        Arquivos</button>
+                    <div class="upload-hint">
+                        Selecione os arquivos desejados. Áudio, fotos, pdfs, planilhas, vídeos ou arquivos compactados.
+                        Até 4 (quatro).<br>
+                        .aac, .jpg, .mp3, .mp4, .mov, .ogg, .pdf, .png, .rar, .xls, .xlsx, .zip
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Enviar</button>
+            </form>
+        </main>
+    </div>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const chooseFileBtn = document.getElementById('chooseFileBtn');
+        const uploadPreview = document.getElementById('uploadPreview');
+        let filesArr = [];
+
+        chooseFileBtn.onclick = () => fileInput.click();
+
+        fileInput.onchange = function () {
+            const newFiles = Array.from(fileInput.files);
+            filesArr = filesArr.concat(newFiles).slice(0, 4);
+            renderPreviews();
+            fileInput.value = '';
+        };
+
+        function renderPreviews() {
+            uploadPreview.innerHTML = '';
+            filesArr.forEach((file, idx) => {
+                const fileDiv = document.createElement('div');
+                fileDiv.style.position = 'relative';
+                fileDiv.style.width = '90px';
+                fileDiv.style.height = '90px';
+                fileDiv.style.background = '#f3f3f3';
+                fileDiv.style.borderRadius = '8px';
+                fileDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
+                fileDiv.style.display = 'flex';
+                fileDiv.style.alignItems = 'center';
+                fileDiv.style.justifyContent = 'center';
+                fileDiv.style.overflow = 'hidden';
+
+                // Remove button
+                const removeBtn = document.createElement('button');
+                removeBtn.innerHTML = '×';
+                removeBtn.title = 'Remover';
+                removeBtn.style.position = 'absolute';
+                removeBtn.style.top = '4px';
+                removeBtn.style.right = '4px';
+                removeBtn.style.background = '#fff';
+                removeBtn.style.border = 'none';
+                removeBtn.style.borderRadius = '50%';
+                removeBtn.style.width = '22px';
+                removeBtn.style.height = '22px';
+                removeBtn.style.fontSize = '1.2rem';
+                removeBtn.style.cursor = 'pointer';
+                removeBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.12)';
+                removeBtn.onclick = () => {
+                    filesArr.splice(idx, 1);
+                    renderPreviews();
+                };
+                fileDiv.appendChild(removeBtn);
+
+                // Preview
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '100%';
+                    img.style.objectFit = 'cover';
+                    img.title = file.name;
+                    fileDiv.appendChild(img);
+                } else {
+                    const icon = document.createElement('div');
+                    icon.style.fontSize = '2.2rem';
+                    icon.style.color = '#13818b';
+                    icon.style.textAlign = 'center';
+                    icon.innerHTML = getFileIcon(file.name);
+                    fileDiv.appendChild(icon);
+                }
+
+                // View button
+                const viewBtn = document.createElement('button');
+                viewBtn.innerHTML = '<img src="img/olho-aberto.png" alt="Visualizar" style="width:16px;height:16px;">';
+                viewBtn.title = 'Visualizar';
+                viewBtn.style.position = 'absolute';
+                viewBtn.style.bottom = '4px';
+                viewBtn.style.right = '4px';
+                viewBtn.style.background = '#fff';
+                viewBtn.style.border = 'none';
+                viewBtn.style.borderRadius = '50%';
+                viewBtn.style.width = '22px';
+                viewBtn.style.height = '22px';
+                viewBtn.style.fontSize = '1.1rem';
+                viewBtn.style.cursor = 'pointer';
+                viewBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.10)';
+                viewBtn.onclick = () => {
+                    if (file.type.startsWith('image/')) {
+                        const win = window.open();
+                        win.document.write('<img src="' + URL.createObjectURL(file) + '" style="max-width:100vw;max-height:100vh;">');
+                    } else if (file.type.startsWith('audio/')) {
+                        const win = window.open();
+                        win.document.write('<audio controls src="' + URL.createObjectURL(file) + '"></audio>');
+                    } else if (file.type.startsWith('video/')) {
+                        const win = window.open();
+                        win.document.write('<video controls src="' + URL.createObjectURL(file) + '" style="max-width:100vw;max-height:100vh;"></video>');
+                    } else {
+                        window.open(URL.createObjectURL(file));
+                    }
+                };
+                fileDiv.appendChild(viewBtn);
+
+                uploadPreview.appendChild(fileDiv);
+            });
+        }
+
+        function getFileIcon(name) {
+            const ext = name.split('.').pop().toLowerCase();
+            if (['pdf'].includes(ext)) return '📄';
+            if (['xls', 'xlsx'].includes(ext)) return '📊';
+            if (['mp3', 'aac', 'ogg'].includes(ext)) return '🎵';
+            if (['mp4', 'mov'].includes(ext)) return '🎬';
+            if (['zip', 'rar'].includes(ext)) return '🗜️';
+            return '📁';
+        }
+    </script>
+</body>
+
+</html>
+</div>
+</form>
+</nav>
+</div>
