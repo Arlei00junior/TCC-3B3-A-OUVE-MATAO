@@ -1349,7 +1349,7 @@
 
 
  /* ==========================================================
-pagina-HOME
+pagina-principal
   (Estilos da página inicial)
 ========================================================== */
 
@@ -1421,8 +1421,8 @@ pagina-HOME
  }
 
  .sidebar-btn {
-   background: #fff;
-   color: #13818b;
+   background: #0e5e66;
+   color: #fff;
    border: none;
    font-weight: 700;
    font-size: 1rem;
@@ -1432,12 +1432,13 @@ pagina-HOME
    cursor: pointer;
    text-align: left;
    transition: background 0.2s;
- }
-
- .sidebar-btn.active,
- .sidebar-btn:hover {
-   background: #0e5e66;
-   color: #fff;
+  }
+  
+  .sidebar-btnactive,
+  .sidebar-btn:hover {
+    background: #fff;
+    color: #13818b;
+    
  }
 
  .main-content {

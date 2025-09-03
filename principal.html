@@ -16,8 +16,8 @@
             <img src="img/logo-header.png" alt="Ouve Matão Logo">
         </div>
         <div class="header-links">
-            <a href="#">TERMOS E POLÍTICAS</a>
-            <a href="#">SOBRE NÓS</a>
+            <a href="termos.html">TERMOS E POLÍTICAS</a>
+            <a href="sobre.html">SOBRE NÓS</a>
             <div class="profile">
                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Perfil" class="profile-img">
                 <span class="profile-name">ERICA</span>
@@ -26,8 +26,15 @@
     </div>
     <div class="container">
         <nav class="sidebar">
-            <button class="sidebar-btn active">HISTÓRICO DE MANIFESTAÇÕES<br>E ACOMPANHAMENTOS</button>
-            <button class="sidebar-btn">NOTÍCIAS</button>
+            <button class="sidebar-btn active" onclick="window.location.href='principal.html'">HISTÓRICO DE MANIFESTAÇÕES<br>E ACOMPANHAMENTOS</button>
+            <button class="sidebar-btn" id="noticiasBtn">NOTÍCIAS</button>
+            <script>
+                document.getElementById('noticiasBtn').onclick = function() {
+                    document.querySelector('.main-content').innerHTML = `
+                        <iframe src="https://www.falamatao.com.br/" style="width:100%;height:80vh;border:none;"></iframe>
+                    `;
+                };
+            </script>
         </nav>
         <main class="main-content">
             <h1>Olá, <strong>Erica!</strong> O que temos para hoje?</h1>

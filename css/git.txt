@@ -1,0 +1,7 @@
+git status
+git add .
+ git config --global user.email "arlei.santos.etec@gmail.com"
+ git config --global user.name "arlei00junior" 
+ git commit -m "alteração 03/09/25: "
+ git push
+ 
