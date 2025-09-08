@@ -9,52 +9,63 @@
         .respondido { color: #2e8b57; font-weight: bold; }
         .aguardando { color: #d9534f; font-weight: bold; }
         .triste { font-size: 40px; }
-    </style>
-</head>
-<body>
-    <div class="processo">
-        <div class="categoria">Categoria: Iluminação Pública</div>
-        <div class="detalhes">Prioridade na tramitação: NÃO</div>
-        <div class="detalhes">Setor/Departamento: Secretaria de Infraestrutura</div>
-        <div class="status">STATUS: <span class="respondido">RESPONDIDO</span>
-            <button class="mais-detalhes">mais detalhes &#9660;</button>
-        </div>
-        <div class="detalhes-extra">
-            <p>
-                A Secretaria de Infraestrutura agradece seu contato e informa que sua manifestação sobre Iluminação Pública foi comprovada. Após vistoria realizada pela equipe técnica, constatamos que a solicitação não se enquadra com a realidade. Caso haja novas informações ou agravamento da situação relatada, solicitamos que entre em contato novamente para reavaliação. Permanecemos à disposição para isso.
-            </p>
-            <p style="text-align:right;">
-                Atenciosamente,<br>
-                Secretaria de Infraestrutura<br>
-                Prefeitura Municipal de Matão
-            </p>
-        </div>
-    </div>
-    <div class="processo">
-        <div class="detalhes">Prioridade na tramitação: SIM</div>
-        <div class="status">STATUS: <span class="aguardando">AGUARDANDO RESPOSTA</span>
-            <button class="mais-detalhes">mais detalhes &#9660;</button>
-        </div>
-        <div class="detalhes-extra">
-            <div class="triste">☹️</div>
-            <p>Opa, parece que o departamento/setor ainda não te respondeu. Estamos cuidando disso, aguarde.</p>
-        </div>
-    </div>
-    <!-- Repita para os outros processos conforme o status -->
-    <script>
-        document.querySelectorAll('.mais-detalhes').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var extra = btn.parentElement.parentElement.querySelector('.detalhes-extra');
-                if (extra.style.display === 'block') {
-                    extra.style.display = 'none';
-                    btn.innerHTML = 'mais detalhes &#9660;';
-                } else {
-                    extra.style.display = 'block';
-                    btn.innerHTML = 'menos detalhes &#9650;';
-                }
-            });
-        });
-    </script>
+        .demanda-feita { margin: 10px 0; font-style: italic; color: #555; }
+        </style>
+    </head>
+    <body>
+        <div id="processos-container"></div>
+        <script>
+        // Busca os processos/demandas salvos no localStorage
+        function getDemandas() {
+            const data = localStorage.getItem('processos');
+            if (!data) return [];
+            try {
+            return JSON.parse(data);
+            } catch {
+            return [];
+            }
+        }
 
-</body>
-</html>
+        function renderProcessos() {
+            const container = document.getElementById('processos-container');
+            container.innerHTML = '';
+            const demandas = getDemandas();
+            if (demandas.length === 0) {
+            container.innerHTML = '<p>Nenhuma demanda encontrada.</p>';
+            return;
+            }
+            demandas.forEach(demanda => {
+            container.innerHTML += `
+                <div class="processo">
+                ${demanda.categoria ? `<div class="categoria">Categoria: ${demanda.categoria}</div>` : ''}
+                <div class="detalhes">Prioridade na tramitação: ${demanda.prioridade || ''}</div>
+                ${demanda.setor ? `<div class="detalhes">Setor/Departamento: ${demanda.setor}</div>` : ''}
+                <div class="demanda-feita">Demanda feita: ${demanda.demandaFeita || ''}</div>
+                <div class="status">STATUS: <span class="${demanda.status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${demanda.status}</span>
+                    <button class="mais-detalhes">mais detalhes &#9660;</button>
+                </div>
+                <div class="detalhes-extra">
+                    ${demanda.detalhesExtra || ''}
+                </div>
+                </div>
+            `;
+            });
+        }
+
+        renderProcessos();
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('mais-detalhes')) {
+            const extra = e.target.closest('.processo').querySelector('.detalhes-extra');
+            if (extra.style.display === 'block') {
+                extra.style.display = 'none';
+                e.target.innerHTML = 'mais detalhes &#9660;';
+            } else {
+                extra.style.display = 'block';
+                e.target.innerHTML = 'menos detalhes &#9650;';
+            }
+            }
+        });
+        </script>
+    </body>
+    </html>

@@ -1,16 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ouve Matão - Home</title>
+    <title>Ouve Matão - Ouvidores</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/global.css">
-
+    <style>
+        .main-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+        .status-card {
+            border-bottom: 3px solid #13818b;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+        }
+        .status-label {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .status-respondido {
+            color: #3ca34d;
+            font-weight: bold;
+        }
+        .status-aguardando {
+            color: #e53935;
+            font-weight: bold;
+        }
+        .acessar-btn {
+            background: #13818b;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 4px 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .acessar-btn:hover {
+            background: #0e5e65;
+        }
+        @media (max-width: 700px) {
+            .main-content h1 {
+                font-size: 1.5rem;
+            }
+            .status-card {
+                font-size: 0.98rem;
+                padding-bottom: 8px;
+            }
+        }
+    </style>
 </head>
-
 <body>
     <div class="header">
         <div class="logo">
@@ -20,295 +64,26 @@
             <a href="termos.html">TERMOS E POLÍTICAS</a>
             <a href="sobre.html">SOBRE NÓS</a>
             <div class="profile">
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Perfil" class="profile-img">
-                <span class="profile-name">ERICA</span>
+                <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Perfil" class="profile-img">
+                <span class="profile-name">MARCOS</span>
             </div>
         </div>
     </div>
     <div class="container">
         <nav class="sidebar">
-            <button class="sidebar-btn active" onclick="window.location.href='principal.html'">HISTÓRICO DE
-                MANIFESTAÇÕES<br>E ACOMPANHAMENTOS</button>
-            <button class="sidebar-btn" id="noticiasBtn">NOTÍCIAS</button>
-            <script>
-                document.getElementById('noticiasBtn').onclick = function () {
-                    document.querySelector('.main-content').innerHTML = `
-                        <iframe src="https://www.falamatao.com.br/" style="width:100%;height:80vh;border:none;"></iframe>
-                    `;
-                };
-            </script>
-            <button class="sidebar-btn" id="processosBtn">PROCESSOS</button>
-            <script>
-                document.getElementById('processosBtn').onclick = function () {
-                    document.querySelector('.main-content').innerHTML = `
-                        <iframe src="processos.html" style="width:100%;height:80vh;border:none;"></iframe>
-                    `;
-                };
-            </script>
+            <button class="sidebar-btn active">MANIFESTAÇÕES E<br>ACOMPANHAMENTOS</button>
+            <button class="sidebar-btn">NOTÍCIAS</button>
         </nav>
         <main class="main-content">
-            <h1>Olá, <strong>Erica!</strong> O que temos para hoje?</h1>
-            <form class="form-section">
-                <div class="form-group">
-                    <label class="form-label"><span class="required">*</span> Manifestação:</label>
-                    <textarea maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
-                    <div class="form-hint">* Escreva até 6.000 caracteres</div>
-                </div>
-                <div class="priority-group form-group">
-                    <!-- Bloco: Texto com tooltip explicativo sobre prioridade, apenas no link -->
-                    <span class="priority-tooltip"></span>
-                    O solicitante deseja prioridade na tramitação conforme a
-                    <a href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm" target="_blank" class="tooltip-link">
-                        Lei Federal Nº 9.784/1999
-                        <span class="tooltip-content">
-                            A Lei nº 9.784/1999 define as regras para os processos administrativos do governo federal,
-                            garantindo justiça, transparência e eficiência. Segundo essa norma, têm direito à prioridade
-                            idosos (60 anos ou mais), pessoas com deficiência, pessoas com doenças graves e outros casos
-                            previstos em lei. Se o solicitante se encaixar em algum desses critérios, seu pedido será
-                            analisado mais rapidamente pela administração pública. O governo tem 30 dias para responder,
-                            podendo prorrogar. Se a decisão for negativa, é possível entrar com um recurso, que deve ser
-                            analisado em até 5 dias.
-
-                        </span>
-                    </a>
-                    </span>
-
-                    <!-- Bloco: Estilos responsivos para o tooltip -->
-                    <style>
-                        /* Bloco: Container do tooltip */
-                        .priority-tooltip {
-                            position: relative;
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 4px;
-                            font-size: 1rem;
-                            flex-wrap: wrap;
-                        }
-
-                        /* Bloco: Link com tooltip */
-                        .tooltip-link {
-                            position: relative;
-                            color: #13818b;
-                            text-decoration: underline;
-                            cursor: pointer;
-                        }
-
-                        /* Bloco: Balão do tooltip */
-                        .tooltip-content {
-                            display: none;
-                            position: absolute;
-                            top: 28px;
-                            left: 0;
-                            min-width: 260px;
-                            max-width: 340px;
-                            background: #13818b;
-                            color: #fff;
-                            padding: 14px 16px 14px 16px;
-                            border-radius: 12px;
-                            font-size: 0.95rem;
-                            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
-                            z-index: 100;
-                            line-height: 1.4;
-                            word-break: break-word;
-                        }
-
-                        /* Bloco: Exibe o tooltip ao passar mouse ou focar */
-                        .tooltip-link:hover .tooltip-content,
-                        .tooltip-link:focus .tooltip-content {
-                            display: block;
-                        }
-
-                        /* Bloco: Responsividade para telas pequenas */
-                        @media (max-width: 600px) {
-                            .tooltip-content {
-                                min-width: 180px;
-                                max-width: 95vw;
-                                font-size: 0.92rem;
-                                padding: 10px 10px 10px 10px;
-                                top: 28px;
-                                left: 0;
-                            }
-
-                            .priority-tooltip {
-                                font-size: 0.98rem;
-                                flex-direction: column;
-                                align-items: flex-start;
-                                gap: 2px;
-                            }
-                        }
-                    </style>
-                    <label><input type="radio" name="prioridade" value="sim"> Sim</label>
-                    <label><input type="radio" name="prioridade" value="nao"> Não</label>
-                </div>
-                <div class="upload-box form-group" id="uploadBox">
-                    <input id="fileInput" type="file" multiple
-                        accept=".aac,.jpg,.mp3,.mp4,.mov,.ogg,.pdf,.png,.rar,.xls,.xlsx,.zip" style="display:none;">
-                    <div id="uploadPreview"
-                        style="min-height:90px; display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:center; margin-bottom:10px;">
-                    </div>
-                    <button type="button" id="chooseFileBtn"
-                        style="background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%); color: #fff; border: none; border-radius: 25px; padding: 12px 35px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 10px;">Escolher
-                        Arquivos</button>
-                    <div class="upload-hint">
-                        Selecione os arquivos desejados. Áudio, fotos, pdfs, planilhas, vídeos ou arquivos compactados.
-                        Até 4 (quatro).<br>
-                        .aac, .jpg, .mp3, .mp4, .mov, .ogg, .pdf, .png, .rar, .xls, .xlsx, .zip
-                    </div>
-                </div>
-                <button type="submit" class="submit-btn">Enviar</button>
-            </form>
-        </main>
-    </div>
-    <script>
-        const fileInput = document.getElementById('fileInput');
-        const chooseFileBtn = document.getElementById('chooseFileBtn');
-        const uploadPreview = document.getElementById('uploadPreview');
-        let filesArr = [];
-
-        chooseFileBtn.onclick = () => fileInput.click();
-
-        fileInput.onchange = function () {
-            const newFiles = Array.from(fileInput.files);
-            filesArr = filesArr.concat(newFiles).slice(0, 4);
-            renderPreviews();
-            fileInput.value = '';
-        };
-
-        function renderPreviews() {
-            uploadPreview.innerHTML = '';
-            filesArr.forEach((file, idx) => {
-                const fileDiv = document.createElement('div');
-                fileDiv.style.position = 'relative';
-                fileDiv.style.width = '90px';
-                fileDiv.style.height = '90px';
-                fileDiv.style.background = '#f3f3f3';
-                fileDiv.style.borderRadius = '8px';
-                fileDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
-                fileDiv.style.display = 'flex';
-                fileDiv.style.alignItems = 'center';
-                fileDiv.style.justifyContent = 'center';
-                fileDiv.style.overflow = 'hidden';
-
-                // Remove button
-                const removeBtn = document.createElement('button');
-                removeBtn.innerHTML = '×';
-                removeBtn.title = 'Remover';
-                removeBtn.style.position = 'absolute';
-                removeBtn.style.top = '4px';
-                removeBtn.style.right = '4px';
-                removeBtn.style.background = '#fff';
-                removeBtn.style.border = 'none';
-                removeBtn.style.borderRadius = '50%';
-                removeBtn.style.width = '22px';
-                removeBtn.style.height = '22px';
-                removeBtn.style.fontSize = '1.2rem';
-                removeBtn.style.cursor = 'pointer';
-                removeBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.12)';
-                removeBtn.onclick = () => {
-                    filesArr.splice(idx, 1);
-                    renderPreviews();
-                };
-                fileDiv.appendChild(removeBtn);
-
-                // Preview
-                if (file.type.startsWith('image/')) {
-                    const img = document.createElement('img');
-                    img.src = URL.createObjectURL(file);
-                    img.style.maxWidth = '100%';
-                    img.style.maxHeight = '100%';
-                    img.style.objectFit = 'cover';
-                    img.title = file.name;
-                    fileDiv.appendChild(img);
-                } else {
-                    const icon = document.createElement('div');
-                    icon.style.fontSize = '2.2rem';
-                    icon.style.color = '#13818b';
-                    icon.style.textAlign = 'center';
-                    icon.innerHTML = getFileIcon(file.name);
-                    fileDiv.appendChild(icon);
-                }
-
-                // View button
-                const viewBtn = document.createElement('button');
-                viewBtn.innerHTML = '<img src="img/olho-aberto.png" alt="Visualizar" style="width:16px;height:16px;">';
-                viewBtn.title = 'Visualizar';
-                viewBtn.style.position = 'absolute';
-                viewBtn.style.bottom = '4px';
-                viewBtn.style.right = '4px';
-                viewBtn.style.background = '#fff';
-                viewBtn.style.border = 'none';
-                viewBtn.style.borderRadius = '50%';
-                viewBtn.style.width = '22px';
-                viewBtn.style.height = '22px';
-                viewBtn.style.fontSize = '1.1rem';
-                viewBtn.style.cursor = 'pointer';
-                viewBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.10)';
-                viewBtn.onclick = () => {
-                    if (file.type.startsWith('image/')) {
-                        const win = window.open();
-                        win.document.write('<img src="' + URL.createObjectURL(file) + '" style="max-width:100vw;max-height:100vh;">');
-                    } else if (file.type.startsWith('audio/')) {
-                        const win = window.open();
-                        win.document.write('<audio controls src="' + URL.createObjectURL(file) + '"></audio>');
-                    } else if (file.type.startsWith('video/')) {
-                        const win = window.open();
-                        win.document.write('<video controls src="' + URL.createObjectURL(file) + '" style="max-width:100vw;max-height:100vh;"></video>');
-                    } else {
-                        window.open(URL.createObjectURL(file));
-                    }
-                };
-                fileDiv.appendChild(viewBtn);
-
-                uploadPreview.appendChild(fileDiv);
-            });
-        }
-
-        function getFileIcon(name) {
-            const ext = name.split('.').pop().toLowerCase();
-            if (['pdf'].includes(ext)) return '📄';
-            if (['xls', 'xlsx'].includes(ext)) return '📊';
-            if (['mp3', 'aac', 'ogg'].includes(ext)) return '🎵';
-            if (['mp4', 'mov'].includes(ext)) return '🎬';
-            if (['zip', 'rar'].includes(ext)) return '🗜️';
-            return '📁';
-        }
-    </script>
-
-
-
-
-<!-- CONTATO -->
-    <section id="contato">
-        <div class="info">
-            <h1>Contato</h1>
-            <p>Rua Alegre, 123, Cidade Brasileira</p>
-            <p>Tel: (12) 3456-7890</p>
-            <p>ola@grandesite.com.br</p>
-        </div>
-        <div class="social">
-            <div class="social-content">
-                <h2>Siga a gente<br />nas redes sociais</h2>
-                <div class="redes">
-                    <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
-                    <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
-                    <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
-                </div>
-                <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- Transição de página com logo -->
-    <div id="pageTransitionLogo" class="page-transition-logo hide">
-        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
-    </div>
-
-    <script src="script.js"></script>   
-</body>
-
-
-
-</html>
-
+            <h1>Olá, <strong>Marcos!</strong> Para hoje, temos:</h1>
+            <div id="processos-ouvidores"></div>
+            <script>
+            fetch('processos-ouvidores.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('processos-ouvidores').innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('processos-ouvidores').innerHTML = '<p>Não foi possível carregar os processos.</p>';
+                });
+            </script>

@@ -37,7 +37,7 @@
                     `;
                 };
             </script>
-            <button class="sidebar-btn" id="processosBtn">STATUS DE PROCESSOS</button>
+            <button class="sidebar-btn" id="processosBtn">STATUS DE DEMANDAS</button>
             <script>
                 document.getElementById('processosBtn').onclick = function () {
                     document.querySelector('.main-content').innerHTML = `
@@ -50,10 +50,33 @@
             <h1>Olá, <strong>Erica!</strong> O que temos para hoje?</h1>
             <form class="form-section">
                 <div class="form-group">
+                    <label class="form-label"><span class="required">*</span> Bairro:</label>
+                    <input type="text" id="bairroInput" required maxlength="100" placeholder="Digite seu bairro" style="margin-bottom:8px;">
                     <label class="form-label"><span class="required">*</span> Manifestação:</label>
-                    <textarea maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
+                    <textarea id="manifestacaoInput" maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
                     <div class="form-hint">* Escreva até 6.000 caracteres</div>
                 </div>
+                <script>
+                // Recupera o nome do usuário do cadastro (supondo que está salvo no localStorage)
+                function getNomeUsuario() {
+                    return localStorage.getItem('nomeUsuario') || 'Usuário';
+                }
+
+                document.querySelector('.form-section').onsubmit = function(e) {
+                    const nome = getNomeUsuario();
+                    const bairro = document.getElementById('bairroInput').value.trim();
+                    const manifestacao = document.getElementById('manifestacaoInput').value.trim();
+                    if (!bairro || !manifestacao) {
+                        alert('Preencha todos os campos obrigatórios.');
+                        e.preventDefault();
+                        return false;
+                    }
+                    // Monta o texto no formato solicitado
+                    const textoFinal = `NOME: ${nome}\nbairro: ${bairro}\nManifestação: ${manifestacao}`;
+                    document.getElementById('manifestacaoInput').value = textoFinal;
+                    // Permite o envio do formulário
+                };
+                </script>
                 <div class="priority-group form-group">
                     <!-- Bloco: Texto com tooltip explicativo sobre prioridade, apenas no link -->
                     <span class="priority-tooltip"></span>
@@ -159,6 +182,7 @@
             </form>
         </main>
     </div>
+
     <script>
         const fileInput = document.getElementById('fileInput');
         const chooseFileBtn = document.getElementById('chooseFileBtn');
@@ -277,6 +301,88 @@
 
 
 
+
+
+<script>
+    // Salva a demanda no localStorage ao enviar o formulário
+    document.querySelector('.form-section').addEventListener('submit', function(e) {
+        // Recupera dados do formulário
+        const nome = localStorage.getItem('nomeUsuario') || 'Usuário';
+        const bairro = document.getElementById('bairroInput').value.trim();
+        const manifestacao = document.getElementById('manifestacaoInput').value.trim();
+        const prioridade = document.querySelector('input[name="prioridade"]:checked')?.value === 'sim' ? 'SIM' : 'NÃO';
+
+        // Validação básica
+        if (!bairro || !manifestacao) return;
+
+        // Monta objeto do processo
+        const processo = {
+            nome,
+            bairro,
+            manifestacao,
+            prioridade,
+            status: 'AGUARDANDO RESPOSTA',
+            data: new Date().toISOString()
+        };
+
+        // Recupera processos existentes
+        let processos = [];
+        try {
+            processos = JSON.parse(localStorage.getItem('processos')) || [];
+        } catch {}
+        processos.unshift(processo); // Adiciona novo no início
+
+        // Salva no localStorage
+        localStorage.setItem('processos', JSON.stringify(processos));
+    });
+
+    // Ao abrir processos.html, renderize os processos do localStorage
+    if (window.location.pathname.endsWith('processos.html')) {
+        window.addEventListener('DOMContentLoaded', function() {
+            let processos = [];
+            try {
+                processos = JSON.parse(localStorage.getItem('processos')) || [];
+            } catch {}
+            const container = document.body;
+            processos.forEach(proc => {
+                const div = document.createElement('div');
+                div.className = 'processo';
+                div.innerHTML = `
+                    <div class="detalhes">Prioridade na tramitação: ${proc.prioridade}</div>
+                    <div class="detalhes">Bairro: ${proc.bairro}</div>
+                    <div class="detalhes">Manifestação: ${proc.manifestacao}</div>
+                    <div class="status">STATUS: <span class="${proc.status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${proc.status}</span>
+                        <button class="mais-detalhes">mais detalhes &#9660;</button>
+                    </div>
+                    <div class="detalhes-extra">
+                        ${proc.status === 'RESPONDIDO'
+                            ? `<p>Seu processo foi respondido. Verifique o retorno do setor responsável.</p>`
+                            : `<div class="triste">☹️</div><p>Opa, parece que o departamento/setor ainda não te respondeu. Estamos cuidando disso, aguarde.</p>`
+                        }
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            document.querySelectorAll('.mais-detalhes').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var extra = btn.parentElement.parentElement.querySelector('.detalhes-extra');
+                    if (extra.style.display === 'block') {
+                        extra.style.display = 'none';
+                        btn.innerHTML = 'mais detalhes &#9660;';
+                    } else {
+                        extra.style.display = 'block';
+                        btn.innerHTML = 'menos detalhes &#9650;';
+                    }
+                });
+            });
+        });
+    }
+    
+    </script>
+
+
+
+
 <!-- CONTATO -->
     <section id="contato">
         <div class="info">
@@ -306,6 +412,49 @@
     </div>
 
     <script src="script.js"></script>   
+
+
+
+    <script>
+    document.querySelector('.form-section').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nome = localStorage.getItem('nomeUsuario') || 'Usuário';
+        const bairro = document.getElementById('bairroInput').value.trim();
+        const manifestacao = document.getElementById('manifestacaoInput').value.trim();
+        const prioridade = document.querySelector('input[name="prioridade"]:checked')?.value === 'sim' ? 'SIM' : 'NÃO';
+
+        if (!bairro || !manifestacao) {
+            alert('Preencha todos os campos obrigatórios.');
+            return;
+        }
+
+        // Monta objeto do processo
+        const processo = {
+            nome,
+            bairro,
+            manifestacao,
+            prioridade,
+            status: 'AGUARDANDO RESPOSTA',
+            data: new Date().toISOString()
+        };
+
+        // Recupera processos existentes
+        let processos = [];
+        try {
+            processos = JSON.parse(localStorage.getItem('processos')) || [];
+        } catch {}
+        processos.unshift(processo); // Adiciona novo no início
+
+        // Salva no localStorage
+        localStorage.setItem('processos', JSON.stringify(processos));
+
+        alert('Demanda salva com sucesso!');
+        document.querySelector('.form-section').reset();
+        filesArr = [];
+        renderPreviews();
+    });
+    </script>
 </body>
 
 
