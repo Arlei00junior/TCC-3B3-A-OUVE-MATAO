@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,27 +9,46 @@
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/global.css">
     <style>
+        .logout-button {
+            padding: 8px 16px;
+            background-color: #ff4b4b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-button:hover {
+            background-color: #ff1f1f;
+        }
+
         .main-content h1 {
             font-size: 2.5rem;
             margin-bottom: 24px;
         }
+
         .status-card {
             border-bottom: 3px solid #13818b;
             margin-bottom: 24px;
             padding-bottom: 12px;
         }
+
         .status-label {
             font-weight: bold;
             font-size: 1.1rem;
         }
+
         .status-respondido {
             color: #3ca34d;
             font-weight: bold;
         }
+
         .status-aguardando {
             color: #e53935;
             font-weight: bold;
         }
+
         .acessar-btn {
             background: #13818b;
             color: #fff;
@@ -41,13 +61,16 @@
             cursor: pointer;
             transition: background 0.2s;
         }
+
         .acessar-btn:hover {
             background: #0e5e65;
         }
+
         @media (max-width: 700px) {
             .main-content h1 {
                 font-size: 1.5rem;
             }
+
             .status-card {
                 font-size: 0.98rem;
                 padding-bottom: 8px;
@@ -55,6 +78,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <div class="logo">
@@ -66,6 +90,8 @@
             <div class="profile">
                 <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Perfil" class="profile-img">
                 <span class="profile-name">MARCOS</span>
+                <button id="logout-btn" class="logout-button">Sair</button>
+
             </div>
         </div>
     </div>
@@ -78,12 +104,26 @@
             <h1>Olá, <strong>Marcos!</strong> Para hoje, temos:</h1>
             <div id="processos-ouvidores"></div>
             <script>
-            fetch('processos-ouvidores.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('processos-ouvidores').innerHTML = html;
-                })
-                .catch(error => {
-                    document.getElementById('processos-ouvidores').innerHTML = '<p>Não foi possível carregar os processos.</p>';
+                fetch('processos-ouvidores.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('processos-ouvidores').innerHTML = html;
+                    })
+                    .catch(error => {
+                        document.getElementById('processos-ouvidores').innerHTML = '<p>Não foi possível carregar os processos.</p>';
+                    });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const logoutBtn = document.getElementById('logout-btn');
+
+                    if (!logoutBtn) return;
+
+                    logoutBtn.addEventListener('click', () => {
+                        localStorage.removeItem('usuario'); // limpa os dados do usuário
+                        alert("✅ Logout realizado com sucesso!");
+                        window.location.href = "login-ouvidores.html"; // redireciona para login
+                    });
                 });
             </script>

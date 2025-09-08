@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/global.css">
-    <title>Login-ouvidores-Ouve Matão</title>
+    <title>Login Ouvidores - Ouve Matão</title>
 </head>
 
 <body class="login-page">
@@ -20,27 +20,28 @@
             </div>
         </div>
 
-        <!-- Direita: Caixa de login  -->
+        <!-- Direita: Caixa de login -->
         <div class="right-side">
-            <form class="login-form">
-                <div class="form-heading"><h3>Olá, ouvidor!</h3>
-                <h6>Por favor, faça login para continuar.</h6>
+            <!-- ✅ ID adicionado ao formulário -->
+            <form id="login-ouvidores-form" class="login-form">
+                <div class="form-heading">
+                    <h3>Olá, ouvidor!</h3>
+                    <h6>Por favor, faça login para continuar.</h6>
                 </div>
                 <div class="input-group">
-                    <input required placeholder="Digite o CPF cadastrado" name="cpf" id="cpf" type="text" />
-                    <label class="label" for="cpf">Usuário</label>
+                    <input required placeholder="Digite o CPF cadastrado" name="cpf" id="cpf-ouvidor" type="text" />
+                    <label class="label" for="cpf-ouvidor">Usuário</label>
                 </div>
                 <div class="input-group">
-                    <input required placeholder="Digite sua senha definida" name="password" id="password"
+                    <input required placeholder="Digite sua senha definida" name="password" id="password-ouvidor"
                         type="password" />
-                    <label class="label" for="password">Senha</label>
+                    <label class="label" for="password-ouvidor">Senha</label>
                 </div>
-
                 <button class="submit" type="submit">Acessar</button>
-
             </form>
         </div>
     </div>
+
     <!-- CONTATO -->
     <section id="contato">
         <div class="info">
@@ -62,16 +63,60 @@
         </div>
     </section>
 
+    <!-- Script de login -->
+    <script type="module">
+        import { supabase } from './supabase.js';
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('login-ouvidores-form');
 
-    <!-- Transição de página com logo -->
-    <div id="pageTransitionLogo" class="page-transition-logo hide">
-        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
-    </div>
+            if (!form) {
+                console.error("Formulário de ouvidores não encontrado!");
+                return;
+            }
 
-    <script src="script.js"></script>
+            // ✅ Redireciona automaticamente se já estiver logado
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
+            if (usuarioLogado && usuarioLogado.tipo_usuario === 'ouvidor') {
+                window.location.href = 'ouvidores.html';
+                return;
+            }
 
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
 
+                const cpf = document.getElementById('cpf-ouvidor').value.trim();
+                const senha = document.getElementById('password-ouvidor').value.trim();
+
+                console.log("Tentativa de login (ouvidor):", cpf, senha);
+
+                try {
+                    const { data, error } = await supabase
+                        .from('usuarios')
+                        .select('*')
+                        .eq('cpf', cpf)
+                        .eq('senha', senha)
+                        .eq('tipo_usuario', 'ouvidor')
+                        .single();
+
+                    if (error) {
+                        console.error("Erro Supabase:", error);
+                        alert("❌ CPF ou senha inválidos para ouvidor!");
+                        return;
+                    }
+
+                    localStorage.setItem('usuario', JSON.stringify(data));
+                    console.log("Login ouvidor bem-sucedido:", data);
+                    alert("✅ Login realizado com sucesso!");
+                    window.location.href = "ouvidores.html";
+
+                } catch (err) {
+                    console.error("Erro inesperado:", err);
+                    alert("❌ Ocorreu um erro no login!");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

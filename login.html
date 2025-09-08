@@ -22,7 +22,8 @@
 
         <!-- Direita: Caixa de login  -->
         <div class="right-side">
-            <form class="login-form">
+            <!-- ✅ ID adicionado para o formulário -->
+            <form id="login-form" class="login-form">
                 <div class="form-heading">Login</div>
                 <div class="input-group">
                     <input required placeholder="Digite o CPF cadastrado" name="cpf" id="cpf" type="text" />
@@ -44,6 +45,7 @@
             </form>
         </div>
     </div>
+
     <!-- CONTATO -->
     <section id="contato">
         <div class="info">
@@ -65,16 +67,70 @@
         </div>
     </section>
 
-
-
     <!-- Transição de página com logo -->
     <div id="pageTransitionLogo" class="page-transition-logo hide">
         <img src="img/logo-header.png" alt="Logo Ouve Matão" />
     </div>
 
-    <script src="script.js"></script>
+    <!-- Script de login -->
+    <script type="module">
+        import { supabase } from './supabase.js';
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('login-form');
 
+            if (!form) {
+                console.error("Formulário não encontrado!");
+                return;
+            }
+
+            // ✅ Redireciona automaticamente se já estiver logado
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
+            if (usuarioLogado && usuarioLogado.tipo_usuario === 'populacao') {
+                window.location.href = 'principal.html';
+                return;
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const cpf = document.getElementById('cpf').value.trim();
+                const senha = document.getElementById('password').value.trim();
+
+                console.log("Tentativa de login (população):", cpf, senha);
+
+                try {
+                    const { data, error } = await supabase
+                        .from('usuarios')
+                        .select('*')
+                        .eq('cpf', cpf)
+                        .eq('senha', senha)
+                        .eq('tipo_usuario', 'populacao')
+                        .single();
+
+                    if (error) {
+                        console.error("Erro Supabase:", error);
+                        alert("❌ CPF ou senha inválidos!");
+                        return;
+                    }
+
+                    if (!data) {
+                        alert("❌ Usuário não encontrado!");
+                        return;
+                    }
+
+                    localStorage.setItem('usuario', JSON.stringify(data));
+                    console.log("Login bem-sucedido:", data);
+                    alert("✅ Login realizado com sucesso!");
+                    window.location.href = "principal.html";
+
+                } catch (err) {
+                    console.error("Erro inesperado:", err);
+                    alert("❌ Ocorreu um erro no login!");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

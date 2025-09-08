@@ -127,59 +127,75 @@
             </div>
         </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const form = document.querySelector('.cadastro-form');
-                const password = document.getElementById('password');
-                const confirmPassword = document.getElementById('confirm_password');
+       <script type="module">
+    import { supabase } from "./supabase.js";
 
-                // Adiciona lupa para visualizar senha
-                function addEyeIcon(input) {
-                    const wrapper = input.parentElement;
-                    wrapper.style.position = 'relative';
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('.cadastro-form');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
 
-                    const eye = document.createElement('img');
+        // Mostrar/ocultar senha (mantive sua lógica de olho 👁️)
+        function addEyeIcon(input) {
+            const wrapper = input.parentElement;
+            wrapper.style.position = 'relative';
+            const eye = document.createElement('img');
+            eye.src = 'img/olho-fechado.png';
+            eye.alt = 'Mostrar senha';
+            eye.style.position = 'absolute';
+            eye.style.right = '10px';
+            eye.style.top = '50%';
+            eye.style.transform = 'translateY(-50%)';
+            eye.style.cursor = 'pointer';
+            eye.style.width = '24px';
+            eye.style.height = '24px';
+
+            eye.addEventListener('click', () => {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eye.src = 'img/olho-aberto.png';
+                } else {
+                    input.type = 'password';
                     eye.src = 'img/olho-fechado.png';
-                    eye.alt = 'Mostrar senha';
-                    eye.style.position = 'absolute';
-                    eye.style.right = '10px';
-                    eye.style.top = '50%';
-                    eye.style.transform = 'translateY(-50%)';
-                    eye.style.cursor = 'pointer';
-                    eye.style.width = '24px';
-                    eye.style.height = '24px';
-                    eye.title = 'Mostrar/ocultar senha';
-
-                    eye.addEventListener('click', function () {
-                        if (input.type === 'password') {
-                            input.type = 'text';
-                            eye.src = 'img/olho-aberto.png';
-                            eye.alt = 'Ocultar senha';
-                        } else {
-                            input.type = 'password';
-                            eye.src = 'img/olho-fechado.png';
-                            eye.alt = 'Mostrar senha';
-                        }
-                    });
-
-                    wrapper.appendChild(eye);
                 }
-
-
-                addEyeIcon(password);
-                addEyeIcon(confirmPassword);
-
-                // Validação de senha
-                form.addEventListener('submit', function (e) {
-                    if (password.value !== confirmPassword.value) {
-                        e.preventDefault();
-                        alert('As senhas não coincidem!');
-                        confirmPassword.focus();
-                    }
-                });
             });
-        </script>
+            wrapper.appendChild(eye);
+        }
+        addEyeIcon(password);
+        addEyeIcon(confirmPassword);
 
+        // SUBMIT DO CADASTRO
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            if (password.value !== confirmPassword.value) {
+                alert('As senhas não coincidem!');
+                confirmPassword.focus();
+                return;
+            }
+
+            const usuario = {
+                nome: document.getElementById('nome').value,
+                cpf: document.getElementById('cpf').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                data_nascimento: document.getElementById('data_nascimento').value,
+                sexo: form.querySelector('input[name="sexo"]:checked')?.value,
+                reside_municipio: form.querySelector('input[name="reside_municipio"]:checked')?.value,
+                senha: password.value
+            };
+
+            const { data, error } = await supabase.from('usuarios').insert([usuario]);
+
+            if (error) {
+                alert("❌ Erro ao cadastrar: " + error.message);
+            } else {
+                alert("✅ Cadastro realizado com sucesso!");
+                window.location.href = "login.html";
+            }
+        });
+    });
+</script>
 
 
 
