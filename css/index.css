@@ -1,0 +1,213 @@
+/* ==========================================================
+  HOME PAGE
+  (Banner principal da página inicial)
+========================================================== */
+.home-page .banner {
+  display: flex;
+  height: 100vh;
+  margin-top: 80px;
+}
+
+/* Lado esquerdo do banner (imagem) */
+.home-page .banner-left {
+  width: 45vw;
+  background-image: url("../img/banner_inicial.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Lado direito do banner (conteúdo) */
+.home-page .banner-right {
+  width: 55vw;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 3vw;
+}
+
+/* Texto do banner direito */
+.home-page .banner-right p {
+  font-size: 1.9rem;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+/* Container do botão "Começar" */
+.home-page .btn-start-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Botão "Começar" */
+.home-page .btn-start {
+  background-color: #0d7b87;
+  color: white;
+  font-size: 1.5rem;
+  padding: 2rem 2.5rem;
+  border: none;
+  border-radius: 45px;
+  cursor: pointer;
+}
+
+@media (max-width: 1448px) {
+  /* estilos para telas até 1448px */
+  .home-page .banner-right p {
+    font-size: 1.9rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .home-page .banner-right {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+  }
+
+  .home-page .btn-start {
+    font-size: 1.4rem;
+    padding: 1.8rem 2.3rem;
+  }
+}
+
+/*------------------------------*/
+@media (max-width: 1375px) {
+  /* estilos para telas até 1375px */
+  .home-page .banner-right p {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .home-page .banner-right {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+  }
+
+  .home-page .btn-start {
+    font-size: 1.4rem;
+    padding: 1.8rem 2.3rem;
+  }
+}
+
+/*-------------------------------*/
+/*------------------------------*/
+@media (max-width: 1366px) {
+  /* estilos para telas até 1366px */
+  .home-page .banner-right p {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .home-page .banner-right {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+  }
+
+  .home-page .btn-start {
+    font-size: 1.4rem;
+    padding: 1.8rem 2.3rem;
+  }
+}
+
+/*-------------------------------*/
+/*------------------------------*/
+@media (max-width: 1215px) {
+  /* estilos para telas até 1215px */
+  .home-page .banner-right p {
+    font-size: 1.7rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .home-page .banner-right {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+  }
+
+  .home-page .btn-start {
+    font-size: 1.4rem;
+    padding: 1.8rem 2.3rem;
+  }
+}
+
+/*-------------------------------*/
+/*------------------------------*/
+@media (max-width: 1147px) {
+  /* estilos para telas até 1147px */
+  .home-page .banner-right p {
+    font-size: 1.6rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .home-page .banner-right {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+  }
+
+  .home-page .btn-start {
+    font-size: 1.4rem;
+    padding: 1.8rem 2.3rem;
+  }
+}
+
+/*-------------------------------*/
+
+@media (max-width: 1024px) {
+  .home-page .banner {
+    flex-direction: column;
+    height: auto;
+    margin-top: 60px;
+  }
+  .home-page .banner-left,
+  .home-page .banner-right {
+    width: 100vw;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+
+/*----------------------------------*/
+
+/*-----------------------------------*/
+
+
+
+
+.home-page .banner-right p {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+}
+.home-page .btn-start {
+  font-size: 1.2rem;
+  padding: 1.2rem 2rem;
+}
+
+@media (max-width: 600px) {
+  .home-page .banner {
+    margin-top: 40px;
+  }
+  .home-page .banner-left,
+  .home-page .banner-right {
+    min-height: 30vh;
+    padding: 3vh 4vw;
+  }
+  .home-page .banner-right p {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+  .home-page .btn-start {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+  }
+}

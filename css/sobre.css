@@ -1,0 +1,108 @@
+
+/* ==========================================================
+  SOBRE PAGE
+  (Banner da página "Sobre")
+========================================================== */
+.sobre-page .banner-sobre {
+  display: flex;
+  /* Banner em linha */
+  height: 100vh;
+  margin-top: 80px;
+}
+
+/* Lado esquerdo do banner "Sobre" (imagem) */
+.sobre-page .banner-left-sobre {
+  width: 45vw;
+  background-image: url("../img/banner_sobre.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Lado direito do banner "Sobre" (conteúdo) */
+.sobre-page .banner-right-sobre {
+  width: 55vw;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 3vw;
+}
+
+/* Texto do banner direito "Sobre" */
+.sobre-page .banner-right-sobre p {
+  font-size: 1.6rem;
+  margin-bottom: 1.6rem;
+  line-height: 1.6;
+}
+
+/* Título do banner direito "Sobre" */
+.sobre-page .banner-right-sobre h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  margin-top: -6rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================
+  SOBRE PAGE - MOBILE
+  (Ajustes responsivos para a página "Sobre" em telas pequenas)
+========================================================== */
+@media (max-width: 600px) {
+  /* Lados do banner "Sobre" ocupam toda a largura no mobile */
+  .sobre-page .banner-left-sobre,
+  .sobre-page .banner-right-sobre {
+    width: 100vw;
+  }
+
+  /* Lado esquerdo do banner "Sobre" ajustado no mobile */
+  .sobre-page .banner-left-sobre {
+    height: 40vh;
+    /* Altura reduzida */
+    background-size: cover;
+    /* Imagem cobre todo o espaço */
+    background-position: center;
+    /* Centraliza a imagem */
+  }
+
+  /* Lado direito do banner "Sobre" ajustado no mobile */
+  .sobre-page .banner-right-sobre {
+    padding: 23px 14px;
+    /* Espaçamento interno menor */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 50px;
+  }
+
+  /* Banner "Sobre" em coluna no mobile */
+  .sobre-page .banner-sobre {
+    flex-direction: column;
+    height: auto;
+    margin-top: 60px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Texto do banner direito "Sobre" menor e centralizado no mobile */
+  .sobre-page .banner-right-sobre p {
+    flex-direction: column;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  /* Título do banner direito "Sobre" menor e centralizado no mobile */
+  .sobre-page .banner-right-sobre h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    margin-top: -4rem;
+    text-align: center;
+    line-height: 1.5;
+  }
+}

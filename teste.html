@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Responsivo</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Div principal ocupa a tela inteira */
+        .container {
+            width: 100%;
+            height: 100vh;
+            /* 100% da altura da tela */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: lightblue;
+            font-size: 2rem;
+        }
+
+        /* ==============================
+       Media Queries
+    =============================== */
+
+        /* Telas até 1024px (tablets e notebooks pequenos) */
+        @media (max-width: 1024px) {
+            .container {
+                background: lightgreen;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Telas até 768px (tablets em pé) */
+        @media (max-width: 768px) {
+            .container {
+                background: orange;
+                flex-direction: column;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Telas até 480px (celulares) */
+        @media (max-width: 480px) {
+            .container {
+                background: crimson;
+                font-size: 1rem;
+                text-align: center;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p>Esse site é responsivo! 📱💻</p>
+    </div>
+</body>
+
+</html>

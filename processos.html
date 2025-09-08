@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Processos - Ouve Matão</title>
+    <link rel="stylesheet" href="css/processos.css">
+    <style>
+        .detalhes-extra { display: none; border: 1px solid #008080; margin: 10px 0; padding: 10px; background: #f9f9f9; }
+        .respondido { color: #2e8b57; font-weight: bold; }
+        .aguardando { color: #d9534f; font-weight: bold; }
+        .triste { font-size: 40px; }
+    </style>
+</head>
+<body>
+    <div class="processo">
+        <div class="categoria">Categoria: Iluminação Pública</div>
+        <div class="detalhes">Prioridade na tramitação: NÃO</div>
+        <div class="detalhes">Setor/Departamento: Secretaria de Infraestrutura</div>
+        <div class="status">STATUS: <span class="respondido">RESPONDIDO</span>
+            <button class="mais-detalhes">mais detalhes &#9660;</button>
+        </div>
+        <div class="detalhes-extra">
+            <p>
+                A Secretaria de Infraestrutura agradece seu contato e informa que sua manifestação sobre Iluminação Pública foi comprovada. Após vistoria realizada pela equipe técnica, constatamos que a solicitação não se enquadra com a realidade. Caso haja novas informações ou agravamento da situação relatada, solicitamos que entre em contato novamente para reavaliação. Permanecemos à disposição para isso.
+            </p>
+            <p style="text-align:right;">
+                Atenciosamente,<br>
+                Secretaria de Infraestrutura<br>
+                Prefeitura Municipal de Matão
+            </p>
+        </div>
+    </div>
+    <div class="processo">
+        <div class="detalhes">Prioridade na tramitação: SIM</div>
+        <div class="status">STATUS: <span class="aguardando">AGUARDANDO RESPOSTA</span>
+            <button class="mais-detalhes">mais detalhes &#9660;</button>
+        </div>
+        <div class="detalhes-extra">
+            <div class="triste">☹️</div>
+            <p>Opa, parece que o departamento/setor ainda não te respondeu. Estamos cuidando disso, aguarde.</p>
+        </div>
+    </div>
+    <!-- Repita para os outros processos conforme o status -->
+    <script>
+        document.querySelectorAll('.mais-detalhes').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var extra = btn.parentElement.parentElement.querySelector('.detalhes-extra');
+                if (extra.style.display === 'block') {
+                    extra.style.display = 'none';
+                    btn.innerHTML = 'mais detalhes &#9660;';
+                } else {
+                    extra.style.display = 'block';
+                    btn.innerHTML = 'menos detalhes &#9650;';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

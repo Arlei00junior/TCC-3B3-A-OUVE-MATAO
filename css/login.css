@@ -1,0 +1,135 @@
+/* LOGIN PAGE */
+.login-page {
+    background-color: #10848b;
+}
+
+.login-page .container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-page .left-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page .logo {
+    width: 600px;
+    max-width: 90%;
+    margin-bottom: 20px;
+}
+
+.login-page .links {
+    margin-top: 60px;
+    display: flex;
+    gap: 40px;
+}
+
+.login-page .links a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 18px;
+}
+
+.login-page .right-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page .login-form {
+    background: #fff;
+    padding: 84px 63px;
+    border-radius: 27px;
+    box-shadow: 0 20px 76px rgba(0, 0, 0, 0.15);
+    min-width: 540px;
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.login-page .form-heading {
+    font-size: 28px;
+    font-weight: bold;
+    color: #10848b;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login-page .input-group {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.login-page .input-group input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.login-page .input-group input:focus {
+    border-color: #10848b;
+}
+
+.login-page .label {
+    position: absolute;
+    left: 12px;
+    top: -10px;
+    background: #fff;
+    padding: 0 4px;
+    font-size: 13px;
+    color: #10848b;
+}
+
+.login-page .forgot-password {
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: -45px;
+}
+
+.login-page .forgot-password a {
+    color: #10848b;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.login-page .submit {
+    background: #10848b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.login-page .submit:hover {
+    background: #0a5a5e;
+}
+
+.login-page .signup-link {
+    text-align: center;
+    font-size: 15px;
+    color: #333;
+}
+
+.login-page .signup-link a {
+    color: #10848b;
+    text-decoration: underline;
+    font-weight: bold;
+}

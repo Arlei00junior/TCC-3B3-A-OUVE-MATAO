@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  margin: 20px;
+}
+.processo {
+  margin-bottom: 30px;
+  border-bottom: 3px solid #00838f;
+  padding-bottom: 10px;
+}
+.processo:last-child {
+  border-bottom: none;
+}
+.categoria {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.detalhes {
+  margin-bottom: 5px;
+}
+.status {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.respondido {
+  color: #388e3c;
+}
+.aguardando {
+  color: #d32f2f;
+}
+.mais-detalhes {
+  background: #00838f;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 0.85em;
+  margin-left: 6px;
+  cursor: pointer;
+}
