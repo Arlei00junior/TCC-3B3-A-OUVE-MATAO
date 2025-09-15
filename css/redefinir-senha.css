@@ -1,6 +1,5 @@
-
 /* ==========================================================
- REDEFINIR SENHA PAGE
+REDEFINIR SENHA PAGE
 ========================================================== */
 .redefinir-page {
   background-color: #10848b;
@@ -26,19 +25,6 @@
   width: 600px;
   max-width: 90%;
   margin-bottom: 20px;
-}
-
-.redefinir-page .links {
-  margin-top: 60px;
-  display: flex;
-  gap: 40px;
-}
-
-.redefinir-page .links a {
-  color: #fff;
-  font-weight: bold;
-  text-decoration: underline;
-  font-size: 18px;
 }
 
 .redefinir-page .right-side {
@@ -99,6 +85,7 @@
   color: #10848b;
 }
 
+/* Botões (Enviar Código, Validar Código, Reenviar, Redefinir Senha) */
 .redefinir-page .submit {
   background: #10848b;
   color: #fff;
@@ -109,12 +96,14 @@
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
+  margin-top: 10px;
 }
 
 .redefinir-page .submit:hover {
   background: #0a5a5e;
 }
 
+/* Link de login */
 .redefinir-page .login-link {
   text-align: center;
   font-size: 15px;
@@ -127,6 +116,15 @@
   font-weight: bold;
 }
 
+/* Contador do código */
+#contador {
+  color: #10848b;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Responsividade */
 @media (max-width: 900px) {
   .redefinir-page .container {
     flex-direction: column;
