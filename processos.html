@@ -5,67 +5,100 @@
     <title>Processos - Ouve Matão</title>
     <link rel="stylesheet" href="css/processos.css">
     <style>
+        body { font-family: Arial, sans-serif; padding: 1rem; }
+        .processo { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
         .detalhes-extra { display: none; border: 1px solid #008080; margin: 10px 0; padding: 10px; background: #f9f9f9; }
         .respondido { color: #2e8b57; font-weight: bold; }
         .aguardando { color: #d9534f; font-weight: bold; }
-        .triste { font-size: 40px; }
         .demanda-feita { margin: 10px 0; font-style: italic; color: #555; }
-        </style>
-    </head>
-    <body>
-        <div id="processos-container"></div>
-        <script>
-        // Busca os processos/demandas salvos no localStorage
-        function getDemandas() {
-            const data = localStorage.getItem('processos');
-            if (!data) return [];
-            try {
-            return JSON.parse(data);
-            } catch {
-            return [];
-            }
-        }
+        .categoria { font-style: italic; color: #555; }
+        .arquivo { display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; margin: 4px; border: 1px solid #ccc; border-radius: 6px; background: #f3f3f3; font-size: 1.2rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Painel de Demandas</h1>
+    <div id="processos-container"></div>
 
-        function renderProcessos() {
-            const container = document.getElementById('processos-container');
-            container.innerHTML = '';
-            const demandas = getDemandas();
-            if (demandas.length === 0) {
-            container.innerHTML = '<p>Nenhuma demanda encontrada.</p>';
-            return;
-            }
-            demandas.forEach(demanda => {
-            container.innerHTML += `
-                <div class="processo">
-                ${demanda.categoria ? `<div class="categoria">Categoria: ${demanda.categoria}</div>` : ''}
-                <div class="detalhes">Prioridade na tramitação: ${demanda.prioridade || ''}</div>
-                ${demanda.setor ? `<div class="detalhes">Setor/Departamento: ${demanda.setor}</div>` : ''}
-                <div class="demanda-feita">Demanda feita: ${demanda.demandaFeita || ''}</div>
-                <div class="status">STATUS: <span class="${demanda.status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${demanda.status}</span>
-                    <button class="mais-detalhes">mais detalhes &#9660;</button>
-                </div>
-                <div class="detalhes-extra">
-                    ${demanda.detalhesExtra || ''}
-                </div>
-                </div>
-            `;
+    <script type="module">
+import { supabase } from './supabase.js';
+
+const container = document.getElementById('processos-container');
+
+// Função para buscar demandas do Supabase
+async function carregarDemandas() {
+    try {
+        const { data: demandas, error } = await supabase
+            .from('demandas')
+            .select('*')
+            .order('data', { ascending: false });
+
+        if (error) throw error;
+        renderProcessos(demandas);
+    } catch (err) {
+        console.error('Erro ao carregar demandas:', err);
+        container.innerHTML = '<p>Erro ao carregar demandas.</p>';
+    }
+}
+
+// Função para renderizar processos/demandas
+function renderProcessos(demandas) {
+    container.innerHTML = '';
+    if (!demandas || demandas.length === 0) {
+        container.innerHTML = '<p>Nenhuma demanda encontrada.</p>';
+        return;
+    }
+
+    demandas.forEach(demanda => {
+        const div = document.createElement('div');
+        div.classList.add('processo');
+
+        // Renderiza os arquivos enviados como links clicáveis
+        let arquivosHTML = '';
+        if (demanda.arquivos && demanda.arquivos.length > 0) {
+            arquivosHTML = '<div class="detalhes"><strong>Arquivos enviados:</strong><ul>';
+            demanda.arquivos.forEach(file => {
+                arquivosHTML += `<li><a href="${file.url}" target="_blank">${file.nome}</a></li>`;
             });
+            arquivosHTML += '</ul></div>';
         }
 
-        renderProcessos();
+        div.innerHTML = `
+            ${demanda.categoria ? `<div class="categoria">Categoria: ${demanda.categoria}</div>` : ''}
+            <div class="detalhes">Prioridade na tramitação: ${demanda.prioridade || ''}</div>
+            ${demanda.setor ? `<div class="detalhes">Setor/Departamento: ${demanda.setor}</div>` : ''}
+            <div class="demanda-feita">Demanda feita: ${demanda.manifestacao || ''}</div>
+            ${arquivosHTML}
+            <div class="status">
+                STATUS: <span class="${demanda.status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${demanda.status}</span>
+                <button class="mais-detalhes">mais detalhes &#9660;</button>
+            </div>
+            <div class="detalhes-extra">
+                ${demanda.resposta || '<div class="triste">☹️</div><p>Ainda não houve resposta do setor. Aguarde.</p>'}
+            </div>
+        `;
 
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('mais-detalhes')) {
-            const extra = e.target.closest('.processo').querySelector('.detalhes-extra');
+        container.appendChild(div);
+    });
+
+    // Função para expandir/ocultar detalhes
+    document.querySelectorAll('.mais-detalhes').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const extra = btn.closest('.processo').querySelector('.detalhes-extra');
             if (extra.style.display === 'block') {
                 extra.style.display = 'none';
-                e.target.innerHTML = 'mais detalhes &#9660;';
+                btn.innerHTML = 'mais detalhes &#9660;';
             } else {
                 extra.style.display = 'block';
-                e.target.innerHTML = 'menos detalhes &#9650;';
-            }
+                btn.innerHTML = 'menos detalhes &#9650;';
             }
         });
-        </script>
-    </body>
-    </html>
+    });
+}
+
+// Carrega as demandas assim que a página abre
+window.addEventListener('DOMContentLoaded', carregarDemandas);
+
+</script>
+
+</body>
+</html>

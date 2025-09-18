@@ -56,27 +56,7 @@
                     <textarea id="manifestacaoInput" maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
                     <div class="form-hint">* Escreva até 6.000 caracteres</div>
                 </div>
-                <script>
-                // Recupera o nome do usuário do cadastro (supondo que está salvo no localStorage)
-                function getNomeUsuario() {
-                    return localStorage.getItem('nomeUsuario') || 'Usuário';
-                }
-
-                document.querySelector('.form-section').onsubmit = function(e) {
-                    const nome = getNomeUsuario();
-                    const bairro = document.getElementById('bairroInput').value.trim();
-                    const manifestacao = document.getElementById('manifestacaoInput').value.trim();
-                    if (!bairro || !manifestacao) {
-                        alert('Preencha todos os campos obrigatórios.');
-                        e.preventDefault();
-                        return false;
-                    }
-                    // Monta o texto no formato solicitado
-                    const textoFinal = `NOME: ${nome}\nbairro: ${bairro}\nManifestação: ${manifestacao}`;
-                    document.getElementById('manifestacaoInput').value = textoFinal;
-                    // Permite o envio do formulário
-                };
-                </script>
+              
                 <div class="priority-group form-group">
                     <!-- Bloco: Texto com tooltip explicativo sobre prioridade, apenas no link -->
                     <span class="priority-tooltip"></span>
@@ -183,202 +163,11 @@
         </main>
     </div>
 
-    <script>
-        const fileInput = document.getElementById('fileInput');
-        const chooseFileBtn = document.getElementById('chooseFileBtn');
-        const uploadPreview = document.getElementById('uploadPreview');
-        let filesArr = [];
-
-        chooseFileBtn.onclick = () => fileInput.click();
-
-        fileInput.onchange = function () {
-            const newFiles = Array.from(fileInput.files);
-            filesArr = filesArr.concat(newFiles).slice(0, 4);
-            renderPreviews();
-            fileInput.value = '';
-        };
-
-        function renderPreviews() {
-            uploadPreview.innerHTML = '';
-            filesArr.forEach((file, idx) => {
-                const fileDiv = document.createElement('div');
-                fileDiv.style.position = 'relative';
-                fileDiv.style.width = '90px';
-                fileDiv.style.height = '90px';
-                fileDiv.style.background = '#f3f3f3';
-                fileDiv.style.borderRadius = '8px';
-                fileDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
-                fileDiv.style.display = 'flex';
-                fileDiv.style.alignItems = 'center';
-                fileDiv.style.justifyContent = 'center';
-                fileDiv.style.overflow = 'hidden';
-
-                // Remove button
-                const removeBtn = document.createElement('button');
-                removeBtn.innerHTML = '×';
-                removeBtn.title = 'Remover';
-                removeBtn.style.position = 'absolute';
-                removeBtn.style.top = '4px';
-                removeBtn.style.right = '4px';
-                removeBtn.style.background = '#fff';
-                removeBtn.style.border = 'none';
-                removeBtn.style.borderRadius = '50%';
-                removeBtn.style.width = '22px';
-                removeBtn.style.height = '22px';
-                removeBtn.style.fontSize = '1.2rem';
-                removeBtn.style.cursor = 'pointer';
-                removeBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.12)';
-                removeBtn.onclick = () => {
-                    filesArr.splice(idx, 1);
-                    renderPreviews();
-                };
-                fileDiv.appendChild(removeBtn);
-
-                // Preview
-                if (file.type.startsWith('image/')) {
-                    const img = document.createElement('img');
-                    img.src = URL.createObjectURL(file);
-                    img.style.maxWidth = '100%';
-                    img.style.maxHeight = '100%';
-                    img.style.objectFit = 'cover';
-                    img.title = file.name;
-                    fileDiv.appendChild(img);
-                } else {
-                    const icon = document.createElement('div');
-                    icon.style.fontSize = '2.2rem';
-                    icon.style.color = '#13818b';
-                    icon.style.textAlign = 'center';
-                    icon.innerHTML = getFileIcon(file.name);
-                    fileDiv.appendChild(icon);
-                }
-
-                // View button
-                const viewBtn = document.createElement('button');
-                viewBtn.innerHTML = '<img src="img/olho-aberto.png" alt="Visualizar" style="width:16px;height:16px;">';
-                viewBtn.title = 'Visualizar';
-                viewBtn.style.position = 'absolute';
-                viewBtn.style.bottom = '4px';
-                viewBtn.style.right = '4px';
-                viewBtn.style.background = '#fff';
-                viewBtn.style.border = 'none';
-                viewBtn.style.borderRadius = '50%';
-                viewBtn.style.width = '22px';
-                viewBtn.style.height = '22px';
-                viewBtn.style.fontSize = '1.1rem';
-                viewBtn.style.cursor = 'pointer';
-                viewBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.10)';
-                viewBtn.onclick = () => {
-                    if (file.type.startsWith('image/')) {
-                        const win = window.open();
-                        win.document.write('<img src="' + URL.createObjectURL(file) + '" style="max-width:100vw;max-height:100vh;">');
-                    } else if (file.type.startsWith('audio/')) {
-                        const win = window.open();
-                        win.document.write('<audio controls src="' + URL.createObjectURL(file) + '"></audio>');
-                    } else if (file.type.startsWith('video/')) {
-                        const win = window.open();
-                        win.document.write('<video controls src="' + URL.createObjectURL(file) + '" style="max-width:100vw;max-height:100vh;"></video>');
-                    } else {
-                        window.open(URL.createObjectURL(file));
-                    }
-                };
-                fileDiv.appendChild(viewBtn);
-
-                uploadPreview.appendChild(fileDiv);
-            });
-        }
-
-        function getFileIcon(name) {
-            const ext = name.split('.').pop().toLowerCase();
-            if (['pdf'].includes(ext)) return '📄';
-            if (['xls', 'xlsx'].includes(ext)) return '📊';
-            if (['mp3', 'aac', 'ogg'].includes(ext)) return '🎵';
-            if (['mp4', 'mov'].includes(ext)) return '🎬';
-            if (['zip', 'rar'].includes(ext)) return '🗜️';
-            return '📁';
-        }
-    </script>
+   
 
 
 
 
-
-
-<script>
-    // Salva a demanda no localStorage ao enviar o formulário
-    document.querySelector('.form-section').addEventListener('submit', function(e) {
-        // Recupera dados do formulário
-        const nome = localStorage.getItem('nomeUsuario') || 'Usuário';
-        const bairro = document.getElementById('bairroInput').value.trim();
-        const manifestacao = document.getElementById('manifestacaoInput').value.trim();
-        const prioridade = document.querySelector('input[name="prioridade"]:checked')?.value === 'sim' ? 'SIM' : 'NÃO';
-
-        // Validação básica
-        if (!bairro || !manifestacao) return;
-
-        // Monta objeto do processo
-        const processo = {
-            nome,
-            bairro,
-            manifestacao,
-            prioridade,
-            status: 'AGUARDANDO RESPOSTA',
-            data: new Date().toISOString()
-        };
-
-        // Recupera processos existentes
-        let processos = [];
-        try {
-            processos = JSON.parse(localStorage.getItem('processos')) || [];
-        } catch {}
-        processos.unshift(processo); // Adiciona novo no início
-
-        // Salva no localStorage
-        localStorage.setItem('processos', JSON.stringify(processos));
-    });
-
-    // Ao abrir processos.html, renderize os processos do localStorage
-    if (window.location.pathname.endsWith('processos.html')) {
-        window.addEventListener('DOMContentLoaded', function() {
-            let processos = [];
-            try {
-                processos = JSON.parse(localStorage.getItem('processos')) || [];
-            } catch {}
-            const container = document.body;
-            processos.forEach(proc => {
-                const div = document.createElement('div');
-                div.className = 'processo';
-                div.innerHTML = `
-                    <div class="detalhes">Prioridade na tramitação: ${proc.prioridade}</div>
-                    <div class="detalhes">Bairro: ${proc.bairro}</div>
-                    <div class="detalhes">Manifestação: ${proc.manifestacao}</div>
-                    <div class="status">STATUS: <span class="${proc.status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${proc.status}</span>
-                        <button class="mais-detalhes">mais detalhes &#9660;</button>
-                    </div>
-                    <div class="detalhes-extra">
-                        ${proc.status === 'RESPONDIDO'
-                            ? `<p>Seu processo foi respondido. Verifique o retorno do setor responsável.</p>`
-                            : `<div class="triste">☹️</div><p>Opa, parece que o departamento/setor ainda não te respondeu. Estamos cuidando disso, aguarde.</p>`
-                        }
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-            document.querySelectorAll('.mais-detalhes').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    var extra = btn.parentElement.parentElement.querySelector('.detalhes-extra');
-                    if (extra.style.display === 'block') {
-                        extra.style.display = 'none';
-                        btn.innerHTML = 'mais detalhes &#9660;';
-                    } else {
-                        extra.style.display = 'block';
-                        btn.innerHTML = 'menos detalhes &#9650;';
-                    }
-                });
-            });
-        });
-    }
-    
-    </script>
 
 
 
@@ -415,46 +204,156 @@
 
 
 
-    <script>
-    document.querySelector('.form-section').addEventListener('submit', function(e) {
-        e.preventDefault();
+    <script type="module">
+import { supabase } from './supabase.js';
 
-        const nome = localStorage.getItem('nomeUsuario') || 'Usuário';
-        const bairro = document.getElementById('bairroInput').value.trim();
-        const manifestacao = document.getElementById('manifestacaoInput').value.trim();
-        const prioridade = document.querySelector('input[name="prioridade"]:checked')?.value === 'sim' ? 'SIM' : 'NÃO';
+const form = document.querySelector('.form-section');
+const fileInput = document.getElementById('fileInput');
+const chooseFileBtn = document.getElementById('chooseFileBtn');
+const uploadPreview = document.getElementById('uploadPreview');
+let filesArr = [];
+let usuarioNome = localStorage.getItem('nomeUsuario') || 'Usuário'; // fallback se não estiver logado
 
-        if (!bairro || !manifestacao) {
-            alert('Preencha todos os campos obrigatórios.');
-            return;
+// ---------------------- Upload de arquivos ----------------------
+chooseFileBtn.onclick = () => fileInput.click();
+
+fileInput.onchange = () => {
+    const newFiles = Array.from(fileInput.files);
+    filesArr = filesArr.concat(newFiles).slice(0, 4);
+    renderPreviews();
+    fileInput.value = '';
+};
+
+function renderPreviews() {
+    uploadPreview.innerHTML = '';
+    filesArr.forEach((file, idx) => {
+        const fileDiv = document.createElement('div');
+        fileDiv.style.position = 'relative';
+        fileDiv.style.width = '90px';
+        fileDiv.style.height = '90px';
+        fileDiv.style.background = '#f3f3f3';
+        fileDiv.style.borderRadius = '8px';
+        fileDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
+        fileDiv.style.display = 'flex';
+        fileDiv.style.alignItems = 'center';
+        fileDiv.style.justifyContent = 'center';
+        fileDiv.style.overflow = 'hidden';
+
+        // Botão remover
+        const removeBtn = document.createElement('button');
+        removeBtn.innerHTML = '×';
+        removeBtn.title = 'Remover';
+        removeBtn.style.position = 'absolute';
+        removeBtn.style.top = '4px';
+        removeBtn.style.right = '4px';
+        removeBtn.style.background = '#fff';
+        removeBtn.style.border = 'none';
+        removeBtn.style.borderRadius = '50%';
+        removeBtn.style.width = '22px';
+        removeBtn.style.height = '22px';
+        removeBtn.style.fontSize = '1.2rem';
+        removeBtn.style.cursor = 'pointer';
+        removeBtn.onclick = () => {
+            filesArr.splice(idx, 1);
+            renderPreviews();
+        };
+        fileDiv.appendChild(removeBtn);
+
+        // Preview
+        if (file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100%';
+            img.style.objectFit = 'cover';
+            img.title = file.name;
+            fileDiv.appendChild(img);
+        } else {
+            const icon = document.createElement('div');
+            icon.style.fontSize = '2.2rem';
+            icon.style.color = '#13818b';
+            icon.style.textAlign = 'center';
+            icon.innerHTML = getFileIcon(file.name);
+            fileDiv.appendChild(icon);
         }
 
-        // Monta objeto do processo
-        const processo = {
-            nome,
-            bairro,
-            manifestacao,
-            prioridade,
-            status: 'AGUARDANDO RESPOSTA',
-            data: new Date().toISOString()
+        // Botão visualizar
+        const viewBtn = document.createElement('button');
+        viewBtn.innerHTML = '<img src="img/olho-aberto.png" alt="Visualizar" style="width:16px;height:16px;">';
+        viewBtn.title = 'Visualizar';
+        viewBtn.style.position = 'absolute';
+        viewBtn.style.bottom = '4px';
+        viewBtn.style.right = '4px';
+        viewBtn.style.background = '#fff';
+        viewBtn.style.border = 'none';
+        viewBtn.style.borderRadius = '50%';
+        viewBtn.style.width = '22px';
+        viewBtn.style.height = '22px';
+        viewBtn.style.fontSize = '1.1rem';
+        viewBtn.style.cursor = 'pointer';
+        viewBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.10)';
+        viewBtn.onclick = () => {
+            window.open(URL.createObjectURL(file));
         };
+        fileDiv.appendChild(viewBtn);
 
-        // Recupera processos existentes
-        let processos = [];
-        try {
-            processos = JSON.parse(localStorage.getItem('processos')) || [];
-        } catch {}
-        processos.unshift(processo); // Adiciona novo no início
+        uploadPreview.appendChild(fileDiv);
+    });
+}
 
-        // Salva no localStorage
-        localStorage.setItem('processos', JSON.stringify(processos));
+function getFileIcon(name) {
+    const ext = name.split('.').pop().toLowerCase();
+    if (['pdf'].includes(ext)) return '📄';
+    if (['xls', 'xlsx'].includes(ext)) return '📊';
+    if (['mp3', 'aac', 'ogg'].includes(ext)) return '🎵';
+    if (['mp4', 'mov'].includes(ext)) return '🎬';
+    if (['zip', 'rar'].includes(ext)) return '🗜️';
+    return '📁';
+}
 
-        alert('Demanda salva com sucesso!');
-        document.querySelector('.form-section').reset();
+// ---------------------- Envio do formulário ----------------------
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const bairro = document.getElementById('bairroInput').value.trim();
+    const manifestacao = document.getElementById('manifestacaoInput').value.trim();
+    const prioridade = document.querySelector('input[name="prioridade"]:checked')?.value === 'sim' ? 'SIM' : 'NÃO';
+
+    if (!bairro || !manifestacao || !prioridade) {
+        alert('Preencha todos os campos obrigatórios.');
+        return;
+    }
+
+    const demanda = {
+        usuario_id: usuarioNome,
+        bairro,
+        manifestacao,
+        prioridade,
+        arquivos: filesArr.length ? filesArr.map(f => f.name) : null, // só nomes por enquanto
+        categoria: null,
+        status: 'AGUARDANDO RESPOSTA',
+        resposta: null
+    };
+
+    try {
+        const { data, error } = await supabase
+            .from('demandas')
+            .insert([demanda]);
+
+        if (error) throw error;
+
+        alert('Demanda enviada com sucesso!');
+        form.reset();
         filesArr = [];
         renderPreviews();
-    });
-    </script>
+
+    } catch (err) {
+        console.error('Erro ao enviar demanda:', err);
+        alert('Erro ao enviar a demanda. Confira os campos e tente novamente.');
+    }
+});
+</script>
+
 </body>
 
 
