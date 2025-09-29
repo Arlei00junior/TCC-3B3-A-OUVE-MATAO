@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Processos - Ouvidores</title>
+    <link rel="stylesheet" href="css/processos.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 1rem; }
+        .processo { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
+        .detalhes-extra { display: none; border: 1px solid #008080; margin: 10px 0; padding: 10px; background: #f9f9f9; }
+        .respondido { color: #2e8b57; font-weight: bold; }
+        .aguardando { color: #d9534f; font-weight: bold; }
+        .demanda-feita { margin: 10px 0; font-style: italic; color: #555; }
+        .categoria, .setor, .bairro { margin: 5px 0; }
+        .input-edicao { width: 100%; padding: 5px; margin-top: 3px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #ccc; }
+        .input-readonly { background-color: #f0f0f0; border: 1px solid #ccc; padding: 5px; border-radius: 4px; width: 100%; }
+        .botao-salvar { padding: 5px 10px; background-color: #008080; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .botao-salvar:hover { background-color: #006666; }
+    </style>
+</head>
+<body>
+    <h1>Painel de Demandas - Ouvidores</h1>
+    <div id="processos-container"></div>
+
+    <script type="module">
+        import { supabase } from './supabase.js';
+
+        const container = document.getElementById('processos-container');
+
+        async function carregarDemandas() {
+            try {
+                const { data: demandas, error } = await supabase
+                    .from('demandas')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                renderProcessos(demandas);
+            } catch (err) {
+                console.error('Erro ao carregar demandas:', err);
+                container.innerHTML = '<p>Erro ao carregar demandas.</p>';
+            }
+        }
+
+        function renderProcessos(demandas) {
+            container.innerHTML = '';
+            if (!demandas || demandas.length === 0) {
+                container.innerHTML = '<p>Nenhuma demanda encontrada.</p>';
+                return;
+            }
+
+            demandas.forEach(demanda => {
+                const div = document.createElement('div');
+                div.classList.add('processo');
+
+                div.innerHTML = `
+                    <div class="bairro">
+                        <strong>Bairro:</strong> ${demanda.bairro || 'Não informado'}
+                    </div>
+
+                    <div class="demanda-feita">${demanda.manifestacao || ''}</div>
+                    <div class="prioridade">Prioridade: ${demanda.prioridade || 'NÃO'}</div>
+
+                    <div class="categoria">
+                        <label>Categoria:</label>
+                        <input type="text" class="input-edicao" value="${demanda.categoria || ''}" data-id="${demanda.id}" data-campo="categoria">
+                    </div>
+
+                    <div class="setor">
+                        <label>Setor:</label>
+                        <input type="text" class="input-edicao" value="${demanda.setor || ''}" data-id="${demanda.id}" data-campo="setor">
+                    </div>
+
+                    <div class="status">
+                        STATUS: <span class="${demanda.status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${demanda.status}</span>
+                    </div>
+
+                    <button class="botao-salvar" data-id="${demanda.id}">Salvar Alterações</button>
+                `;
+
+                container.appendChild(div);
+            });
+
+            // Salvar alterações
+            document.querySelectorAll('.botao-salvar').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.getAttribute('data-id');
+                    const divPai = btn.closest('.processo');
+                    const categoria = divPai.querySelector('[data-campo="categoria"]').value;
+                    const setor = divPai.querySelector('[data-campo="setor"]').value;
+
+                    try {
+                        const { error } = await supabase
+                            .from('demandas')
+                            .update({ categoria, setor })
+                            .eq('id', id);
+
+                        if (error) throw error;
+                        alert('Alterações salvas com sucesso!');
+                    } catch (err) {
+                        console.error('Erro ao atualizar:', err);
+                        alert('Erro ao salvar alterações.');
+                    }
+                });
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', carregarDemandas);
+        btn.addEventListener('click', async () => {
+    const id = btn.getAttribute('data-id');
+    const divPai = btn.closest('.processo');
+    const categoria = divPai.querySelector('[data-campo="categoria"]').value;
+    const setor = divPai.querySelector('[data-campo="setor"]').value;
+
+    try {
+        const { error } = await supabase
+            .from('demandas')
+            .update({ categoria, setor }) // Atualiza os campos no Supabase
+            .eq('id', id);               // Somente na demanda correta
+
+        if (error) throw error;
+        alert('Alterações salvas com sucesso!');
+    } catch (err) {
+        console.error('Erro ao atualizar:', err);
+        alert('Erro ao salvar alterações.');
+    }
+});
+
+    </script>
+</body>
+</html>
