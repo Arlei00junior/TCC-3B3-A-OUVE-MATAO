@@ -2,130 +2,249 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Processos - Ouvidores</title>
-    <link rel="stylesheet" href="css/processos.css">
+    <title>Processos Ouvidores</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 1rem; }
-        .processo { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
-        .detalhes-extra { display: none; border: 1px solid #008080; margin: 10px 0; padding: 10px; background: #f9f9f9; }
-        .respondido { color: #2e8b57; font-weight: bold; }
-        .aguardando { color: #d9534f; font-weight: bold; }
-        .demanda-feita { margin: 10px 0; font-style: italic; color: #555; }
-        .categoria, .setor, .bairro { margin: 5px 0; }
-        .input-edicao { width: 100%; padding: 5px; margin-top: 3px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #ccc; }
-        .input-readonly { background-color: #f0f0f0; border: 1px solid #ccc; padding: 5px; border-radius: 4px; width: 100%; }
-        .botao-salvar { padding: 5px 10px; background-color: #008080; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        .botao-salvar:hover { background-color: #006666; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px 60px;
+            background: #fff;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        h1 strong {
+            font-weight: bold;
+        }
+        .processo {
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #009688;
+        }
+        .status {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-right: 10px;
+        }
+        .respondido {
+            color: #009688;
+        }
+        .aguardando {
+            color: #e53935;
+        }
+        .acessar-btn {
+            background: #006064;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 3px 18px;
+            font-size: 0.95em;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .acessar-btn:hover {
+            background: #00838f;
+        }
+        .info {
+            font-size: 1em;
+            margin-bottom: 2px;
+        }
+        /* Modal styles */
+        .modal-bg {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.25);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal {
+            background: #fff;
+            border: 1px solid #222;
+            border-radius: 4px;
+            padding: 30px 30px 20px 30px;
+            width: 700px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 1.5em;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .modal-title {
+            color: #e53935;
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
+        .modal label {
+            font-weight: bold;
+            color: #e53935;
+            font-size: 1.08em;
+        }
+        .modal input[type="text"] {
+            width: 97%;
+            padding: 7px 10px;
+            border: 2px solid #aaa;
+            border-radius: 15px;
+            font-size: 1em;
+            margin-bottom: 12px;
+            margin-top: 2px;
+        }
+        .modal .manifestacao-box {
+            border: 2px solid #888;
+            background: #fafafa;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            font-size: 1em;
+            width: 98%;
+            min-height: 110px;
+            font-family: Arial, sans-serif;
+            white-space: pre-line;
+        }
+        .modal .assinatura {
+            text-align: right;
+            font-size: 0.98em;
+            margin-top: 10px;
+        }
+        .modal .prioridade-box {
+            border: 2px solid #bbb;
+            background: #f5f5f5;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+        .modal .prioridade-box span {
+            color: #388e3c;
+            font-weight: bold;
+        }
+        .modal .prioridade-box a {
+            color: #1976d2;
+            text-decoration: underline;
+            font-size: 0.98em;
+        }
+        .modal .enviar-btn {
+            background: #4fc3f7;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 28px;
+            font-size: 1.1em;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .modal .enviar-btn:hover {
+            background: #0288d1;
+        }
     </style>
 </head>
 <body>
-    <h1>Painel de Demandas - Ouvidores</h1>
-    <div id="processos-container"></div>
+    <h1>Olá, <strong>Marcos!</strong> Para hoje, temos:</h1>
 
-    <script type="module">
-        import { supabase } from './supabase.js';
+    <div class="processo">
+        <div class="info"><strong>Categoria:</strong> Iluminação Pública</div>
+        <div class="info"><strong>Prioridade na tramitação:</strong> NÃO</div>
+        <div class="info"><strong>Categoria:</strong> Secretaria de Infraestrutura</div>
+        <div>
+            <span class="status respondido">STATUS: RESPONDIDO</span>
+            <button class="acessar-btn">Acessar</button>
+        </div>
+    </div>
 
-        const container = document.getElementById('processos-container');
+    <div class="processo">
+        <div class="info"><strong>Prioridade na tramitação:</strong> SIM</div>
+        <div>
+            <span class="status aguardando">STATUS: AGUARDANDO RESPOSTA</span>
+            <button class="acessar-btn">Acessar</button>
+        </div>
+    </div>
 
-        async function carregarDemandas() {
-            try {
-                const { data: demandas, error } = await supabase
-                    .from('demandas')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+    <div class="processo">
+        <div class="info"><strong>Prioridade na tramitação:</strong> SIM</div>
+        <div>
+            <span class="status aguardando">STATUS: AGUARDANDO RESPOSTA</span>
+            <button class="acessar-btn">Acessar</button>
+        </div>
+    </div>
 
-                if (error) throw error;
-                renderProcessos(demandas);
-            } catch (err) {
-                console.error('Erro ao carregar demandas:', err);
-                container.innerHTML = '<p>Erro ao carregar demandas.</p>';
+    <div class="processo">
+        <div class="info"><strong>Categoria:</strong> Atendimento em Unidade de Saúde</div>
+        <div class="info"><strong>Prioridade na tramitação:</strong> NÃO</div>
+        <div class="info"><strong>Categoria:</strong> Secretaria de Saúde</div>
+        <div>
+            <span class="status respondido">STATUS: RESPONDIDO</span>
+            <button class="acessar-btn">Acessar</button>
+        </div>
+    </div>
+
+    <div class="processo">
+        <div class="info"><strong>Categoria:</strong> Transporte Público Urbano</div>
+        <div class="info"><strong>Prioridade na tramitação:</strong> NÃO</div>
+        <div class="info"><strong>Categoria:</strong> Secretaria de Mobilidade Urbana</div>
+        <div>
+            <span class="status aguardando">STATUS: AGUARDANDO RESPOSTA</span>
+            <button class="acessar-btn">Acessar</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-bg" id="modal-bg">
+        <div class="modal">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-title">AGUARDANDO RESPOSTA</div>
+            <label>* Escreva a categoria da manifestação:</label><br>
+            <input type="text" value="Iluminação Pública" disabled><br>
+            <label>Manifestação:</label>
+            <div class="manifestacao-box">
+Oi, tudo bom?
+Tô escrevendo pra reclamar das luzes da rua aqui no meu bairro. Faz tempo que tem poste queimado e ninguém arruma. A noite fica tudo escuro, perigoso, a gente anda com medo.
+A gente paga a taxa de iluminação, mas as luzes não funcionam. Queria pedir pra vocês virem consertar isso logo. A gente só quer a rua iluminada de novo.
+Valeu e espero que resolvam logo!
+                <div class="assinatura">
+                    Érica Bastos,<br>
+                    Jardim Paraíso,<br>
+                    02/01/2025
+                </div>
+            </div>
+            <div class="prioridade-box">
+                O solicitante <span>DESEJA</span> prioridade na tramitação conforme a
+                <a href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm" target="_blank">Lei Federal nº 9.784/1999</a>.
+            </div>
+            <label>* Escreva o setor referente à manifestação:</label><br>
+            <input type="text" value="Secretaria de Infraestrutura" disabled><br>
+            <button class="enviar-btn">Enviar</button>
+        </div>
+    </div>
+    <script>
+        const modalBg = document.getElementById('modal-bg');
+        const modalClose = document.getElementById('modal-close');
+        const acessarBtns = document.querySelectorAll('.acessar-btn');
+
+        acessarBtns.forEach(btn => {
+            btn.onclick = () => {
+                modalBg.style.display = 'flex';
+            };
+        });
+        modalClose.onclick = () => {
+            modalBg.style.display = 'none';
+        };
+        window.onclick = function(event) {
+            if (event.target === modalBg) {
+                modalBg.style.display = 'none';
             }
-        }
-
-        function renderProcessos(demandas) {
-            container.innerHTML = '';
-            if (!demandas || demandas.length === 0) {
-                container.innerHTML = '<p>Nenhuma demanda encontrada.</p>';
-                return;
-            }
-
-            demandas.forEach(demanda => {
-                const div = document.createElement('div');
-                div.classList.add('processo');
-
-                div.innerHTML = `
-                    <div class="bairro">
-                        <strong>Bairro:</strong> ${demanda.bairro || 'Não informado'}
-                    </div>
-
-                    <div class="demanda-feita">${demanda.manifestacao || ''}</div>
-                    <div class="prioridade">Prioridade: ${demanda.prioridade || 'NÃO'}</div>
-
-                    <div class="categoria">
-                        <label>Categoria:</label>
-                        <input type="text" class="input-edicao" value="${demanda.categoria || ''}" data-id="${demanda.id}" data-campo="categoria">
-                    </div>
-
-                    <div class="setor">
-                        <label>Setor:</label>
-                        <input type="text" class="input-edicao" value="${demanda.setor || ''}" data-id="${demanda.id}" data-campo="setor">
-                    </div>
-
-                    <div class="status">
-                        STATUS: <span class="${demanda.status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${demanda.status}</span>
-                    </div>
-
-                    <button class="botao-salvar" data-id="${demanda.id}">Salvar Alterações</button>
-                `;
-
-                container.appendChild(div);
-            });
-
-            // Salvar alterações
-            document.querySelectorAll('.botao-salvar').forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    const id = btn.getAttribute('data-id');
-                    const divPai = btn.closest('.processo');
-                    const categoria = divPai.querySelector('[data-campo="categoria"]').value;
-                    const setor = divPai.querySelector('[data-campo="setor"]').value;
-
-                    try {
-                        const { error } = await supabase
-                            .from('demandas')
-                            .update({ categoria, setor })
-                            .eq('id', id);
-
-                        if (error) throw error;
-                        alert('Alterações salvas com sucesso!');
-                    } catch (err) {
-                        console.error('Erro ao atualizar:', err);
-                        alert('Erro ao salvar alterações.');
-                    }
-                });
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', carregarDemandas);
-        btn.addEventListener('click', async () => {
-    const id = btn.getAttribute('data-id');
-    const divPai = btn.closest('.processo');
-    const categoria = divPai.querySelector('[data-campo="categoria"]').value;
-    const setor = divPai.querySelector('[data-campo="setor"]').value;
-
-    try {
-        const { error } = await supabase
-            .from('demandas')
-            .update({ categoria, setor }) // Atualiza os campos no Supabase
-            .eq('id', id);               // Somente na demanda correta
-
-        if (error) throw error;
-        alert('Alterações salvas com sucesso!');
-    } catch (err) {
-        console.error('Erro ao atualizar:', err);
-        alert('Erro ao salvar alterações.');
-    }
-});
-
+        };
     </script>
 </body>
 </html>
