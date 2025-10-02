@@ -28,27 +28,6 @@
             margin-bottom: 24px;
         }
 
-        .status-card {
-            border-bottom: 3px solid #13818b;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-        }
-
-        .status-label {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .status-respondido {
-            color: #3ca34d;
-            font-weight: bold;
-        }
-
-        .status-aguardando {
-            color: #e53935;
-            font-weight: bold;
-        }
-
         .acessar-btn {
             background: #13818b;
             color: #fff;
@@ -70,11 +49,6 @@
             .main-content h1 {
                 font-size: 1.5rem;
             }
-
-            .status-card {
-                font-size: 0.98rem;
-                padding-bottom: 8px;
-            }
         }
     </style>
 </head>
@@ -91,43 +65,41 @@
                 <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Perfil" class="profile-img">
                 <span class="profile-name">MARCOS</span>
                 <button id="logout-btn" class="logout-button">Sair</button>
-
             </div>
         </div>
     </div>
+
     <div class="container">
         <nav class="sidebar">
             <button class="sidebar-btn active">MANIFESTAÇÕES E<br>ACOMPANHAMENTOS</button>
-            <button class="sidebar-btn">NOTÍCIAS</button>
+            <button class="sidebar-btn" id="noticiasBtn">NOTÍCIAS</button>
         </nav>
+
         <main class="main-content">
             <h1>Olá, <strong>Marcos!</strong> Para hoje, temos:</h1>
-            <div id="processos-ouvidores"></div>
-            <script>
-                fetch('processos-ouvidores.html')
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('processos-ouvidores').innerHTML = html;
-                    })
-                    .catch(error => {
-                        document.getElementById('processos-ouvidores').innerHTML = '<p>Não foi possível carregar os processos.</p>';
-                    });
-            </script>
 
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const logoutBtn = document.getElementById('logout-btn');
+            <!-- Aqui o iframe irá puxar processos-ouvidores -->
+            <iframe id="processosIframe" src="processos-ouvidores.html" style="width:100%;height:80vh;border:none;"></iframe>
 
-                    if (!logoutBtn) return;
+        </main>
+    </div>
 
-                    logoutBtn.addEventListener('click', () => {
-                        localStorage.removeItem('usuario'); // limpa os dados do usuário
-                        alert("✅ Logout realizado com sucesso!");
-                        window.location.href = "login-ouvidores.html"; // redireciona para login
-                    });
-                });
+    <script>
+        // Botão logout
+        document.addEventListener('DOMContentLoaded', () => {
+            const logoutBtn = document.getElementById('logout-btn');
+            logoutBtn?.addEventListener('click', () => {
+                localStorage.removeItem('usuario'); // limpa os dados do usuário
+                alert("✅ Logout realizado com sucesso!");
+                window.location.href = "login-ouvidores.html";
+            });
 
+            // Notícias
+            document.getElementById('noticiasBtn').onclick = function () {
+                document.getElementById('processosIframe').src = "https://www.falamatao.com.br/";
+            };
+        });
+    </script>
 
-                
-            </script>
-            <script src="supabase.js"></script>
+</body>
+</html>

@@ -1,250 +1,342 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Processos Ouvidores</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px 60px;
-            background: #fff;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: normal;
-        }
-        h1 strong {
-            font-weight: bold;
-        }
-        .processo {
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #009688;
-        }
-        .status {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-right: 10px;
-        }
-        .respondido {
-            color: #009688;
-        }
-        .aguardando {
-            color: #e53935;
-        }
-        .acessar-btn {
-            background: #006064;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            padding: 3px 18px;
-            font-size: 0.95em;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .acessar-btn:hover {
-            background: #00838f;
-        }
-        .info {
-            font-size: 1em;
-            margin-bottom: 2px;
-        }
-        /* Modal styles */
-        .modal-bg {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0; top: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.25);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal {
-            background: #fff;
-            border: 1px solid #222;
-            border-radius: 4px;
-            padding: 30px 30px 20px 30px;
-            width: 700px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-            position: relative;
-        }
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 18px;
-            font-size: 1.5em;
-            color: #888;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .modal-title {
-            color: #e53935;
-            font-size: 2.2em;
-            font-weight: bold;
-            margin-bottom: 18px;
-            letter-spacing: 1px;
-        }
-        .modal label {
-            font-weight: bold;
-            color: #e53935;
-            font-size: 1.08em;
-        }
-        .modal input[type="text"] {
-            width: 97%;
-            padding: 7px 10px;
-            border: 2px solid #aaa;
-            border-radius: 15px;
-            font-size: 1em;
-            margin-bottom: 12px;
-            margin-top: 2px;
-        }
-        .modal .manifestacao-box {
-            border: 2px solid #888;
-            background: #fafafa;
-            padding: 10px 14px;
-            margin-bottom: 10px;
-            font-size: 1em;
-            width: 98%;
-            min-height: 110px;
-            font-family: Arial, sans-serif;
-            white-space: pre-line;
-        }
-        .modal .assinatura {
-            text-align: right;
-            font-size: 0.98em;
-            margin-top: 10px;
-        }
-        .modal .prioridade-box {
-            border: 2px solid #bbb;
-            background: #f5f5f5;
-            padding: 8px 12px;
-            margin-bottom: 12px;
-            font-size: 1em;
-        }
-        .modal .prioridade-box span {
-            color: #388e3c;
-            font-weight: bold;
-        }
-        .modal .prioridade-box a {
-            color: #1976d2;
-            text-decoration: underline;
-            font-size: 0.98em;
-        }
-        .modal .enviar-btn {
-            background: #4fc3f7;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            padding: 8px 28px;
-            font-size: 1.1em;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .modal .enviar-btn:hover {
-            background: #0288d1;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Processos Ouvidores</title>
+  <script type="module" src="supabase.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px 60px;
+      background: #fff;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      font-weight: normal;
+    }
+    h1 strong {
+      font-weight: bold;
+    }
+    .processo {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #009688;
+    }
+    .status {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-right: 10px;
+    }
+    .respondido {
+      color: #009688;
+    }
+    .aguardando {
+      color: #e53935;
+    }
+    .acessar-btn {
+      background: #006064;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 3px 18px;
+      font-size: 0.95em;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .acessar-btn:hover {
+      background: #00838f;
+    }
+    .info {
+      font-size: 1em;
+      margin-bottom: 2px;
+    }
+    /* Modal */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.25);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal {
+      background: #fff;
+      border: 1px solid #222;
+      border-radius: 4px;
+      padding: 30px;
+      width: 700px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 1.5em;
+      color: #888;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .modal-title {
+      color: #e53935;
+      font-size: 2.2em;
+      font-weight: bold;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+    .modal label {
+      font-weight: bold;
+      color: #e53935;
+      font-size: 1.08em;
+    }
+    .modal select,
+    .modal input[type="text"] {
+      width: 97%;
+      padding: 7px 10px;
+      border: 2px solid #aaa;
+      border-radius: 15px;
+      font-size: 1em;
+      margin-bottom: 12px;
+      margin-top: 2px;
+    }
+    .modal select option {
+      padding-left: 10px;
+    }
+    .modal option.categoria-principal {
+      color: #e53935;
+      font-weight: bold;
+      padding-left: 0px;
+    }
+    .modal .manifestacao-box {
+      border: 2px solid #888;
+      background: #fafafa;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      width: 98%;
+      min-height: 110px;
+      font-family: Arial, sans-serif;
+      white-space: pre-line;
+    }
+    .modal .assinatura {
+      text-align: right;
+      font-size: 0.98em;
+      margin-top: 10px;
+    }
+    .modal .prioridade-box {
+      border: 2px solid #bbb;
+      background: #f5f5f5;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      font-size: 1em;
+    }
+    .modal .prioridade-box span {
+      color: #388e3c;
+      font-weight: bold;
+    }
+    .modal .prioridade-box a {
+      color: #1976d2;
+      text-decoration: underline;
+      font-size: 0.98em;
+    }
+    .modal textarea {
+      width: 97%;
+      min-height: 80px;
+      border: 2px solid #aaa;
+      border-radius: 10px;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      resize: vertical;
+    }
+    .modal .enviar-btn {
+      background: #4fc3f7;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 8px 28px;
+      font-size: 1.1em;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal .enviar-btn:hover {
+      background: #0288d1;
+    }
+  </style>
 </head>
 <body>
-    <h1>Olá, <strong>Marcos!</strong> Para hoje, temos:</h1>
+  <div id="listaDemandas"></div>
 
-    <div class="processo">
-        <div class="info"><strong>Categoria:</strong> Iluminação Pública</div>
-        <div class="info"><strong>Prioridade na tramitação:</strong> NÃO</div>
-        <div class="info"><strong>Categoria:</strong> Secretaria de Infraestrutura</div>
-        <div>
-            <span class="status respondido">STATUS: RESPONDIDO</span>
-            <button class="acessar-btn">Acessar</button>
-        </div>
+  <!-- Modal -->
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <div id="modal-content"></div>
     </div>
+  </div>
 
-    <div class="processo">
-        <div class="info"><strong>Prioridade na tramitação:</strong> SIM</div>
-        <div>
-            <span class="status aguardando">STATUS: AGUARDANDO RESPOSTA</span>
-            <button class="acessar-btn">Acessar</button>
-        </div>
-    </div>
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-    <div class="processo">
-        <div class="info"><strong>Prioridade na tramitação:</strong> SIM</div>
-        <div>
-            <span class="status aguardando">STATUS: AGUARDANDO RESPOSTA</span>
-            <button class="acessar-btn">Acessar</button>
-        </div>
-    </div>
+    const lista = document.getElementById("listaDemandas");
+    const modalBg = document.getElementById("modal-bg");
+    const modalContent = document.getElementById("modal-content");
+    const modalClose = document.getElementById("modal-close");
 
-    <div class="processo">
-        <div class="info"><strong>Categoria:</strong> Atendimento em Unidade de Saúde</div>
-        <div class="info"><strong>Prioridade na tramitação:</strong> NÃO</div>
-        <div class="info"><strong>Categoria:</strong> Secretaria de Saúde</div>
-        <div>
-            <span class="status respondido">STATUS: RESPONDIDO</span>
-            <button class="acessar-btn">Acessar</button>
-        </div>
-    </div>
+    let demandasCache = [];
 
-    <div class="processo">
-        <div class="info"><strong>Categoria:</strong> Transporte Público Urbano</div>
-        <div class="info"><strong>Prioridade na tramitação:</strong> NÃO</div>
-        <div class="info"><strong>Categoria:</strong> Secretaria de Mobilidade Urbana</div>
-        <div>
-            <span class="status aguardando">STATUS: AGUARDANDO RESPOSTA</span>
-            <button class="acessar-btn">Acessar</button>
-        </div>
-    </div>
+    const categoriaParaSetor = {
+      "Saúde": "Secretaria Municipal de Saúde",
+      "Educação": "Secretaria Municipal de Educação",
+      "Transporte e Mobilidade": "Secretaria Municipal de Transporte e Trânsito",
+      "Infraestrutura": "Secretaria de Obras e Infraestrutura",
+      "Segurança": "Secretaria de Segurança ou Guarda Municipal",
+      "Meio Ambiente": "Secretaria do Meio Ambiente",
+      "Cultura e Lazer": "Secretaria de Cultura e Lazer",
+      "Serviços Urbanos": "Secretaria de Administração ou Protocolo"
+    };
 
-    <!-- Modal -->
-    <div class="modal-bg" id="modal-bg">
-        <div class="modal">
-            <button class="modal-close" id="modal-close">&times;</button>
-            <div class="modal-title">AGUARDANDO RESPOSTA</div>
-            <label>* Escreva a categoria da manifestação:</label><br>
-            <input type="text" value="Iluminação Pública" disabled><br>
-            <label>Manifestação:</label>
-            <div class="manifestacao-box">
-Oi, tudo bom?
-Tô escrevendo pra reclamar das luzes da rua aqui no meu bairro. Faz tempo que tem poste queimado e ninguém arruma. A noite fica tudo escuro, perigoso, a gente anda com medo.
-A gente paga a taxa de iluminação, mas as luzes não funcionam. Queria pedir pra vocês virem consertar isso logo. A gente só quer a rua iluminada de novo.
-Valeu e espero que resolvam logo!
-                <div class="assinatura">
-                    Érica Bastos,<br>
-                    Jardim Paraíso,<br>
-                    02/01/2025
-                </div>
-            </div>
-            <div class="prioridade-box">
-                O solicitante <span>DESEJA</span> prioridade na tramitação conforme a
-                <a href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm" target="_blank">Lei Federal nº 9.784/1999</a>.
-            </div>
-            <label>* Escreva o setor referente à manifestação:</label><br>
-            <input type="text" value="Secretaria de Infraestrutura" disabled><br>
-            <button class="enviar-btn">Enviar</button>
-        </div>
-    </div>
-    <script>
-        const modalBg = document.getElementById('modal-bg');
-        const modalClose = document.getElementById('modal-close');
-        const acessarBtns = document.querySelectorAll('.acessar-btn');
+    const categorias = {
+      "Saúde": ["Atendimento médico","Postos de saúde","Vacinação","Farmácia municipal"],
+      "Educação": ["Escolas e creches","Transporte escolar","Material didático","Programas educacionais"],
+      "Transporte e Mobilidade": ["Transporte público","Semáforos e sinalização","Ruas e calçadas","Ciclovias"],
+      "Infraestrutura": ["Pavimentação de ruas","Iluminação pública","Limpeza urbana","Saneamento básico"],
+      "Segurança": ["Guarda municipal","Iluminação e segurança em locais públicos","Denúncia de crimes e violência"],
+      "Meio Ambiente": ["Áreas verdes","Coleta de lixo","Poluição e resíduos","Animais abandonados"],
+      "Cultura e Lazer": ["Eventos culturais","Espaços de lazer e esportes","Bibliotecas e centros culturais"],
+      "Serviços Urbanos": ["Registro civil","IPTU e taxas municipais","Atendimento ao cidadão","Protocolo e documentos"],
+      "Reclamações Gerais": ["Outras situações não enquadradas acima"]
+    };
 
-        acessarBtns.forEach(btn => {
-            btn.onclick = () => {
-                modalBg.style.display = 'flex';
-            };
+    const setores = Object.values(categoriaParaSetor);
+
+    async function carregarDemandas() {
+      const { data, error } = await supabase
+        .from("demandas")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        lista.innerHTML = "<p>Erro ao carregar demandas.</p>";
+        console.error(error);
+        return;
+      }
+
+      demandasCache = data;
+      lista.innerHTML = "";
+      data.forEach(demanda => {
+        const div = document.createElement("div");
+        div.className = "processo";
+        div.innerHTML = `
+          ${demanda.categoria ? `<div class="info"><strong>Categoria:</strong> ${demanda.categoria}</div>` : ""}
+          ${demanda.setor ? `<div class="info"><strong>Setor:</strong> ${demanda.setor}</div>` : ""}
+          <div class="info"><strong>Prioridade na tramitação:</strong> ${demanda.prioridade}</div>
+          <div>
+            <span class="status ${demanda.status === "RESPONDIDO" ? "respondido" : "aguardando"}">
+              STATUS: ${demanda.status}
+            </span>
+            <button class="acessar-btn" data-id="${demanda.id}">Acessar</button>
+          </div>
+        `;
+        lista.appendChild(div);
+      });
+
+      document.querySelectorAll(".acessar-btn").forEach(btn => {
+        btn.addEventListener("click", () => abrirModal(btn.dataset.id));
+      });
+    }
+
+    function abrirModal(id) {
+      const demanda = demandasCache.find(d => d.id == id);
+
+      let categoriaOptions = "";
+      for (const grupo in categorias) {
+        categoriaOptions += `<option class="categoria-principal" disabled>${grupo}</option>`;
+        categorias[grupo].forEach(subcat => {
+          const selected = demanda.categoria === subcat ? "selected" : "";
+          categoriaOptions += `<option value="${subcat}" ${selected}>  ${subcat}</option>`;
         });
-        modalClose.onclick = () => {
-            modalBg.style.display = 'none';
-        };
-        window.onclick = function(event) {
-            if (event.target === modalBg) {
-                modalBg.style.display = 'none';
-            }
-        };
-    </script>
+      }
+
+      const setorOptions = setores.map(set => 
+        `<option value="${set}" ${demanda.setor === set ? 'selected' : ''}>${set}</option>`
+      ).join('');
+
+      modalContent.innerHTML = `
+        <div class="modal-title">${demanda.status}</div>
+
+        <label>* Categoria da manifestação:</label><br>
+        <select id="categoriaInput">${categoriaOptions}</select><br>
+
+        <label>* Setor responsável:</label><br>
+        <select id="setorInput">${setorOptions}</select><br>
+
+        <label>Manifestação:</label>
+        <div class="manifestacao-box">
+          ${demanda.manifestacao}
+          <div class="assinatura">
+            ${demanda.usuario_id},<br>
+            ${demanda.bairro},<br>
+            ${new Date(demanda.created_at).toLocaleDateString("pt-BR")}
+          </div>
+        </div>
+
+        <div class="prioridade-box">
+          O solicitante <span>${demanda.prioridade === "SIM" ? "DESEJA" : "NÃO DESEJA"}</span> prioridade na tramitação conforme a
+          <a href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm" target="_blank">Lei Federal nº 9.784/1999</a>.
+        </div>
+
+        <label>Resposta da Ouvidoria:</label>
+        <textarea id="respostaTexto">${demanda.resposta || ""}</textarea>
+
+        <button class="enviar-btn" onclick="enviarResposta(${demanda.id})">Salvar Atualizações</button>
+      `;
+
+      const categoriaSelect = document.getElementById("categoriaInput");
+      const setorSelect = document.getElementById("setorInput");
+      categoriaSelect.addEventListener("change", () => {
+        const grupo = Object.keys(categorias).find(g => categorias[g].includes(categoriaSelect.value));
+        setorSelect.value = categoriaParaSetor[grupo] || "";
+      });
+
+      modalBg.style.display = "flex";
+    }
+
+    window.enviarResposta = async function(id) {
+      const resposta = document.getElementById("respostaTexto").value;
+      const categoria = document.getElementById("categoriaInput").value;
+      const setor = document.getElementById("setorInput").value;
+
+      const { error } = await supabase
+        .from("demandas")
+        .update({ 
+          status: resposta ? "RESPONDIDO" : "AGUARDANDO RESPOSTA",
+          resposta,
+          categoria,
+          setor
+        })
+        .eq("id", id);
+
+      if (error) {
+        alert("Erro ao salvar alterações.");
+        console.error(error);
+      } else {
+        alert("Atualizações salvas com sucesso!");
+        modalBg.style.display = "none";
+        carregarDemandas();
+      }
+    }
+
+    modalClose.onclick = () => modalBg.style.display = "none";
+    window.onclick = (e) => { if (e.target === modalBg) modalBg.style.display = "none"; };
+
+    carregarDemandas();
+  </script>
 </body>
 </html>

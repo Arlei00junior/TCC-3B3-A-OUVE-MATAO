@@ -6,37 +6,83 @@
     <link rel="stylesheet" href="css/processos.css">
     <style>
         body { font-family: Arial, sans-serif; padding: 1rem; }
-        .processo { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
-        .detalhes-extra { display: none; border: 1px solid #008080; margin: 10px 0; padding: 10px; background: #f9f9f9; }
+        .filtros { margin-bottom: 15px; display: flex; gap: 10px; align-items: center; }
+        .filtros label { font-weight: bold; }
+        select { padding: 4px 8px; border-radius: 5px; border: 1px solid #ccc; }
+
+        .processo { border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: #fdfdfd; }
+        .detalhes-extra { display: none; border: 1px solid #008080; margin: 10px 0; padding: 10px; background: #f9f9f9; border-radius: 6px; }
         .respondido { color: #2e8b57; font-weight: bold; }
         .aguardando { color: #d9534f; font-weight: bold; }
         .demanda-feita { margin: 10px 0; font-style: italic; color: #555; }
-        .categoria { font-style: italic; color: #555; }
+        .badge { display: inline-block; padding: 3px 10px; margin-right: 6px; border-radius: 12px; font-size: 0.9rem; color: #fff; }
+        .categoria-badge { background: #009688; }
+        .setor-badge { background: #3f51b5; }
         .arquivo { display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; margin: 4px; border: 1px solid #ccc; border-radius: 6px; background: #f3f3f3; font-size: 1.2rem; cursor: pointer; }
+        .status { margin-top: 10px; }
+        .mais-detalhes { margin-left: 10px; padding: 3px 8px; border-radius: 4px; border: none; background: #0288d1; color: #fff; cursor: pointer; font-size: 0.85rem; }
+        .mais-detalhes:hover { background: #0277bd; }
     </style>
 </head>
 <body>
     <h1>Painel de Demandas</h1>
+
+    <!-- Filtros -->
+    <div class="filtros">
+        <label for="filtro-categoria">Filtrar por Categoria:</label>
+        <select id="filtro-categoria">
+            <option value="">Todas</option>
+        </select>
+
+        <label for="filtro-setor">Filtrar por Setor:</label>
+        <select id="filtro-setor">
+            <option value="">Todos</option>
+        </select>
+    </div>
+
     <div id="processos-container"></div>
 
     <script type="module">
 import { supabase } from './supabase.js';
 
 const container = document.getElementById('processos-container');
+const filtroCategoria = document.getElementById('filtro-categoria');
+const filtroSetor = document.getElementById('filtro-setor');
+
+let demandasCache = [];
 
 async function carregarDemandas() {
     try {
         const { data: demandas, error } = await supabase
             .from('demandas')
             .select('*')
-            .order('created_at', { ascending: false }); // usar created_at da tabela
+            .order('created_at', { ascending: false });
 
         if (error) throw error;
+
+        demandasCache = demandas;
+        popularFiltros(demandas);
         renderProcessos(demandas);
     } catch (err) {
         console.error('Erro ao carregar demandas:', err);
         container.innerHTML = '<p>Erro ao carregar demandas.</p>';
     }
+}
+
+function popularFiltros(demandas) {
+    // Pegar categorias únicas
+    const categorias = [...new Set(demandas.map(d => d.categoria).filter(Boolean))];
+    filtroCategoria.innerHTML = '<option value="">Todas</option>';
+    categorias.forEach(cat => {
+        filtroCategoria.innerHTML += `<option value="${cat}">${cat}</option>`;
+    });
+
+    // Pegar setores únicos
+    const setores = [...new Set(demandas.map(d => d.setor).filter(Boolean))];
+    filtroSetor.innerHTML = '<option value="">Todos</option>';
+    setores.forEach(set => {
+        filtroSetor.innerHTML += `<option value="${set}">${set}</option>`;
+    });
 }
 
 function renderProcessos(demandas) {
@@ -50,25 +96,39 @@ function renderProcessos(demandas) {
         const div = document.createElement('div');
         div.classList.add('processo');
 
-        // Renderiza arquivos como ícones ou links (aqui apenas nomes)
+        // Renderiza arquivos
         let arquivosHTML = '';
         if (demanda.arquivos && demanda.arquivos.length > 0) {
             arquivosHTML = '<div class="detalhes"><strong>Arquivos enviados:</strong><ul>';
             demanda.arquivos.forEach(file => {
-                arquivosHTML += `<li>${file}</li>`; // futuramente trocar para URL se usar Storage
+                arquivosHTML += `<li>${file}</li>`;
             });
             arquivosHTML += '</ul></div>';
         }
 
         div.innerHTML = `
-            ${demanda.categoria ? `<div class="categoria">Categoria: ${demanda.categoria}</div>` : ''}
+            <!-- Badges Categoria e Setor -->
+            <div>
+                ${demanda.categoria ? `<span class="badge categoria-badge">Categoria: ${demanda.categoria}</span>` : ''}
+                ${demanda.setor ? `<span class="badge setor-badge">Setor: ${demanda.setor}</span>` : ''}
+            </div>
+
+            <!-- Prioridade -->
             <div class="detalhes">Prioridade: ${demanda.prioridade || ''}</div>
+
+            <!-- Manifestação -->
             <div class="demanda-feita">Manifestação: ${demanda.manifestacao || ''}</div>
+
+            <!-- Arquivos -->
             ${arquivosHTML}
+
+            <!-- Status e botão detalhes -->
             <div class="status">
                 STATUS: <span class="${demanda.status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${demanda.status}</span>
                 <button class="mais-detalhes">mais detalhes &#9660;</button>
             </div>
+
+            <!-- Resposta -->
             <div class="detalhes-extra">
                 ${demanda.resposta || '<div class="triste">☹️</div><p>Ainda não houve resposta do setor. Aguarde.</p>'}
             </div>
@@ -92,9 +152,24 @@ function renderProcessos(demandas) {
     });
 }
 
+// Filtrar demandas quando mudar dropdowns
+filtroCategoria.addEventListener('change', aplicarFiltros);
+filtroSetor.addEventListener('change', aplicarFiltros);
+
+function aplicarFiltros() {
+    let filtradas = demandasCache;
+
+    const cat = filtroCategoria.value;
+    const set = filtroSetor.value;
+
+    if (cat) filtradas = filtradas.filter(d => d.categoria === cat);
+    if (set) filtradas = filtradas.filter(d => d.setor === set);
+
+    renderProcessos(filtradas);
+}
+
 window.addEventListener('DOMContentLoaded', carregarDemandas);
 
-</script>
-
+    </script>
 </body>
 </html>
