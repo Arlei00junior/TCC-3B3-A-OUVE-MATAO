@@ -63,7 +63,7 @@
             <a href="sobre.html">SOBRE NÓS</a>
             <div class="profile">
                 <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Perfil" class="profile-img">
-                <span class="profile-name">MARCOS</span>
+                <span class="profile-name">USUÁRIO</span>
                 <button id="logout-btn" class="logout-button">Sair</button>
             </div>
         </div>
@@ -76,7 +76,7 @@
         </nav>
 
         <main class="main-content">
-            <h1>Olá, <strong>Marcos!</strong> Para hoje, temos:</h1>
+            <h1 id="saudacao">Olá, <strong>Usuário!</strong> Para hoje, temos:</h1>
 
             <!-- Aqui o iframe irá puxar processos-ouvidores -->
             <iframe id="processosIframe" src="processos-ouvidores.html" style="width:100%;height:80vh;border:none;"></iframe>
@@ -84,21 +84,29 @@
         </main>
     </div>
 
-    <script>
-        // Botão logout
-        document.addEventListener('DOMContentLoaded', () => {
-            const logoutBtn = document.getElementById('logout-btn');
-            logoutBtn?.addEventListener('click', () => {
-                localStorage.removeItem('usuario'); // limpa os dados do usuário
-                alert("✅ Logout realizado com sucesso!");
-                window.location.href = "login-ouvidores.html";
-            });
+    <script type="module">
+        // --- Pega dados do usuário logado ---
+        const usuarioObj = JSON.parse(localStorage.getItem('usuario'));
+        if (!usuarioObj) {
+            alert('Você precisa fazer login para acessar esta página.');
+            window.location.href = 'login-ouvidores.html';
+        }
 
-            // Notícias
-            document.getElementById('noticiasBtn').onclick = function () {
-                document.getElementById('processosIframe').src = "https://www.falamatao.com.br/";
-            };
+        const usuarioNome = usuarioObj?.nome || usuarioObj?.nome_completo || usuarioObj?.cpf || 'Usuário';
+        document.querySelector('.profile-name').textContent = usuarioNome.toUpperCase();
+        document.getElementById('saudacao').innerHTML = `Olá, <strong>${usuarioNome}</strong>! Para hoje, temos:`;
+
+        // ---------------------- Logout ----------------------
+        document.getElementById('logout-btn')?.addEventListener('click', () => {
+            localStorage.removeItem('usuario');
+            alert("✅ Logout realizado com sucesso!");
+            window.location.href = "login-ouvidores.html";
         });
+
+        // ---------------------- Notícias ----------------------
+        document.getElementById('noticiasBtn').onclick = function () {
+            document.getElementById('processosIframe').src = "https://www.falamatao.com.br/";
+        };
     </script>
 
 </body>

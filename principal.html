@@ -2,231 +2,181 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ouve Matão - Home</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/principal.css">
-    <link rel="stylesheet" href="css/global.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ouve Matão - Home</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/principal.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <style>
+    .logout-button {
+      padding: 8px 16px;
+      background-color: #ff4b4b;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
+    .logout-button:hover {
+      background-color: #ff1f1f;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="header">
-        <div class="logo">
-            <img src="img/logo-header.png" alt="Ouve Matão Logo">
-        </div>
-        <div class="header-links">
-            <a href="termos.html">TERMOS E POLÍTICAS</a>
-            <a href="sobre.html">SOBRE NÓS</a>
-            <div class="profile">
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Perfil" class="profile-img">
-                <span class="profile-name">ERICA</span>
-            </div>
-        </div>
+  <div class="header">
+    <div class="logo">
+      <img src="img/logo-header.png" alt="Ouve Matão Logo" />
     </div>
-    <div class="container">
-        <nav class="sidebar">
-            <button class="sidebar-btn active" onclick="window.location.href='principal.html'">HISTÓRICO DE
-                MANIFESTAÇÕES<br>E ACOMPANHAMENTOS</button>
-            <button class="sidebar-btn" id="noticiasBtn">NOTÍCIAS</button>
-            <script>
-                document.getElementById('noticiasBtn').onclick = function () {
-                    document.querySelector('.main-content').innerHTML = `
-                        <iframe src="https://www.falamatao.com.br/" style="width:100%;height:80vh;border:none;"></iframe>
-                    `;
-                };
-            </script>
-            <button class="sidebar-btn" id="processosBtn">STATUS DE DEMANDAS</button>
-            <script>
-                document.getElementById('processosBtn').onclick = function () {
-                    document.querySelector('.main-content').innerHTML = `
-                        <iframe src="processos.html" style="width:100%;height:80vh;border:none;"></iframe>
-                    `;
-                };
-            </script>
-        </nav>
-        <main class="main-content">
-            <h1>Olá, <strong>Erica!</strong> O que temos para hoje?</h1>
-            <form class="form-section">
-                <div class="form-group">
-                    <label class="form-label"><span class="required">*</span> Bairro:</label>
-                    <input type="text" id="bairroInput" required maxlength="100" placeholder="Digite seu bairro" style="margin-bottom:8px;">
-                    <label class="form-label"><span class="required">*</span> Manifestação:</label>
-                    <textarea id="manifestacaoInput" maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
-                    <div class="form-hint">* Escreva até 6.000 caracteres</div>
-                </div>
-              
-                <div class="priority-group form-group">
-                    <!-- Bloco: Texto com tooltip explicativo sobre prioridade, apenas no link -->
-                    <span class="priority-tooltip"></span>
-                    O solicitante deseja prioridade na tramitação conforme a
-                    <a href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm" target="_blank" class="tooltip-link">
-                        Lei Federal Nº 9.784/1999
-                        <span class="tooltip-content">
-                            A Lei nº 9.784/1999 define as regras para os processos administrativos do governo federal,
-                            garantindo justiça, transparência e eficiência. Segundo essa norma, têm direito à prioridade
-                            idosos (60 anos ou mais), pessoas com deficiência, pessoas com doenças graves e outros casos
-                            previstos em lei. Se o solicitante se encaixar em algum desses critérios, seu pedido será
-                            analisado mais rapidamente pela administração pública. O governo tem 30 dias para responder,
-                            podendo prorrogar. Se a decisão for negativa, é possível entrar com um recurso, que deve ser
-                            analisado em até 5 dias.
-
-                        </span>
-                    </a>
-                    </span>
-
-                    <!-- Bloco: Estilos responsivos para o tooltip -->
-                    <style>
-                        /* Bloco: Container do tooltip */
-                        .priority-tooltip {
-                            position: relative;
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 4px;
-                            font-size: 1rem;
-                            flex-wrap: wrap;
-                        }
-
-                        /* Bloco: Link com tooltip */
-                        .tooltip-link {
-                            position: relative;
-                            color: #13818b;
-                            text-decoration: underline;
-                            cursor: pointer;
-                        }
-
-                        /* Bloco: Balão do tooltip */
-                        .tooltip-content {
-                            display: none;
-                            position: absolute;
-                            top: 28px;
-                            left: 0;
-                            min-width: 260px;
-                            max-width: 340px;
-                            background: #13818b;
-                            color: #fff;
-                            padding: 14px 16px 14px 16px;
-                            border-radius: 12px;
-                            font-size: 0.95rem;
-                            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
-                            z-index: 100;
-                            line-height: 1.4;
-                            word-break: break-word;
-                        }
-
-                        /* Bloco: Exibe o tooltip ao passar mouse ou focar */
-                        .tooltip-link:hover .tooltip-content,
-                        .tooltip-link:focus .tooltip-content {
-                            display: block;
-                        }
-
-                        /* Bloco: Responsividade para telas pequenas */
-                        @media (max-width: 600px) {
-                            .tooltip-content {
-                                min-width: 180px;
-                                max-width: 95vw;
-                                font-size: 0.92rem;
-                                padding: 10px 10px 10px 10px;
-                                top: 28px;
-                                left: 0;
-                            }
-
-                            .priority-tooltip {
-                                font-size: 0.98rem;
-                                flex-direction: column;
-                                align-items: flex-start;
-                                gap: 2px;
-                            }
-                        }
-                    </style>
-                    <label><input type="radio" name="prioridade" value="sim"> Sim</label>
-                    <label><input type="radio" name="prioridade" value="nao"> Não</label>
-                </div>
-                <div class="upload-box form-group" id="uploadBox">
-                    <input id="fileInput" type="file" multiple
-                        accept=".aac,.jpg,.mp3,.mp4,.mov,.ogg,.pdf,.png,.rar,.xls,.xlsx,.zip" style="display:none;">
-                    <div id="uploadPreview"
-                        style="min-height:90px; display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:center; margin-bottom:10px;">
-                    </div>
-                    <button type="button" id="chooseFileBtn"
-                        style="background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%); color: #fff; border: none; border-radius: 25px; padding: 12px 35px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 10px;">Escolher
-                        Arquivos</button>
-                    <div class="upload-hint">
-                        Selecione os arquivos desejados. Áudio, fotos, pdfs, planilhas, vídeos ou arquivos compactados.
-                        Até 4 (quatro).<br>
-                        .aac, .jpg, .mp3, .mp4, .mov, .ogg, .pdf, .png, .rar, .xls, .xlsx, .zip
-                    </div>
-                </div>
-                <button type="submit" class="submit-btn">Enviar</button>
-            </form>
-        </main>
+    <div class="header-links">
+      <a href="termos.html">TERMOS E POLÍTICAS</a>
+      <a href="sobre.html">SOBRE NÓS</a>
+      <div class="profile">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Perfil" class="profile-img" />
+        <span class="profile-name">USUÁRIO</span>
+        <button id="logout-btn" class="logout-button">Sair</button>
+      </div>
     </div>
+  </div>
 
-   
+  <div class="container">
+    <nav class="sidebar">
+      <button class="sidebar-btn active" onclick="window.location.href='principal.html'">
+        HISTÓRICO DE MANIFESTAÇÕES<br />E ACOMPANHAMENTOS
+      </button>
+      <button class="sidebar-btn" id="noticiasBtn">NOTÍCIAS</button>
+      <script>
+        document.getElementById("noticiasBtn").onclick = function () {
+          document.querySelector(".main-content").innerHTML = `
+            <iframe src="https://www.falamatao.com.br/" style="width:100%;height:80vh;border:none;"></iframe>
+          `;
+        };
+      </script>
+      <button class="sidebar-btn" id="processosBtn">STATUS DE DEMANDAS</button>
+      <script>
+        document.getElementById("processosBtn").onclick = function () {
+          document.querySelector(".main-content").innerHTML = `
+            <iframe src="processos.html" style="width:100%;height:80vh;border:none;"></iframe>
+          `;
+        };
+      </script>
+    </nav>
 
+    <main class="main-content">
+      <h1 id="saudacao">Olá, <strong>Usuário!</strong> O que temos para hoje?</h1>
 
-
-
-
-
-
-
-<!-- CONTATO -->
-    <section id="contato">
-        <div class="info">
-            <h1>Contato</h1>
-            <p>Rua Alegre, 123, Cidade Brasileira</p>
-            <p>Tel: (12) 3456-7890</p>
-            <p>ola@grandesite.com.br</p>
+      <form class="form-section">
+        <div class="form-group">
+          <label class="form-label"><span class="required">*</span> Bairro:</label>
+          <input type="text" id="bairroInput" required maxlength="100" placeholder="Digite seu bairro" style="margin-bottom:8px;" />
+          <label class="form-label"><span class="required">*</span> Manifestação:</label>
+          <textarea id="manifestacaoInput" maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
+          <div class="form-hint">* Escreva até 6.000 caracteres</div>
         </div>
-        <div class="social">
-            <div class="social-content">
-                <h2>Siga a gente<br />nas redes sociais</h2>
-                <div class="redes">
-                    <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
-                    <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
-                    <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
-                </div>
-                <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
-            </div>
+
+        <div class="priority-group form-group">
+          <span class="priority-tooltip"></span>
+          O solicitante deseja prioridade na tramitação conforme a
+          <a href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm" target="_blank" class="tooltip-link">
+            Lei Federal Nº 9.784/1999
+            <span class="tooltip-content">
+              A Lei nº 9.784/1999 define as regras para os processos administrativos do governo federal, garantindo justiça,
+              transparência e eficiência. Segundo essa norma, têm direito à prioridade idosos (60 anos ou mais), pessoas com
+              deficiência, pessoas com doenças graves e outros casos previstos em lei. Se o solicitante se encaixar em algum desses
+              critérios, seu pedido será analisado mais rapidamente pela administração pública. O governo tem 30 dias para
+              responder, podendo prorrogar. Se a decisão for negativa, é possível entrar com um recurso, que deve ser analisado em
+              até 5 dias.
+            </span>
+          </a>
+          <label><input type="radio" name="prioridade" value="sim" /> Sim</label>
+          <label><input type="radio" name="prioridade" value="nao" /> Não</label>
         </div>
-    </section>
 
+        <div class="upload-box form-group" id="uploadBox">
+          <input id="fileInput" type="file" multiple
+            accept=".aac,.jpg,.mp3,.mp4,.mov,.ogg,.pdf,.png,.rar,.xls,.xlsx,.zip" style="display:none;" />
+          <div id="uploadPreview"
+            style="min-height:90px; display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:center; margin-bottom:10px;">
+          </div>
+          <button type="button" id="chooseFileBtn"
+            style="background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%); color: #fff; border: none; border-radius: 25px; padding: 12px 35px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 10px;">Escolher
+            Arquivos</button>
+          <div class="upload-hint">
+            Selecione os arquivos desejados. Áudio, fotos, pdfs, planilhas, vídeos ou arquivos compactados. Até 4 (quatro).<br />
+            .aac, .jpg, .mp3, .mp4, .mov, .ogg, .pdf, .png, .rar, .xls, .xlsx, .zip
+          </div>
+        </div>
 
+        <button type="submit" class="submit-btn">Enviar</button>
+      </form>
+    </main>
+  </div>
 
-    <!-- Transição de página com logo -->
-    <div id="pageTransitionLogo" class="page-transition-logo hide">
-        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="info">
+      <h1>Contato</h1>
+      <p>Rua Alegre, 123, Cidade Brasileira</p>
+      <p>Tel: (12) 3456-7890</p>
+      <p>ola@grandesite.com.br</p>
     </div>
+    <div class="social">
+      <div class="social-content">
+        <h2>Siga a gente<br />nas redes sociais</h2>
+        <div class="redes">
+          <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
+          <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
+          <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
+        </div>
+        <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>   
+  <div id="pageTransitionLogo" class="page-transition-logo hide">
+    <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+  </div>
 
+  <script src="script.js"></script>
 
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-    <script type="module">
-import { supabase } from './supabase.js';
+    // --- Verifica login e define nome/id ---
+    const usuarioObj = JSON.parse(localStorage.getItem('usuario'));
+    if (!usuarioObj) {
+      alert('Você precisa fazer login para acessar esta página.');
+      window.location.href = 'login.html';
+    }
 
-const form = document.querySelector('.form-section');
-const fileInput = document.getElementById('fileInput');
-const chooseFileBtn = document.getElementById('chooseFileBtn');
-const uploadPreview = document.getElementById('uploadPreview');
-let filesArr = [];
-let usuarioNome = localStorage.getItem('nomeUsuario') || 'Usuário'; // fallback se não estiver logado
+    const usuarioNome = usuarioObj?.nome || usuarioObj?.nome_completo || usuarioObj?.cpf || 'Usuário';
+    const usuarioId = usuarioObj?.id || usuarioObj?.cpf || usuarioObj?.email || 'sem_id';
 
-// ---------------------- Upload de arquivos ----------------------
-chooseFileBtn.onclick = () => fileInput.click();
+    // Atualiza nome no cabeçalho e saudação
+    document.querySelector('.profile-name').textContent = usuarioNome.toUpperCase();
+    document.getElementById('saudacao').innerHTML = `Olá, <strong>${usuarioNome}</strong>! O que temos para hoje?`;
 
-fileInput.onchange = () => {
-    const newFiles = Array.from(fileInput.files);
-    filesArr = filesArr.concat(newFiles).slice(0, 4);
-    renderPreviews();
-    fileInput.value = '';
-};
+    // ---------------------- Upload ----------------------
+    const form = document.querySelector('.form-section');
+    const fileInput = document.getElementById('fileInput');
+    const chooseFileBtn = document.getElementById('chooseFileBtn');
+    const uploadPreview = document.getElementById('uploadPreview');
+    let filesArr = [];
 
-function renderPreviews() {
-    uploadPreview.innerHTML = '';
-    filesArr.forEach((file, idx) => {
+    chooseFileBtn.onclick = () => fileInput.click();
+
+    fileInput.onchange = () => {
+      const newFiles = Array.from(fileInput.files);
+      filesArr = filesArr.concat(newFiles).slice(0, 4);
+      renderPreviews();
+      fileInput.value = '';
+    };
+
+    function renderPreviews() {
+      uploadPreview.innerHTML = '';
+      filesArr.forEach((file, idx) => {
         const fileDiv = document.createElement('div');
         fileDiv.style.position = 'relative';
         fileDiv.style.width = '90px';
@@ -239,7 +189,6 @@ function renderPreviews() {
         fileDiv.style.justifyContent = 'center';
         fileDiv.style.overflow = 'hidden';
 
-        // Botão remover
         const removeBtn = document.createElement('button');
         removeBtn.innerHTML = '×';
         removeBtn.title = 'Remover';
@@ -254,30 +203,28 @@ function renderPreviews() {
         removeBtn.style.fontSize = '1.2rem';
         removeBtn.style.cursor = 'pointer';
         removeBtn.onclick = () => {
-            filesArr.splice(idx, 1);
-            renderPreviews();
+          filesArr.splice(idx, 1);
+          renderPreviews();
         };
         fileDiv.appendChild(removeBtn);
 
-        // Preview
         if (file.type.startsWith('image/')) {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(file);
-            img.style.maxWidth = '100%';
-            img.style.maxHeight = '100%';
-            img.style.objectFit = 'cover';
-            img.title = file.name;
-            fileDiv.appendChild(img);
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          img.style.maxWidth = '100%';
+          img.style.maxHeight = '100%';
+          img.style.objectFit = 'cover';
+          img.title = file.name;
+          fileDiv.appendChild(img);
         } else {
-            const icon = document.createElement('div');
-            icon.style.fontSize = '2.2rem';
-            icon.style.color = '#13818b';
-            icon.style.textAlign = 'center';
-            icon.innerHTML = getFileIcon(file.name);
-            fileDiv.appendChild(icon);
+          const icon = document.createElement('div');
+          icon.style.fontSize = '2.2rem';
+          icon.style.color = '#13818b';
+          icon.style.textAlign = 'center';
+          icon.innerHTML = getFileIcon(file.name);
+          fileDiv.appendChild(icon);
         }
 
-        // Botão visualizar
         const viewBtn = document.createElement('button');
         viewBtn.innerHTML = '<img src="img/olho-aberto.png" alt="Visualizar" style="width:16px;height:16px;">';
         viewBtn.title = 'Visualizar';
@@ -289,74 +236,70 @@ function renderPreviews() {
         viewBtn.style.borderRadius = '50%';
         viewBtn.style.width = '22px';
         viewBtn.style.height = '22px';
-        viewBtn.style.fontSize = '1.1rem';
         viewBtn.style.cursor = 'pointer';
         viewBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.10)';
         viewBtn.onclick = () => {
-            window.open(URL.createObjectURL(file));
+          window.open(URL.createObjectURL(file));
         };
         fileDiv.appendChild(viewBtn);
-
         uploadPreview.appendChild(fileDiv);
-    });
-}
-
-function getFileIcon(name) {
-    const ext = name.split('.').pop().toLowerCase();
-    if (['pdf'].includes(ext)) return '📄';
-    if (['xls', 'xlsx'].includes(ext)) return '📊';
-    if (['mp3', 'aac', 'ogg'].includes(ext)) return '🎵';
-    if (['mp4', 'mov'].includes(ext)) return '🎬';
-    if (['zip', 'rar'].includes(ext)) return '🗜️';
-    return '📁';
-}
-
-// ---------------------- Envio do formulário ----------------------
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const bairro = document.getElementById('bairroInput').value.trim();
-    const manifestacao = document.getElementById('manifestacaoInput').value.trim();
-    const prioridade = document.querySelector('input[name="prioridade"]:checked')?.value === 'sim' ? 'SIM' : 'NÃO';
-
-    if (!bairro || !manifestacao || !prioridade) {
-        alert('Preencha todos os campos obrigatórios.');
-        return;
+      });
     }
 
-    const demanda = {
-        usuario_id: usuarioNome,
+    function getFileIcon(name) {
+      const ext = name.split('.').pop().toLowerCase();
+      if (['pdf'].includes(ext)) return '📄';
+      if (['xls', 'xlsx'].includes(ext)) return '📊';
+      if (['mp3', 'aac', 'ogg'].includes(ext)) return '🎵';
+      if (['mp4', 'mov'].includes(ext)) return '🎬';
+      if (['zip', 'rar'].includes(ext)) return '🗜️';
+      return '📁';
+    }
+
+    // ---------------------- Envio ----------------------
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const bairro = document.getElementById('bairroInput').value.trim();
+      const manifestacao = document.getElementById('manifestacaoInput').value.trim();
+      const prioridade = document.querySelector('input[name="prioridade"]:checked')?.value === 'sim' ? 'SIM' : 'NÃO';
+
+      if (!bairro || !manifestacao || !prioridade) {
+        alert('Preencha todos os campos obrigatórios.');
+        return;
+      }
+
+      const demanda = {
+        usuario_id: String(usuarioId),
         bairro,
         manifestacao,
         prioridade,
-        arquivos: filesArr.length ? filesArr.map(f => f.name) : null, // só nomes por enquanto
+        arquivos: filesArr.length ? filesArr.map(f => f.name) : [],
         categoria: null,
         status: 'AGUARDANDO RESPOSTA',
         resposta: null
-    };
+      };
 
-    try {
-        const { data, error } = await supabase
-            .from('demandas')
-            .insert([demanda]);
-
+      try {
+        console.log('🟢 Enviando demanda:', demanda);
+        const { error } = await supabase.from('demandas').insert([demanda]);
         if (error) throw error;
-
-        alert('Demanda enviada com sucesso!');
+        alert('✅ Demanda enviada com sucesso!');
         form.reset();
         filesArr = [];
         renderPreviews();
+      } catch (err) {
+        console.error('❌ Erro ao enviar demanda:', err);
+        alert('Erro ao enviar demanda. Veja o console (F12) para detalhes.');
+      }
+    });
 
-    } catch (err) {
-        console.error('Erro ao enviar demanda:', err);
-        alert('Erro ao enviar a demanda. Confira os campos e tente novamente.');
-    }
-});
-</script>
-
+    // ---------------------- Logout ----------------------
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+      localStorage.clear();
+      alert('✅ Logout realizado com sucesso!');
+      window.location.href = 'login.html';
+    });
+  </script>
 </body>
-
-
-
 </html>
-
