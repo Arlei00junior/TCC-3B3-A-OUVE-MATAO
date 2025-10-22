@@ -8,21 +8,6 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/principal.css" />
   <link rel="stylesheet" href="css/global.css" />
-  <style>
-    .logout-button {
-      padding: 8px 16px;
-      background-color: #ff4b4b;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .logout-button:hover {
-      background-color: #ff1f1f;
-    }
-  </style>
 </head>
 
 <body>
@@ -33,46 +18,68 @@
     <div class="header-links">
       <a href="termos.html">TERMOS E POLÍTICAS</a>
       <a href="sobre.html">SOBRE NÓS</a>
-      <div class="profile">
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Perfil" class="profile-img" />
-        <span class="profile-name">USUÁRIO</span>
-        <button id="logout-btn" class="logout-button">Sair</button>
-      </div>
+
     </div>
   </div>
 
   <div class="container">
-    <nav class="sidebar">
-      <button class="sidebar-btn active" onclick="window.location.href='principal.html'">
-        HISTÓRICO DE MANIFESTAÇÕES<br />E ACOMPANHAMENTOS
-      </button>
-      <button class="sidebar-btn" id="noticiasBtn">NOTÍCIAS</button>
-      <script>
-        document.getElementById("noticiasBtn").onclick = function () {
-          document.querySelector(".main-content").innerHTML = `
-            <iframe src="https://www.falamatao.com.br/" style="width:100%;height:80vh;border:none;"></iframe>
-          `;
-        };
-      </script>
-      <button class="sidebar-btn" id="processosBtn">STATUS DE DEMANDAS</button>
-      <script>
-        document.getElementById("processosBtn").onclick = function () {
-          document.querySelector(".main-content").innerHTML = `
-            <iframe src="processos.html" style="width:100%;height:80vh;border:none;"></iframe>
-          `;
-        };
-      </script>
-    </nav>
+    <aside class="sidebar-professional" role="navigation" aria-label="Navegação principal">
+
+
+      <!-- profile block (organized) -->
+      <div class="sidebar-profile" role="region" aria-label="Perfil do usuário">
+        <a href="perfil.html" class="profile-link">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Avatar" class="profile-avatar" />
+          <div class="profile-meta">
+            <div class="name sidebar-profile-name">USUÁRIO</div>
+            <div class="role">Morador</div>
+          </div>
+        </a>
+        <button id="sidebar-logout-btn" class="logout-small" title="Sair">Sair</button>
+      </div>
+
+      <!-- checkbox must be a sibling before the nav so CSS can toggle -->
+      <input type="checkbox" id="burger" class="burger-checkbox" aria-hidden="false" />
+      <label class="burger" for="burger" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <nav>
+        <a href="principal.html" class="nav-link active" data-target="manif" aria-current="page">
+          <span class="icon">📣</span>
+          <span>Manifestações</span>
+        </a>
+
+        <a href="#" class="nav-link" data-target="noticias" id="noticiasLink">
+          <span class="icon">📰</span>
+          <span>Notícias</span>
+        </a>
+
+        <button class="nav-link" id="processosBtn" data-target="processos" aria-controls="main-content"
+          aria-label="Status de Demandas" type="button">
+          <span class="icon">📂</span>
+          <span>Status de Demandas</span>
+        </button>
+
+
+      </nav>
+    </aside>
 
     <main class="main-content">
-      <h1 id="saudacao">Olá, <strong>Usuário!</strong> O que temos para hoje?</h1>
+      <h1 id="saudacao">Olá, <strong class="profile-name sidebar-profile-name">USUÁRIO</strong>! O que temos para hoje?
+      </h1>
+
 
       <form class="form-section">
         <div class="form-group">
           <label class="form-label"><span class="required">*</span> Bairro:</label>
-          <input type="text" id="bairroInput" required maxlength="100" placeholder="Digite seu bairro" style="margin-bottom:8px;" />
+          <input type="text" id="bairroInput" required maxlength="100" placeholder="Digite seu bairro"
+            style="margin-bottom:8px;" />
           <label class="form-label"><span class="required">*</span> Manifestação:</label>
-          <textarea id="manifestacaoInput" maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
+          <textarea id="manifestacaoInput" maxlength="6000" required
+            placeholder="Escreva até 6.000 caracteres"></textarea>
           <div class="form-hint">* Escreva até 6.000 caracteres</div>
         </div>
 
@@ -82,18 +89,19 @@
           <a href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm" target="_blank" class="tooltip-link">
             Lei Federal Nº 9.784/1999
             <span class="tooltip-content">
-              A Lei nº 9.784/1999 define as regras para os processos administrativos do governo federal, garantindo justiça,
-              transparência e eficiência. Segundo essa norma, têm direito à prioridade idosos (60 anos ou mais), pessoas com
-              deficiência, pessoas com doenças graves e outros casos previstos em lei. Se o solicitante se encaixar em algum desses
-              critérios, seu pedido será analisado mais rapidamente pela administração pública. O governo tem 30 dias para
-              responder, podendo prorrogar. Se a decisão for negativa, é possível entrar com um recurso, que deve ser analisado em
-              até 5 dias.
+              A Lei nº 9.784/1999 define as regras para os processos administrativos do governo federal,
+              garantindo justiça, transparência e eficiência. Segundo essa norma, têm direito à prioridade
+              idosos (60 anos ou mais), pessoas com deficiência, pessoas com doenças graves e outros casos
+              previstos em lei. Se o solicitante se encaixar em algum desses critérios, seu pedido será
+              analisado mais rapidamente pela administração pública. O governo tem 30 dias para responder,
+              podendo prorrogar. Se a decisão for negativa, é possível entrar com um recurso, que deve ser
+              analisado em até 5 dias.
             </span>
           </a>
+
           <label><input type="radio" name="prioridade" value="sim" /> Sim</label>
           <label><input type="radio" name="prioridade" value="nao" /> Não</label>
         </div>
-
         <div class="upload-box form-group" id="uploadBox">
           <input id="fileInput" type="file" multiple
             accept=".aac,.jpg,.mp3,.mp4,.mov,.ogg,.pdf,.png,.rar,.xls,.xlsx,.zip" style="display:none;" />
@@ -104,7 +112,8 @@
             style="background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%); color: #fff; border: none; border-radius: 25px; padding: 12px 35px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 10px;">Escolher
             Arquivos</button>
           <div class="upload-hint">
-            Selecione os arquivos desejados. Áudio, fotos, pdfs, planilhas, vídeos ou arquivos compactados. Até 4 (quatro).<br />
+            Selecione os arquivos desejados. Áudio, fotos, pdfs, planilhas, vídeos ou arquivos compactados. Até 4
+            (quatro).<br />
             .aac, .jpg, .mp3, .mp4, .mov, .ogg, .pdf, .png, .rar, .xls, .xlsx, .zip
           </div>
         </div>
@@ -140,12 +149,14 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="script/principal.js"></script>
 
   <script type="module">
     import { supabase } from './supabase.js';
 
     // --- Verifica login e define nome/id ---
-    const usuarioObj = JSON.parse(localStorage.getItem('usuario'));
+    const usuarioObj = JSON.parse(sessionStorage.getItem('usuario_populacao'));
+
     if (!usuarioObj) {
       alert('Você precisa fazer login para acessar esta página.');
       window.location.href = 'login.html';
@@ -269,8 +280,10 @@
         return;
       }
 
+      // ✅ Inclui o nome do usuário logado na demanda
       const demanda = {
         usuario_id: String(usuarioId),
+        usuario_nome: usuarioNome, // <-- novo campo
         bairro,
         manifestacao,
         prioridade,
@@ -294,12 +307,119 @@
       }
     });
 
+
     // ---------------------- Logout ----------------------
     document.getElementById('logout-btn')?.addEventListener('click', () => {
-      localStorage.clear();
+      sessionStorage.removeItem('usuario_populacao');
       alert('✅ Logout realizado com sucesso!');
       window.location.href = 'login.html';
     });
+
+
+    /*=================================================================*/
+
+    // Keep existing behaviour
+    document.getElementById("processosBtn").onclick = function () {
+      document.querySelectorAll('.sidebar-professional .nav-link').forEach(n => n.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelector(".main-content").innerHTML = `
+          <iframe src="processos.html" style="width:100%;height:80vh;border:none;" title="Status de Demandas"></iframe>
+        `;
+      // close mobile menu if open
+      const cb = document.getElementById('burger');
+      if (cb) cb.checked = false;
+    };
+
+    document.getElementById("noticiasLink").onclick = function (e) {
+      e.preventDefault();
+      document.querySelectorAll('.sidebar-professional .nav-link').forEach(n => n.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelector(".main-content").innerHTML = `
+          <iframe src="https://www.falamatao.com.br/" style="width:100%;height:80vh;border:none;" title="Notícias"></iframe>
+        `;
+      // close mobile menu if open
+      const cb = document.getElementById('burger');
+      if (cb) cb.checked = false;
+    };
+
+    // close menu on any nav-link click (mobile UX)
+    document.addEventListener('click', function (e) {
+      const isNavLink = e.target.closest('.sidebar-professional nav .nav-link');
+      if (isNavLink) {
+        const cb = document.getElementById('burger');
+        if (cb) cb.checked = false;
+      }
+    });
+
+    // sidebar logout (keeps UX consistent with header logout)
+    document.getElementById('sidebar-logout-btn')?.addEventListener('click', function () {
+      sessionStorage.removeItem('usuario_populacao');
+      alert('✅ Logout realizado com sucesso!');
+      window.location.href = 'login.html';
+    });
+
+    (function syncSidebarName() {
+      function firstTwoNames(str) {
+        if (!str) return 'USUÁRIO';
+        str = String(str).trim().replace(/\s+/g, ' ');
+        const parts = str.split(' ');
+        if (parts.length === 1) return parts[0].toUpperCase();
+        return (parts[0] + ' ' + parts[1]).toUpperCase();
+      }
+
+      // tenta priorizar o nome já exibido no header
+      const headerName = document.querySelector('.profile-name')?.textContent;
+      let nomeParaExibir = headerName?.trim();
+
+      if (!nomeParaExibir) {
+        // se não houver, tenta sessionStorage
+        try {
+          const u = JSON.parse(sessionStorage.getItem('usuario_populacao') || 'null');
+          nomeParaExibir = u?.nome || u?.nome_completo || u?.cpf || 'Usuário';
+        } catch (_) {
+          nomeParaExibir = 'Usuário';
+        }
+      }
+
+      const primeiroSegundo = firstTwoNames(nomeParaExibir);
+      document.querySelectorAll('.sidebar-profile-name').forEach(el => el.textContent = primeiroSegundo);
+    })();
+
+
+    /* ==========================================================
+ suadação com o nome do usuário já logado
+========================================================== */
+
+    window.addEventListener('load', function () {
+      function firstTwoNames(str) {
+        if (!str) return 'USUÁRIO';
+        str = String(str).trim().replace(/\s+/g, ' ');
+        const parts = str.split(' ');
+        if (parts.length === 1) return parts[0].toUpperCase();
+        return (parts[0] + ' ' + parts[1]).toUpperCase();
+      }
+
+      let nome = null;
+      try {
+        const u = JSON.parse(sessionStorage.getItem('usuario_populacao') || 'null');
+        nome = u?.nome || u?.nome_completo || u?.cpf || null;
+      } catch (_) { }
+
+      if (!nome) {
+        nome = document.querySelector('.profile-name')?.textContent ||
+          document.querySelector('.sidebar-profile-name')?.textContent ||
+          'Usuário';
+      }
+
+      const curto = firstTwoNames(nome);
+      const saudacaoEl = document.getElementById('saudacao');
+      if (saudacaoEl) {
+        saudacaoEl.innerHTML = `Olá, <strong class="sidebar-profile-name">${curto}</strong>! O que temos para hoje?`;
+      }
+    });
+
   </script>
+
 </body>
+
 </html>

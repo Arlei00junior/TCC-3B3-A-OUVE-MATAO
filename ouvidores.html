@@ -71,7 +71,7 @@
 
     <div class="container">
         <nav class="sidebar">
-            <button class="sidebar-btn active">MANIFESTAÇÕES E<br>ACOMPANHAMENTOS</button>
+            <button onclick="window.location.href='ouvidores.html'" class="sidebar-btn active">MANIFESTAÇÕES E<br>ACOMPANHAMENTOS</button>
             <button class="sidebar-btn" id="noticiasBtn">NOTÍCIAS</button>
         </nav>
 
@@ -86,7 +86,7 @@
 
     <script type="module">
         // --- Pega dados do usuário logado ---
-        const usuarioObj = JSON.parse(localStorage.getItem('usuario'));
+        const usuarioObj = JSON.parse(sessionStorage.getItem('usuario_ouvidor'));
         if (!usuarioObj) {
             alert('Você precisa fazer login para acessar esta página.');
             window.location.href = 'login-ouvidores.html';
@@ -98,7 +98,7 @@
 
         // ---------------------- Logout ----------------------
         document.getElementById('logout-btn')?.addEventListener('click', () => {
-            localStorage.removeItem('usuario');
+            localStorage.removeItem('usuario_ouvidor');
             alert("✅ Logout realizado com sucesso!");
             window.location.href = "login-ouvidores.html";
         });
@@ -108,6 +108,29 @@
             document.getElementById('processosIframe').src = "https://www.falamatao.com.br/";
         };
     </script>
+<!-- CONTATO -->
+  <section id="contato">
+    <div class="info">
+      <h1>Contato</h1>
+      <p>Rua Alegre, 123, Cidade Brasileira</p>
+      <p>Tel: (12) 3456-7890</p>
+      <p>ola@grandesite.com.br</p>
+    </div>
+    <div class="social">
+      <div class="social-content">
+        <h2>Siga a gente<br />nas redes sociais</h2>
+        <div class="redes">
+          <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
+          <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
+          <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
+        </div>
+        <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
+      </div>
+    </div>
+  </section>
 
+  <div id="pageTransitionLogo" class="page-transition-logo hide">
+    <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+  </div>
 </body>
 </html>

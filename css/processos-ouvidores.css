@@ -1,0 +1,172 @@
+/* CSS for Ouvidoria Processes Page */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px 60px;
+      background: #fff;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      font-weight: normal;
+    }
+    h1 strong {
+      font-weight: bold;
+    }
+    #filtroStatus {
+      font-size: 1em;
+      padding: 6px 10px;
+      margin-bottom: 25px;
+      border-radius: 5px;
+      border: 2px solid #009688;
+      background: #f9f9f9;
+    }
+    .processo {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #009688;
+    }
+    .status {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-right: 10px;
+    }
+    .respondido {
+      color: #009688;
+    }
+    .aguardando {
+      color: #e53935;
+    }
+    .acessar-btn {
+      background: #006064;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 3px 18px;
+      font-size: 0.95em;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .acessar-btn:hover {
+      background: #00838f;
+    }
+    .info {
+      font-size: 1em;
+      margin-bottom: 2px;
+    }
+    /* Modal */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.25);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal {
+      background: #fff;
+      border: 1px solid #222;
+      border-radius: 4px;
+      padding: 30px;
+      width: 700px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 1.5em;
+      color: #888;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .modal-title {
+      color: #e53935;
+      font-size: 2.2em;
+      font-weight: bold;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+    .modal label {
+      font-weight: bold;
+      color: #e53935;
+      font-size: 1.08em;
+    }
+    .modal select,
+    .modal input[type="text"] {
+      width: 97%;
+      padding: 7px 10px;
+      border: 2px solid #aaa;
+      border-radius: 15px;
+      font-size: 1em;
+      margin-bottom: 12px;
+      margin-top: 2px;
+    }
+    .modal select option {
+      padding-left: 10px;
+    }
+    .modal option.categoria-principal {
+      color: #e53935;
+      font-weight: bold;
+      padding-left: 0px;
+    }
+    .modal .manifestacao-box {
+      border: 2px solid #888;
+      background: #fafafa;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      width: 98%;
+      min-height: 110px;
+      font-family: Arial, sans-serif;
+      white-space: pre-line;
+    }
+    .modal .assinatura {
+      text-align: right;
+      font-size: 0.98em;
+      margin-top: 10px;
+    }
+    .modal .prioridade-box {
+      border: 2px solid #bbb;
+      background: #f5f5f5;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      font-size: 1em;
+    }
+    .modal .prioridade-box span {
+      color: #388e3c;
+      font-weight: bold;
+    }
+    .modal .prioridade-box a {
+      color: #1976d2;
+      text-decoration: underline;
+      font-size: 0.98em;
+    }
+    .modal textarea {
+      width: 97%;
+      min-height: 80px;
+      border: 2px solid #aaa;
+      border-radius: 10px;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      resize: vertical;
+    }
+    .modal .enviar-btn {
+      background: #4fc3f7;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 8px 28px;
+      font-size: 1.1em;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal .enviar-btn:hover {
+      background: #0288d1;
+    }

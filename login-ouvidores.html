@@ -2,121 +2,126 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/global.css">
-    <title>Login Ouvidores - Ouve Matão</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/global.css">
+  <title>Login Ouvidores - Ouve Matão</title>
 </head>
 
 <body class="login-page">
-    <div class="container">
-        <!-- Esquerda: Logo e textos -->
-        <div class="left-side">
-            <img src="img/logo-header.png" alt="Ouve Matão" class="logo">
-            <div class="links">
-                <a href="termos.html">TERMOS E POLÍTICAS</a>
-                <a href="sobre.html">SOBRE NÓS</a>
-            </div>
-        </div>
-
-        <!-- Direita: Caixa de login -->
-        <div class="right-side">
-            <!-- ✅ ID adicionado ao formulário -->
-            <form id="login-ouvidores-form" class="login-form">
-                <div class="form-heading">
-                    <h3>Olá, ouvidor!</h3>
-                    <h6>Por favor, faça login para continuar.</h6>
-                </div>
-                <div class="input-group">
-                    <input required placeholder="Digite o CPF cadastrado" name="cpf" id="cpf-ouvidor" type="text" />
-                    <label class="label" for="cpf-ouvidor">Usuário</label>
-                </div>
-                <div class="input-group">
-                    <input required placeholder="Digite sua senha definida" name="password" id="password-ouvidor"
-                        type="password" />
-                    <label class="label" for="password-ouvidor">Senha</label>
-                </div>
-                <button class="submit" type="submit">Acessar</button>
-            </form>
-        </div>
+  <div class="container">
+    <!-- Esquerda -->
+    <div class="left-side">
+      <img src="img/logo-header.png" alt="Ouve Matão" class="logo">
+      <div class="links">
+        <a href="termos.html">TERMOS E POLÍTICAS</a>
+        <a href="sobre.html">SOBRE NÓS</a>
+      </div>
     </div>
 
-    <!-- CONTATO -->
-    <section id="contato">
-        <div class="info">
-            <h1>Contato</h1>
-            <p>Rua Alegre, 123, Cidade Brasileira</p>
-            <p>Tel: (12) 3456-7890</p>
-            <p>ola@grandesite.com.br</p>
+    <!-- Direita -->
+    <div class="right-side">
+      <form id="login-ouvidores-form" class="login-form">
+        <div class="form-heading">
+          <h3>Olá, ouvidor!</h3>
+          <h6>Por favor, faça login para continuar.</h6>
         </div>
-        <div class="social">
-            <div class="social-content">
-                <h2>Siga a gente<br />nas redes sociais</h2>
-                <div class="redes">
-                    <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
-                    <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
-                    <a href="ouvidores.html"><img src="img/youtube.svg" alt="YouTube" /></a>
-                </div>
-                <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
-            </div>
+        <div class="input-group">
+          <input required placeholder="Digite o CPF cadastrado" name="cpf" id="cpf-ouvidor" type="text" />
+          <label class="label" for="cpf-ouvidor">Usuário</label>
         </div>
-    </section>
+        <div class="input-group">
+          <input required placeholder="Digite sua senha definida" name="password" id="password-ouvidor"
+            type="password" />
+          <label class="label" for="password-ouvidor">Senha</label>
+        </div>
+        <button class="submit" type="submit">Acessar</button>
+      </form>
+    </div>
+  </div>
 
-    <!-- Script de login -->
-    <script type="module">
-        import { supabase } from './supabase.js';
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="info">
+      <h1>Contato</h1>
+      <p>Rua Alegre, 123, Cidade Brasileira</p>
+      <p>Tel: (12) 3456-7890</p>
+      <p>ola@grandesite.com.br</p>
+    </div>
+    <div class="social">
+      <div class="social-content">
+        <h2>Siga a gente<br />nas redes sociais</h2>
+        <div class="redes">
+          <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
+          <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
+          <a href="ouvidores.html"><img src="img/youtube.svg" alt="YouTube" /></a>
+        </div>
+        <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
+      </div>
+    </div>
+  </section>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('login-ouvidores-form');
+  <!-- Script de login com máscara de CPF -->
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-            if (!form) {
-                console.error("Formulário de ouvidores não encontrado!");
-                return;
-            }
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('login-ouvidores-form');
+      const cpfInput = document.getElementById('cpf-ouvidor');
 
-            // ✅ Redireciona automaticamente se já estiver logado
-            const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
-            if (usuarioLogado && usuarioLogado.tipo_usuario === 'ouvidor') {
-                window.location.href = 'ouvidores.html';
-                return;
-            }
+      if (!form) {
+        console.error("Formulário de ouvidores não encontrado!");
+        return;
+      }
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+      // 🔹 Máscara de CPF
+      cpfInput.addEventListener('input', function () {
+        let value = cpfInput.value.replace(/\D/g, ''); // remove tudo que não é número
+        if (value.length > 11) value = value.slice(0, 11);
 
-                const cpf = document.getElementById('cpf-ouvidor').value.trim();
-                const senha = document.getElementById('password-ouvidor').value.trim();
+        if (value.length > 9) {
+          value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+        } else if (value.length > 6) {
+          value = value.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+        } else if (value.length > 3) {
+          value = value.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+        }
+        cpfInput.value = value;
+      });
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-                console.log("Tentativa de login (ouvidor):", cpf, senha);
+        const cpf = cpfInput.value.trim();
+        const senha = document.getElementById('password-ouvidor').value.trim();
 
-                try {
-                    const { data, error } = await supabase
-                        .from('usuarios')
-                        .select('*')
-                        .eq('cpf', cpf)
-                        .eq('senha', senha)
-                        .eq('tipo_usuario', 'ouvidor')
-                        .single();
+        try {
+          const { data, error } = await supabase
+            .from('usuarios')
+            .select('*')
+            .eq('cpf', cpf)
+            .eq('senha', senha)
+            .eq('tipo_usuario', 'ouvidor')
+            .single();
 
-                    if (error) {
-                        console.error("Erro Supabase:", error);
-                        alert("❌ CPF ou senha inválidos para ouvidor!");
-                        return;
-                    }
+          if (error || !data) {
+            alert("❌ CPF ou senha inválidos para ouvidor!");
+            return;
+          }
 
-                    localStorage.setItem('usuario', JSON.stringify(data));
-                    console.log("Login ouvidor bem-sucedido:", data);
-                    alert("✅ Login realizado com sucesso!");
-                    window.location.href = "ouvidores.html";
+          // 🔹 Salva apenas durante a sessão
+          sessionStorage.setItem('usuario_ouvidor', JSON.stringify(data));
 
-                } catch (err) {
-                    console.error("Erro inesperado:", err);
-                    alert("❌ Ocorreu um erro no login!");
-                }
-            });
-        });
-    </script>
+          alert("✅ Login realizado com sucesso!");
+          window.location.href = "ouvidores.html";
+
+        } catch (err) {
+          console.error("Erro inesperado:", err);
+          alert("❌ Ocorreu um erro no login!");
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

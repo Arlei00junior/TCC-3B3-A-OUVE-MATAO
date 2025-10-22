@@ -1,328 +1,273 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Processos - Ouve Matão</title>
-    <link rel="stylesheet" href="css/processos.css">
-    <style>
-        /* ======== ESTILO BASE ======== */
-        body {
-            font-family: Arial, sans-serif;
-            padding: 1rem;
-            background-color: #fafafa;
-            color: #222;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Processos - Ouve Matão</title>
+  <link rel="stylesheet" href="css/processos.css">
+  <style>
+    /* ======== ESTILO BASE ======== */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 1rem;
+      background-color: #fafafa;
+      color: #222;
+      margin: 0;
+    }
 
-        h1 {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #0288d1;
-        }
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #0288d1;
+    }
 
-        /* ======== FILTROS ======== */
-        .filtros {
-            margin-bottom: 15px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    /* ======== FILTROS ======== */
+    .filtros {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-        .filtros label {
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
+    .filtros label {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
 
-        select {
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 0.95rem;
-            background-color: #fff;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    select {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+      background-color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-        select:hover {
-            border-color: #0288d1;
-        }
+    select:hover {
+      border-color: #0288d1;
+    }
 
-        /* ======== CARD DE PROCESSO ======== */
-        .processo {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
+    /* ======== CARD DE PROCESSO ======== */
+    .processo {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
 
-        .processo:hover {
-            transform: scale(1.01);
-        }
+    .processo:hover { transform: scale(1.01); }
 
-        .detalhes-extra {
-            display: none;
-            border: 1px solid #008080;
-            margin: 10px 0;
-            padding: 10px;
-            background: #f9f9f9;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
+    .detalhes-extra {
+      display: none;
+      border: 1px solid #008080;
+      margin: 10px 0;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
 
-        .respondido {
-            color: #2e8b57;
-            font-weight: bold;
-        }
+    .respondido { color: #2e8b57; font-weight: bold; }
+    .aguardando { color: #d9534f; font-weight: bold; }
 
-        .aguardando {
-            color: #d9534f;
-            font-weight: bold;
-        }
+    .demanda-feita {
+      margin: 10px 0;
+      font-style: italic;
+      color: #555;
+      line-height: 1.4;
+    }
 
-        .demanda-feita {
-            margin: 10px 0;
-            font-style: italic;
-            color: #555;
-            line-height: 1.4;
-        }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      margin: 3px 6px 3px 0;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      color: #fff;
+      white-space: nowrap;
+    }
 
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            margin: 3px 6px 3px 0;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #fff;
-            white-space: nowrap;
-        }
+    .categoria-badge { background: #009688; }
+    .setor-badge { background: #3f51b5; }
 
-        .categoria-badge {
-            background: #009688;
-        }
+    .status {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-        .setor-badge {
-            background: #3f51b5;
-        }
+    .mais-detalhes {
+      padding: 5px 10px;
+      border-radius: 4px;
+      border: none;
+      background: #0288d1;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
 
-        .arquivo {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            margin: 4px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background: #f3f3f3;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
+    .mais-detalhes:hover { background: #0277bd; }
 
-        .status {
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .mais-detalhes {
-            padding: 5px 10px;
-            border-radius: 4px;
-            border: none;
-            background: #0288d1;
-            color: #fff;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: 0.3s;
-        }
-
-        .mais-detalhes:hover {
-            background: #0277bd;
-        }
-
-        /* ======== RESPONSIVIDADE ======== */
-        @media (max-width: 1024px) {
-            h1 { font-size: 1.6rem; }
-            select { font-size: 0.9rem; padding: 5px 8px; }
-            .processo { padding: 12px; }
-            .badge { font-size: 0.85rem; }
-        }
-
-        @media (max-width: 768px) {
-            .filtros { flex-direction: column; align-items: stretch; gap: 8px; }
-            .filtros label { font-size: 0.9rem; }
-            select { width: 100%; }
-            .processo { font-size: 0.95rem; }
-            .status { flex-direction: column; align-items: flex-start; }
-            .mais-detalhes { width: 100%; text-align: center; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 0.5rem; }
-            h1 { font-size: 1.4rem; }
-            .processo { padding: 10px; font-size: 0.9rem; }
-            .badge { display: block; margin: 4px 0; }
-            .arquivo { width: 50px; height: 50px; font-size: 1rem; }
-            .mais-detalhes { font-size: 0.8rem; }
-        }
-
-        @media (max-width: 390px) {
-            h1 { font-size: 1.2rem; }
-            select, .mais-detalhes { font-size: 0.8rem; padding: 4px 6px; }
-            .badge { font-size: 0.8rem; padding: 3px 8px; }
-            .demanda-feita { font-size: 0.85rem; }
-        }
-    </style>
+    /* ======== RESPONSIVIDADE ======== */
+    @media (max-width: 768px) {
+      .filtros { flex-direction: column; gap: 8px; }
+      select { width: 100%; }
+      .processo { font-size: 0.95rem; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Painel de Demandas</h1>
+  <h1>Painel de Demandas</h1>
 
-    <div class="filtros">
-        <label for="filtro-categoria">Categoria:</label>
-        <select id="filtro-categoria">
-            <option value="">Todas</option>
-        </select>
+  <div class="filtros">
+    <label for="filtro-categoria">Categoria:</label>
+    <select id="filtro-categoria"><option value="">Todas</option></select>
 
-        <label for="filtro-setor">Setor:</label>
-        <select id="filtro-setor">
-            <option value="">Todos</option>
-        </select>
+    <label for="filtro-setor">Setor:</label>
+    <select id="filtro-setor"><option value="">Todos</option></select>
 
-        <label for="filtro-status">Status:</label>
-        <select id="filtro-status">
-            <option value="">Todos</option>
-            <option value="RESPONDIDO">Respondidos</option>
-            <option value="AGUARDANDO">Aguardando Resposta</option>
-        </select>
-    </div>
+    <label for="filtro-status">Status:</label>
+    <select id="filtro-status">
+      <option value="">Todos</option>
+      <option value="RESPONDIDO">Respondidos</option>
+      <option value="AGUARDANDO">Aguardando Resposta</option>
+    </select>
+  </div>
 
-    <div id="processos-container"><p>Carregando demandas...</p></div>
+  <div id="processos-container"><p>Carregando demandas...</p></div>
 
-    <script type="module">
-        import { supabase } from './supabase.js';
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-        const container = document.getElementById('processos-container');
-        const filtroCategoria = document.getElementById('filtro-categoria');
-        const filtroSetor = document.getElementById('filtro-setor');
-        const filtroStatus = document.getElementById('filtro-status');
-        let demandasCache = [];
+    const container = document.getElementById('processos-container');
+    const filtroCategoria = document.getElementById('filtro-categoria');
+    const filtroSetor = document.getElementById('filtro-setor');
+    const filtroStatus = document.getElementById('filtro-status');
+    let demandasCache = [];
 
-        async function carregarDemandas() {
-            try {
-                const usuario = JSON.parse(localStorage.getItem('usuario'));
-                if (!usuario) {
-                    container.innerHTML = '<p>Faça login para ver suas demandas.</p>';
-                    return;
-                }
+    async function carregarDemandas() {
+      try {
+        // 🔹 Corrigido: usa sessionStorage e chave correta
+        const usuario = JSON.parse(sessionStorage.getItem('usuario_populacao'));
 
-                const usuarioId = usuario.id || usuario.cpf || usuario.email;
-
-                const { data: demandas, error } = await supabase
-                    .from('demandas')
-                    .select('*')
-                    .eq('usuario_id', usuarioId)
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                demandasCache = demandas;
-                popularFiltros(demandas);
-                renderProcessos(demandas);
-            } catch (err) {
-                console.error('Erro ao carregar demandas:', err);
-                container.innerHTML = '<p>Erro ao carregar demandas.</p>';
-            }
+        if (!usuario) {
+          container.innerHTML = '<p>⚠️ Faça login para ver suas demandas.</p>';
+          return;
         }
 
-        function popularFiltros(demandas) {
-            const categorias = [...new Set(demandas.map(d => d.categoria).filter(Boolean))];
-            filtroCategoria.innerHTML = '<option value="">Todas</option>';
-            categorias.forEach(cat => filtroCategoria.innerHTML += `<option value="${cat}">${cat}</option>`);
+        const usuarioId = usuario.id || usuario.cpf || usuario.email;
 
-            const setores = [...new Set(demandas.map(d => d.setor).filter(Boolean))];
-            filtroSetor.innerHTML = '<option value="">Todos</option>';
-            setores.forEach(set => filtroSetor.innerHTML += `<option value="${set}">${set}</option>`);
+        // 🔹 Busca demandas do usuário logado
+        const { data: demandas, error } = await supabase
+          .from('demandas')
+          .select('*')
+          .eq('usuario_id', String(usuarioId))
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        demandasCache = demandas;
+        popularFiltros(demandas);
+        renderProcessos(demandas);
+      } catch (err) {
+        console.error('❌ Erro ao carregar demandas:', err);
+        container.innerHTML = '<p>Erro ao carregar demandas.</p>';
+      }
+    }
+
+    function popularFiltros(demandas) {
+      const categorias = [...new Set(demandas.map(d => d.categoria).filter(Boolean))];
+      filtroCategoria.innerHTML = '<option value="">Todas</option>';
+      categorias.forEach(cat => filtroCategoria.innerHTML += `<option value="${cat}">${cat}</option>`);
+
+      const setores = [...new Set(demandas.map(d => d.setor).filter(Boolean))];
+      filtroSetor.innerHTML = '<option value="">Todos</option>';
+      setores.forEach(set => filtroSetor.innerHTML += `<option value="${set}">${set}</option>`);
+    }
+
+    function renderProcessos(demandas) {
+      container.innerHTML = '';
+      if (!demandas || demandas.length === 0) {
+        container.innerHTML = '<p>Nenhuma demanda encontrada.</p>';
+        return;
+      }
+
+      demandas.forEach(demanda => {
+        const div = document.createElement('div');
+        div.classList.add('processo');
+
+        let arquivosHTML = '';
+        if (demanda.arquivos && demanda.arquivos.length > 0) {
+          arquivosHTML = '<div class="detalhes"><strong>Arquivos enviados:</strong><ul>';
+          demanda.arquivos.forEach(file => arquivosHTML += `<li>${file}</li>`);
+          arquivosHTML += '</ul></div>';
         }
 
-        function renderProcessos(demandas) {
-            container.innerHTML = '';
-            if (!demandas || demandas.length === 0) {
-                container.innerHTML = '<p>Nenhuma demanda encontrada.</p>';
-                return;
-            }
+        const status = demanda.status ? demanda.status.toUpperCase() : 'AGUARDANDO';
 
-            demandas.forEach(demanda => {
-                const div = document.createElement('div');
-                div.classList.add('processo');
+        div.innerHTML = `
+          <div>
+            ${demanda.categoria ? `<span class="badge categoria-badge">Categoria: ${demanda.categoria}</span>` : ''}
+            ${demanda.setor ? `<span class="badge setor-badge">Setor: ${demanda.setor}</span>` : ''}
+          </div>
+          <div class="detalhes">Prioridade: ${demanda.prioridade || ''}</div>
+          <div class="demanda-feita">Manifestação: ${demanda.manifestacao || ''}</div>
+          ${arquivosHTML}
+          <div class="status">
+            STATUS: <span class="${status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${status}</span>
+            <button class="mais-detalhes">mais detalhes &#9660;</button>
+          </div>
+          <div class="detalhes-extra">
+            ${demanda.resposta || '<div class="triste">☹️</div><p>Ainda não houve resposta do setor. Aguarde.</p>'}
+          </div>
+        `;
+        container.appendChild(div);
+      });
 
-                let arquivosHTML = '';
-                if (demanda.arquivos && demanda.arquivos.length > 0) {
-                    arquivosHTML = '<div class="detalhes"><strong>Arquivos enviados:</strong><ul>';
-                    demanda.arquivos.forEach(file => arquivosHTML += `<li>${file}</li>`);
-                    arquivosHTML += '</ul></div>';
-                }
+      // 🔹 Mostrar/ocultar detalhes
+      document.querySelectorAll('.mais-detalhes').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const extra = btn.closest('.processo').querySelector('.detalhes-extra');
+          const aberto = extra.style.display === 'block';
+          extra.style.display = aberto ? 'none' : 'block';
+          btn.innerHTML = aberto ? 'mais detalhes &#9660;' : 'menos detalhes &#9650;';
+        });
+      });
+    }
 
-                const status = demanda.status ? demanda.status.toUpperCase() : 'AGUARDANDO';
+    filtroCategoria.addEventListener('change', aplicarFiltros);
+    filtroSetor.addEventListener('change', aplicarFiltros);
+    filtroStatus.addEventListener('change', aplicarFiltros);
 
-                div.innerHTML = `
-                    <div>
-                        ${demanda.categoria ? `<span class="badge categoria-badge">Categoria: ${demanda.categoria}</span>` : ''}
-                        ${demanda.setor ? `<span class="badge setor-badge">Setor: ${demanda.setor}</span>` : ''}
-                    </div>
-                    <div class="detalhes">Prioridade: ${demanda.prioridade || ''}</div>
-                    <div class="demanda-feita">Manifestação: ${demanda.manifestacao || ''}</div>
-                    ${arquivosHTML}
-                    <div class="status">
-                        STATUS: <span class="${status === 'RESPONDIDO' ? 'respondido' : 'aguardando'}">${status}</span>
-                        <button class="mais-detalhes">mais detalhes &#9660;</button>
-                    </div>
-                    <div class="detalhes-extra">
-                        ${demanda.resposta || '<div class="triste">☹️</div><p>Ainda não houve resposta do setor. Aguarde.</p>'}
-                    </div>
-                `;
-                container.appendChild(div);
-            });
+    function aplicarFiltros() {
+      let filtradas = demandasCache;
+      const cat = filtroCategoria.value;
+      const set = filtroSetor.value;
+      const stat = filtroStatus.value;
 
-            document.querySelectorAll('.mais-detalhes').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const extra = btn.closest('.processo').querySelector('.detalhes-extra');
-                    const aberto = extra.style.display === 'block';
-                    extra.style.display = aberto ? 'none' : 'block';
-                    btn.innerHTML = aberto ? 'mais detalhes &#9660;' : 'menos detalhes &#9650;';
-                });
-            });
-        }
+      if (cat) filtradas = filtradas.filter(d => d.categoria === cat);
+      if (set) filtradas = filtradas.filter(d => d.setor === set);
 
-        filtroCategoria.addEventListener('change', aplicarFiltros);
-        filtroSetor.addEventListener('change', aplicarFiltros);
-        filtroStatus.addEventListener('change', aplicarFiltros);
+      if (stat) {
+        if (stat === 'RESPONDIDO') filtradas = filtradas.filter(d => d.status?.toUpperCase() === 'RESPONDIDO');
+        else if (stat === 'AGUARDANDO') filtradas = filtradas.filter(d => !d.status || d.status.toUpperCase() !== 'RESPONDIDO');
+      }
 
-        function aplicarFiltros() {
-            let filtradas = demandasCache;
-            const cat = filtroCategoria.value;
-            const set = filtroSetor.value;
-            const stat = filtroStatus.value;
+      renderProcessos(filtradas);
+    }
 
-            if (cat) filtradas = filtradas.filter(d => d.categoria === cat);
-            if (set) filtradas = filtradas.filter(d => d.setor === set);
-
-            if (stat) {
-                if (stat === 'RESPONDIDO') filtradas = filtradas.filter(d => d.status?.toUpperCase() === 'RESPONDIDO');
-                else if (stat === 'AGUARDANDO') filtradas = filtradas.filter(d => !d.status || d.status.toUpperCase() !== 'RESPONDIDO');
-            }
-
-            renderProcessos(filtradas);
-        }
-
-        window.addEventListener('DOMContentLoaded', carregarDemandas);
-    </script>
+    // 🔹 Inicialização
+    window.addEventListener('DOMContentLoaded', carregarDemandas);
+  </script>
 </body>
 </html>

@@ -2,135 +2,136 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/global.css">
-    <title>Login - Ouve Matão</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/global.css">
+  <title>Login - Ouve Matão</title>
 </head>
 
 <body class="login-page">
-    <div class="container">
-        <!-- Esquerda: Logo e textos -->
-        <div class="left-side">
-            <img src="img/logo-header.png" alt="Ouve Matão" class="logo">
-            <div class="links">
-                <a href="termos.html">TERMOS E POLÍTICAS</a>
-                <a href="sobre.html">SOBRE NÓS</a>
-            </div>
-        </div>
-
-        <!-- Direita: Caixa de login  -->
-        <div class="right-side">
-            <!-- ✅ ID adicionado para o formulário -->
-            <form id="login-form" class="login-form">
-                <div class="form-heading">Login</div>
-                <div class="input-group">
-                    <input required placeholder="Digite o CPF cadastrado" name="cpf" id="cpf" type="text" />
-                    <label class="label" for="cpf">Usuário</label>
-                </div>
-                <div class="input-group">
-                    <input required placeholder="Digite sua senha definida" name="password" id="password"
-                        type="password" />
-                    <label class="label" for="password">Senha</label>
-                </div>
-                <div class="forgot-password">
-                    <a href="redefinir-senha.html">Esqueci minha senha</a>
-                </div>
-                <button class="submit" type="submit">Acessar</button>
-                <div class="signup-link">
-                    Não tem cadastro? <a href="cadastro.html">Clique aqui</a><br />
-                    É ouvidor? <a href="login-ouvidores.html">Clique aqui</a>
-                </div>
-            </form>
-        </div>
+  <div class="container">
+    <!-- Esquerda: Logo e textos -->
+    <div class="left-side">
+      <img src="img/logo-header.png" alt="Ouve Matão" class="logo">
+      <div class="links">
+        <a href="termos.html">TERMOS E POLÍTICAS</a>
+        <a href="sobre.html">SOBRE NÓS</a>
+      </div>
     </div>
 
-    <!-- CONTATO -->
-    <section id="contato">
-        <div class="info">
-            <h1>Contato</h1>
-            <p>Rua Alegre, 123, Cidade Brasileira</p>
-            <p>Tel: (12) 3456-7890</p>
-            <p>ola@grandesite.com.br</p>
+    <!-- Direita: Caixa de login -->
+    <div class="right-side">
+      <form id="login-form" class="login-form">
+        <div class="form-heading">Login</div>
+        <div class="input-group">
+          <input required placeholder="Digite o CPF cadastrado" name="cpf" id="cpf" type="text" />
+          <label class="label" for="cpf">Usuário</label>
         </div>
-        <div class="social">
-            <div class="social-content">
-                <h2>Siga a gente<br />nas redes sociais</h2>
-                <div class="redes">
-                    <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
-                    <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
-                    <a href="principal.html"><img src="img/youtube.svg" alt="YouTube" /></a>
-                </div>
-                <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
-            </div>
+        <div class="input-group">
+          <input required placeholder="Digite sua senha definida" name="password" id="password" type="password" />
+          <label class="label" for="password">Senha</label>
         </div>
-    </section>
-
-    <!-- Transição de página com logo -->
-    <div id="pageTransitionLogo" class="page-transition-logo hide">
-        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+        <div class="forgot-password">
+          <a href="redefinir-senha.html">Esqueci minha senha</a>
+        </div>
+        <button class="submit" type="submit">Acessar</button>
+        <div class="signup-link">
+          Não tem cadastro? <a href="cadastro.html">Clique aqui</a><br />
+          É ouvidor? <a href="login-ouvidores.html">Clique aqui</a>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <!-- Script de login -->
-    <script type="module">
-        import { supabase } from './supabase.js';
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="info">
+      <h1>Contato</h1>
+      <p>Rua Alegre, 123, Cidade Brasileira</p>
+      <p>Tel: (12) 3456-7890</p>
+      <p>ola@grandesite.com.br</p>
+    </div>
+    <div class="social">
+      <div class="social-content">
+        <h2>Siga a gente<br />nas redes sociais</h2>
+        <div class="redes">
+          <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
+          <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
+          <a href="principal.html"><img src="img/youtube.svg" alt="YouTube" /></a>
+        </div>
+        <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
+      </div>
+    </div>
+  </section>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('login-form');
+  <!-- Script de login com máscara de CPF -->
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-            if (!form) {
-                console.error("Formulário não encontrado!");
-                return;
-            }
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('login-form');
+      const cpfInput = document.getElementById('cpf');
 
-            // ✅ Redireciona automaticamente se já estiver logado
-            const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
-            if (usuarioLogado && usuarioLogado.tipo_usuario === 'populacao') {
-                window.location.href = 'principal.html';
-                return;
-            }
+      if (!form) {
+        console.error("Formulário não encontrado!");
+        return;
+      }
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+      // 🔹 Máscara suave de CPF
+      cpfInput.addEventListener('input', function () {
+        let value = cpfInput.value.replace(/\D/g, ''); // remove tudo que não é número
+        if (value.length > 11) value = value.slice(0, 11);
 
-                const cpf = document.getElementById('cpf').value.trim();
-                const senha = document.getElementById('password').value.trim();
+        if (value.length > 9) {
+          value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+        } else if (value.length > 6) {
+          value = value.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+        } else if (value.length > 3) {
+          value = value.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+        }
+        cpfInput.value = value;
+      });
 
-                console.log("Tentativa de login (população):", cpf, senha);
+      // 🔹 Se já estiver logado como população, redireciona
+      const usuarioLogado = JSON.parse(sessionStorage.getItem('usuario_populacao'));
+      if (usuarioLogado && usuarioLogado.tipo_usuario === 'populacao') {
+        window.location.href = 'principal.html';
+        return;
+      }
 
-                try {
-                    const { data, error } = await supabase
-                        .from('usuarios')
-                        .select('*')
-                        .eq('cpf', cpf)
-                        .eq('senha', senha)
-                        .eq('tipo_usuario', 'populacao')
-                        .single();
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-                    if (error) {
-                        console.error("Erro Supabase:", error);
-                        alert("❌ CPF ou senha inválidos!");
-                        return;
-                    }
+        const cpf = cpfInput.value.trim();
+        const senha = document.getElementById('password').value.trim();
 
-                    if (!data) {
-                        alert("❌ Usuário não encontrado!");
-                        return;
-                    }
+        try {
+          const { data, error } = await supabase
+            .from('usuarios')
+            .select('*')
+            .eq('cpf', cpf)
+            .eq('senha', senha)
+            .eq('tipo_usuario', 'populacao')
+            .single();
 
-                    localStorage.setItem('usuario', JSON.stringify(data));
-                    console.log("Login bem-sucedido:", data);
-                    alert("✅ Login realizado com sucesso!");
-                    window.location.href = "principal.html";
+          if (error || !data) {
+            alert("❌ CPF ou senha inválidos!");
+            return;
+          }
 
-                } catch (err) {
-                    console.error("Erro inesperado:", err);
-                    alert("❌ Ocorreu um erro no login!");
-                }
-            });
-        });
-    </script>
+          // 🔹 Salva apenas durante a sessão do navegador
+          sessionStorage.setItem('usuario_populacao', JSON.stringify(data));
+
+          alert("✅ Login realizado com sucesso!");
+          window.location.href = "principal.html";
+
+        } catch (err) {
+          console.error("Erro inesperado:", err);
+          alert("❌ Ocorreu um erro no login!");
+        }
+      });
+    });
+  </script>
 </body>
-
 </html>

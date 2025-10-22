@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil - Ouve Matão</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet" />
+
+  <style>
+    body.perfil-page {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(180deg, #f8f9fa 0%, #e3f2f4 100%);
+      margin: 0;
+      padding: 0;
+    }
+
+    .perfil-container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 25px;
+      padding: 50px 40px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+
+    .perfil-container h1 {
+      text-align: center;
+      color: #13818b;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+    }
+
+    .foto-perfil {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .foto-perfil img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #13818b;
+      margin-bottom: 15px;
+      transition: transform 0.3s;
+    }
+
+    .foto-perfil img:hover {
+      transform: scale(1.05);
+    }
+
+    .foto-perfil input[type="file"] {
+      display: none;
+    }
+
+    .foto-perfil button {
+      background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%);
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 5px;
+      transition: all 0.3s;
+    }
+
+    .foto-perfil button:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+
+    .dados-perfil,
+    .senha-perfil {
+      margin-bottom: 35px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+      border-color: #13818b;
+      box-shadow: 0 0 6px rgba(19, 129, 139, 0.3);
+    }
+
+    .dados-perfil button,
+    .senha-perfil button,
+    .voltar button {
+      background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      margin: 15px auto;
+      transition: transform 0.3s, filter 0.3s;
+    }
+
+    .dados-perfil button:hover,
+    .senha-perfil button:hover,
+    .voltar button:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+
+    .senha-perfil h2 {
+      color: #13818b;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .voltar {
+      text-align: center;
+    }
+
+    /* Loader */
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #13818b;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Toasts */
+    #toasts-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .toast {
+      background-color: #13818b;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-top: 10px;
+      min-width: 200px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      transform: translateX(100%);
+      animation: slideIn 0.5s forwards, fadeOut 0.5s 3.5s forwards;
+      font-weight: 600;
+    }
+
+    .toast.error {
+      background-color: #e74c3c;
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .perfil-container {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+
+      .perfil-container h1 {
+        font-size: 1.6rem;
+      }
+
+      .foto-perfil img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+
+<body class="perfil-page">
+  <div class="perfil-container">
+    <h1>Meu Perfil</h1>
+
+    <!-- FOTO DE PERFIL -->
+    <div class="foto-perfil">
+      <img id="foto-preview" src="img/default-user.png" alt="Foto de perfil" />
+      <input type="file" id="foto-input" accept="image/*" />
+      <button id="selecionar-foto">Escolher Foto</button>
+      <button id="salvar-foto">Salvar Foto</button>
+      <span id="loader-foto" style="display:none;" class="loader"></span>
+    </div>
+
+    <!-- DADOS -->
+    <div class="dados-perfil">
+      <label>Email:</label>
+      <input type="email" id="email" placeholder="Digite seu email" />
+
+      <label>Telefone:</label>
+      <input type="text" id="telefone" placeholder="Digite seu telefone" />
+      <button id="salvar-dados">Salvar Dados</button>
+      <span id="loader-dados" style="display:none;" class="loader"></span>
+    </div>
+
+    <!-- SENHA -->
+    <div class="senha-perfil">
+      <h2>Alterar Senha</h2>
+      <label>Senha atual:</label>
+      <input type="password" id="senha-atual" placeholder="Digite a senha atual" />
+
+      <label>Nova senha:</label>
+      <input type="password" id="nova-senha" placeholder="Digite a nova senha" />
+
+      <label>Confirmar nova senha:</label>
+      <input type="password" id="confirmar-senha" placeholder="Confirme a nova senha" />
+
+      <button id="alterar-senha">Alterar Senha</button>
+      <span id="loader-senha" style="display:none;" class="loader"></span>
+    </div>
+
+    <div class="voltar">
+      <button onclick="window.history.back()">⬅ Voltar</button>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toasts-container"></div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabaseUrl = 'https://fvrbxhvveogjsunnoryu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2cmJ4aHZ2ZW9nanN1bm5vcnl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUwMDA4MjIsImV4cCI6MjA3MDU3NjgyMn0.oKca_CWbxV0eQMseGuv-ZUGTm-F-Ya-0nXM3n-VAk2A';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // Função para criar toasts
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toasts-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast' + (type === 'error' ? ' error' : '');
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => container.removeChild(toast), 4000);
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      let usuario = JSON.parse(sessionStorage.getItem('usuario_populacao')) ||
+        JSON.parse(sessionStorage.getItem('usuario_ouvidor'));
+
+      if (!usuario) return window.location.href = 'login.html';
+
+      const emailInput = document.getElementById('email');
+      const telefoneInput = document.getElementById('telefone');
+      const fotoPreview = document.getElementById('foto-preview');
+      const fileInput = document.getElementById('foto-input');
+
+      const loaderFoto = document.getElementById('loader-foto');
+      const loaderDados = document.getElementById('loader-dados');
+      const loaderSenha = document.getElementById('loader-senha');
+
+      // Exibir dados atuais
+      emailInput.value = usuario.email || '';
+      telefoneInput.value = usuario.telefone || '';
+      if (usuario.foto_url) fotoPreview.src = usuario.foto_url;
+
+      document.getElementById('selecionar-foto').addEventListener('click', () => fileInput.click());
+
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) fotoPreview.src = URL.createObjectURL(file);
+      });
+
+      // Salvar foto
+      document.getElementById('salvar-foto').addEventListener('click', async () => {
+        const arquivo = fileInput.files[0];
+        if (!arquivo) return showToast('Selecione uma imagem primeiro!', 'error');
+
+        loaderFoto.style.display = 'inline-block';
+        try {
+          const caminho = `perfil/${usuario.id}-${Date.now()}-${arquivo.name}`;
+          const { data, error: uploadError } = await supabase.storage.from('fotos_perfil').upload(caminho, arquivo, { upsert: true });
+          if (uploadError) throw uploadError;
+
+          const { publicUrl, error: urlError } = supabase.storage.from('fotos_perfil').getPublicUrl(caminho);
+          if (urlError) throw urlError;
+
+          const { error: updateError } = await supabase.from('usuarios').update({ foto_url: publicUrl }).eq('id', usuario.id);
+          if (updateError) throw updateError;
+
+          fotoPreview.src = publicUrl;
+          usuario.foto_url = publicUrl;
+          const tipo = usuario.tipo_usuario === 'populacao' ? 'usuario_populacao' : 'usuario_ouvidor';
+          sessionStorage.setItem(tipo, JSON.stringify(usuario));
+          showToast('Foto atualizada com sucesso!');
+        } catch (err) {
+          console.error(err);
+          showToast('Erro ao atualizar foto.', 'error');
+        } finally { loaderFoto.style.display = 'none'; }
+      });
+
+      // Salvar dados
+      document.getElementById('salvar-dados').addEventListener('click', async () => {
+        const novoEmail = emailInput.value.trim();
+        const novoTelefone = telefoneInput.value.trim();
+
+        loaderDados.style.display = 'inline-block';
+        try {
+          const { error } = await supabase.from('usuarios').update({ email: novoEmail, telefone: novoTelefone }).eq('id', usuario.id);
+          if (error) throw error;
+
+          usuario.email = novoEmail;
+          usuario.telefone = novoTelefone;
+          const tipo = usuario.tipo_usuario === 'populacao' ? 'usuario_populacao' : 'usuario_ouvidor';
+          sessionStorage.setItem(tipo, JSON.stringify(usuario));
+          showToast('Dados atualizados com sucesso!');
+        } catch (err) {
+          console.error(err);
+          showToast('Erro ao atualizar dados.', 'error');
+        } finally { loaderDados.style.display = 'none'; }
+      });
+
+      // Alterar senha
+      document.getElementById('alterar-senha').addEventListener('click', async () => {
+        const senhaAtual = document.getElementById('senha-atual').value.trim();
+        const novaSenha = document.getElementById('nova-senha').value.trim();
+        const confirmar = document.getElementById('confirmar-senha').value.trim();
+
+        if (senhaAtual !== usuario.senha) return showToast('Senha atual incorreta!', 'error');
+        if (novaSenha.length < 6) return showToast('Nova senha deve ter pelo menos 6 caracteres!', 'error');
+        if (novaSenha !== confirmar) return showToast('Confirmação não confere!', 'error');
+
+        loaderSenha.style.display = 'inline-block';
+        try {
+          const { error } = await supabase.from('usuarios').update({ senha: novaSenha }).eq('id', usuario.id);
+          if (error) throw error;
+
+          usuario.senha = novaSenha;
+          const tipo = usuario.tipo_usuario === 'populacao' ? 'usuario_populacao' : 'usuario_ouvidor';
+          sessionStorage.setItem(tipo, JSON.stringify(usuario));
+          showToast('Senha alterada com sucesso!');
+        } catch (err) {
+          console.error(err);
+          showToast('Erro ao alterar senha.', 'error');
+        } finally { loaderSenha.style.display = 'none'; }
+      });
+
+    });
+  </script>
+</body>
+
+</html>

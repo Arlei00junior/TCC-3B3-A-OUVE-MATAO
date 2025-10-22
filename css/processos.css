@@ -1,40 +1,147 @@
+/* ======== ESTILO BASE ======== */
+/* Configurações globais da página: fonte, espaçamento interno, cor de fundo e cor do texto */
 body {
   font-family: Arial, sans-serif;
-  background: #fff;
-  margin: 20px;
+  padding: 1rem;
+  background-color: #fafafa;
+  color: #222;
+  margin: 0;
 }
-.processo {
-  margin-bottom: 30px;
-  border-bottom: 3px solid #00838f;
-  padding-bottom: 10px;
+
+/* Estilo do título principal: alinhamento, tamanho, espaçamento e cor */
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #0288d1;
 }
-.processo:last-child {
-  border-bottom: none;
+
+/* ======== FILTROS ======== */
+/* Container dos controles de filtro: espaçamento, alinhamento e quebra em telas pequenas */
+.filtros {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.categoria {
+
+/* Estilo dos rótulos dentro dos filtros: peso e tamanho da fonte */
+.filtros label {
   font-weight: bold;
-  margin-bottom: 5px;
+  font-size: 0.95rem;
 }
-.detalhes {
-  margin-bottom: 5px;
-}
-.status {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-.respondido {
-  color: #388e3c;
-}
-.aguardando {
-  color: #d32f2f;
-}
-.mais-detalhes {
-  background: #00838f;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  padding: 2px 8px;
-  font-size: 0.85em;
-  margin-left: 6px;
+
+/* Aparência dos elementos <select>: preenchimento, borda, raio e fundo */
+select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  background-color: #fff;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Efeito ao passar o mouse sobre <select>: realce da borda */
+select:hover {
+  border-color: #0288d1;
+}
+
+/* ======== CARD DE PROCESSO ======== */
+/* Aparência do cartão de processo: borda, espaçamento, fundo, sombra e raio */
+.processo {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+/* Leve escala ao passar o mouse sobre o cartão (efeito de foco) */
+.processo:hover { transform: scale(1.01); }
+
+/* Painel de detalhes extras: inicialmente oculto, com borda e fundo diferenciados */
+.detalhes-extra {
+  display: none;
+  border: 1px solid #008080;
+  margin: 10px 0;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Classes de status com cores distintas */
+.respondido { color: #2e8b57; font-weight: bold; } /* indica respondido */
+.aguardando { color: #d9534f; font-weight: bold; } /* indica aguardando resposta */
+
+/* Texto que descreve a demanda: margem, itálico e cor mais neutra */
+.demanda-feita {
+  margin: 10px 0;
+  font-style: italic;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* ======== BADGES ======== */
+/* Estilo genérico de badge: padding, margem, raio e tamanho da fonte */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 3px 6px 3px 0;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: #fff;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* permite que o badge encolha dentro de containers flex sem estourar */
+.status .badge {
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+/* Cores específicas para badges de categoria e setor */
+.categoria-badge { background: #009688; }
+.setor-badge { background: #3f51b5; }
+
+/* Container que agrupa elementos de status: alinhamento e espaçamento */
+.status {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Botão "mais detalhes": aparência, cor e interação */
+.mais-detalhes {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  background: #0288d1;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: 0.3s;
+}
+
+/* Efeito ao passar o mouse sobre o botão "mais detalhes" */
+.mais-detalhes:hover { background: #0277bd; }
+
+/* ======== RESPONSIVIDADE ======== */
+/* Ajustes para telas menores: filtros em coluna, selects com largura total e menor fonte nos cartões */
+@media (max-width: 768px) {
+  .filtros { flex-direction: column; gap: 8px; }
+  select { width: 100%; }
+  .processo { font-size: 0.95rem; }
 }

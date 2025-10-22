@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cadastro.css">
-    <link rel="stylesheet" href="css/global.css ">
+    <link rel="stylesheet" href="css/global.css">
     <title>Cadastro - Ouve Matão</title>
-
 </head>
 
 <body class="cadastro-page">
@@ -26,96 +25,58 @@
             <div class="right-side">
                 <form class="cadastro-form">
                     <div class="form-heading">Cadastro</div>
+
                     <div class="input-group">
                         <input required placeholder="Digite seu nome completo" name="nome" id="nome" type="text" />
                         <label class="label" for="nome">Nome Completo</label>
                     </div>
+
                     <div class="input-group">
                         <input required placeholder="Digite seu CPF" name="cpf" id="cpf" type="text" />
                         <label class="label" for="cpf">CPF</label>
                     </div>
+
                     <div class="input-group">
                         <input required placeholder="Digite seu e-mail" name="email" id="email" type="email" />
                         <label class="label" for="email">E-mail</label>
                     </div>
 
-
                     <div class="input-group">
                         <input required placeholder="Digite seu telefone" name="telefone" id="telefone" type="tel"
                             maxlength="15" pattern="\(\d{2}\)\s?\d{4,5}-\d{4}" />
                         <label class="label" for="telefone">Telefone</label>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                const telefoneInput = document.getElementById('telefone');
-                                telefoneInput.addEventListener('input', function (e) {
-                                    let value = telefoneInput.value.replace(/\D/g, '');
-                                    if (value.length > 11) value = value.slice(0, 11);
-                                    if (value.length > 10) {
-                                        telefoneInput.value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-                                    } else if (value.length > 6) {
-                                        telefoneInput.value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-                                    } else if (value.length > 2) {
-                                        telefoneInput.value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-                                    } else {
-                                        telefoneInput.value = value.replace(/(\d{0,2})/, '($1');
-                                    }
-                                });
-                            });
-                        </script>
                     </div>
-
 
                     <div class="input-group">
                         <input required placeholder="Digite sua data de nascimento" name="data_nascimento"
                             id="data_nascimento" type="date" />
                         <label class="label" for="data_nascimento">Data de Nascimento</label>
                     </div>
+
                     <div class="input-group">
                         <label class="label" style="top: -18px;">Sexo</label>
-                        <div
-                            style="display: flex; gap: 20px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
-                            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
-                            <input type="radio" name="sexo" value="feminino" required
-                                style="accent-color: #008080; width: 22px; height: 22px;">
-                            Feminino
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
-                            <input type="radio" name="sexo" value="masculino" required
-                                style="accent-color: #008080; width: 22px; height: 22px;">
-                            Masculino
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 6px;">
-                                <input type="radio" name="sexo" value="intersexo" required
-                                    style="accent-color: #008080; width: 22px; height: 22px;">
-                                Intersexo
-                            </label>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label class="label" style="top: -18px;">Residente do município?</label>
-                        <div
-                            style="display: flex; gap: 30px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
-                            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
-                            <input type="radio" name="reside_municipio" value="sim"
-                                style="accent-color: #008080; width: 22px; height: 22px;">
-                            Sim
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600;"></label>
-                            <input type="radio" name="reside_municipio" value="nao"
-                                style="accent-color: #008080; width: 22px; height: 22px;">
-                            Não
-                            </label>
+                        <div class="radio-flex" style="display: flex; gap: 20px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
+                            <input type="radio" name="sexo" value="feminino" required style="accent-color: #008080; width: 22px; height: 22px;"> Feminino
+                            <input type="radio" name="sexo" value="masculino" required style="accent-color: #008080; width: 22px; height: 22px;"> Masculino
+                            <input type="radio" name="sexo" value="intersexo" required style="accent-color: #008080; width: 22px; height: 22px;"> Intersexo
                         </div>
                     </div>
 
+                    <div class="input-group">
+                        <label class="label" style="top: -18px;">Residente do município?</label>
+                        <div class="radio-flex" style="display: flex; gap: 30px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
+                            <input type="radio" name="reside_municipio" value="sim" style="accent-color: #008080; width: 22px; height: 22px;"> Sim
+                            <input type="radio" name="reside_municipio" value="nao" style="accent-color: #008080; width: 22px; height: 22px;"> Não
+                        </div>
+                    </div>
 
                     <div class="input-group">
                         <input required placeholder="Crie uma senha" name="password" id="password" type="password" />
                         <label class="label" for="password">Senha</label>
                     </div>
+
                     <div class="input-group">
-                        <input required placeholder="Confirme sua senha" name="confirm_password" id="confirm_password"
-                            type="password" />
+                        <input required placeholder="Confirme sua senha" name="confirm_password" id="confirm_password" type="password" />
                         <label class="label" for="confirm_password">Confirmar Senha</label>
                     </div>
 
@@ -127,115 +88,108 @@
             </div>
         </div>
 
-       <script type="module">
-    import { supabase } from "./supabase.js";
+        <!-- Script principal -->
+        <script type="module">
+            import { supabase } from "./supabase.js";
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('.cadastro-form');
-        const password = document.getElementById('password');
-        const confirmPassword = document.getElementById('confirm_password');
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('.cadastro-form');
+                const password = document.getElementById('password');
+                const confirmPassword = document.getElementById('confirm_password');
+                const cpfInput = document.getElementById('cpf');
+                const telefoneInput = document.getElementById('telefone');
 
-        // Mostrar/ocultar senha (mantive sua lógica de olho 👁️)
-        function addEyeIcon(input) {
-            const wrapper = input.parentElement;
-            wrapper.style.position = 'relative';
-            const eye = document.createElement('img');
-            eye.src = 'img/olho-fechado.png';
-            eye.alt = 'Mostrar senha';
-            eye.style.position = 'absolute';
-            eye.style.right = '10px';
-            eye.style.top = '50%';
-            eye.style.transform = 'translateY(-50%)';
-            eye.style.cursor = 'pointer';
-            eye.style.width = '24px';
-            eye.style.height = '24px';
-
-            eye.addEventListener('click', () => {
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    eye.src = 'img/olho-aberto.png';
-                } else {
-                    input.type = 'password';
+                // Mostrar/ocultar senha
+                function addEyeIcon(input) {
+                    const wrapper = input.parentElement;
+                    wrapper.style.position = 'relative';
+                    const eye = document.createElement('img');
                     eye.src = 'img/olho-fechado.png';
+                    eye.alt = 'Mostrar senha';
+                    eye.style.position = 'absolute';
+                    eye.style.right = '10px';
+                    eye.style.top = '50%';
+                    eye.style.transform = 'translateY(-50%)';
+                    eye.style.cursor = 'pointer';
+                    eye.style.width = '24px';
+                    eye.style.height = '24px';
+                    eye.addEventListener('click', () => {
+                        input.type = input.type === 'password' ? 'text' : 'password';
+                        eye.src = input.type === 'password' ? 'img/olho-fechado.png' : 'img/olho-aberto.png';
+                    });
+                    wrapper.appendChild(eye);
                 }
+                addEyeIcon(password);
+                addEyeIcon(confirmPassword);
+
+                // Máscara suave de CPF
+                cpfInput.addEventListener('input', function () {
+                    let value = cpfInput.value.replace(/\D/g, '');
+                    if (value.length > 11) value = value.slice(0, 11);
+                    if (value.length > 9) value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+                    else if (value.length > 6) value = value.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                    else if (value.length > 3) value = value.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+                    cpfInput.value = value;
+                });
+
+                // Validação de CPF
+                function validarCPF(cpf) {
+                    cpf = cpf.replace(/\D/g, '');
+                    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+                    let soma = 0;
+                    for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
+                    let resto = 11 - (soma % 11);
+                    if (resto === 10 || resto === 11) resto = 0;
+                    if (resto !== parseInt(cpf.charAt(9))) return false;
+                    soma = 0;
+                    for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
+                    resto = 11 - (soma % 11);
+                    if (resto === 10 || resto === 11) resto = 0;
+                    if (resto !== parseInt(cpf.charAt(10))) return false;
+                    return true;
+                }
+
+                // Máscara de telefone
+                telefoneInput.addEventListener('input', function () {
+                    let value = telefoneInput.value.replace(/\D/g, '');
+                    if (value.length > 11) value = value.slice(0, 11);
+                    if (value.length > 10) telefoneInput.value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                    else if (value.length > 6) telefoneInput.value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+                    else if (value.length > 2) telefoneInput.value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+                    else telefoneInput.value = value.replace(/(\d{0,2})/, '($1');
+                });
+
+                // SUBMIT
+                form.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    if (!validarCPF(cpfInput.value)) { alert('CPF inválido!'); cpfInput.focus(); return; }
+                    if (password.value !== confirmPassword.value) { alert('As senhas não coincidem!'); confirmPassword.focus(); return; }
+
+                    const usuario = {
+                        nome: document.getElementById('nome').value,
+                        cpf: cpfInput.value,
+                        email: document.getElementById('email').value,
+                        telefone: telefoneInput.value,
+                        data_nascimento: document.getElementById('data_nascimento').value,
+                        sexo: form.querySelector('input[name="sexo"]:checked')?.value,
+                        reside_municipio: form.querySelector('input[name="reside_municipio"]:checked')?.value,
+                        senha: password.value
+                    };
+
+                    const { data, error } = await supabase.from('usuarios').insert([usuario]);
+                    if (error) alert("❌ Erro ao cadastrar: " + error.message);
+                    else { alert("✅ Cadastro realizado com sucesso!"); window.location.href = "login.html"; }
+                });
             });
-            wrapper.appendChild(eye);
-        }
-        addEyeIcon(password);
-        addEyeIcon(confirmPassword);
+        </script>
 
-        // SUBMIT DO CADASTRO
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            if (password.value !== confirmPassword.value) {
-                alert('As senhas não coincidem!');
-                confirmPassword.focus();
-                return;
-            }
-
-            const usuario = {
-                nome: document.getElementById('nome').value,
-                cpf: document.getElementById('cpf').value,
-                email: document.getElementById('email').value,
-                telefone: document.getElementById('telefone').value,
-                data_nascimento: document.getElementById('data_nascimento').value,
-                sexo: form.querySelector('input[name="sexo"]:checked')?.value,
-                reside_municipio: form.querySelector('input[name="reside_municipio"]:checked')?.value,
-                senha: password.value
-            };
-
-            const { data, error } = await supabase.from('usuarios').insert([usuario]);
-
-            if (error) {
-                alert("❌ Erro ao cadastrar: " + error.message);
-            } else {
-                alert("✅ Cadastro realizado com sucesso!");
-                window.location.href = "login.html";
-            }
-        });
-    });
-</script>
-
-
-
-
-
-        <!-- Transição de página com logo -->
+        <!-- Transição de página -->
         <div id="pageTransitionLogo" class="page-transition-logo hide">
             <img src="img/logo-header.png" alt="Logo Ouve Matão" />
         </div>
 
         <script src="script.js"></script>
-
-
-
-
-        <style>
-            /* Responsividade para os grupos de radio */
-            @media (max-width: 600px) {
-                .input-group .radio-flex {
-                    flex-direction: column !important;
-                    gap: 10px !important;
-                    padding: 12px 10px !important;
-                }
-
-                .input-group .radio-flex label {
-                    font-size: 15px !important;
-                }
-            }
-        </style>
-        <script>
-            // Adiciona classe para facilitar responsividade
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.input-group > div[style*="display: flex"]').forEach(function (div) {
-                    div.classList.add('radio-flex');
-                });
-            });
-        </script>
-        </style>
     </div>
-
 
     <!-- CONTATO -->
     <section id="contato">
@@ -257,11 +211,5 @@
             </div>
         </div>
     </section>
-
-
-
-
 </body>
-
-
 </html>
