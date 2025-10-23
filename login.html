@@ -30,7 +30,8 @@
         </div>
         <div class="input-group">
           <input required placeholder="Digite sua senha definida" name="password" id="password" type="password" />
-          <label class="label" for="password">Senha</label>
+            <label class="label" for="password">Senha</label>
+            
         </div>
         <div class="forgot-password">
           <a href="redefinir-senha.html">Esqueci minha senha</a>
@@ -132,6 +133,36 @@
         }
       });
     });
+
+     (function () {
+              function addEyeIcon(input) {
+              if (!input) return;
+              const wrapper = input.parentElement;
+              wrapper.style.position = 'relative';
+              const eye = document.createElement('img');
+              eye.src = 'img/olho-fechado.png';
+              eye.alt = 'Mostrar senha';
+              Object.assign(eye.style, {
+                position: 'absolute',
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                cursor: 'pointer',
+                width: '24px',
+                height: '24px'
+              });
+              eye.addEventListener('click', () => {
+                input.type = input.type === 'password' ? 'text' : 'password';
+                eye.src = input.type === 'password' ? 'img/olho-fechado.png' : 'img/olho-aberto.png';
+              });
+              wrapper.appendChild(eye);
+              }
+
+              document.addEventListener('DOMContentLoaded', () => {
+              addEyeIcon(document.getElementById('password'));
+              addEyeIcon(document.getElementById('confirmPassword'));
+              });
+            })();
   </script>
 </body>
 </html>
