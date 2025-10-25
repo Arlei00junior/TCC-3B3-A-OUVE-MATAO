@@ -74,7 +74,7 @@
     <div class="container">
         <nav class="sidebar">
             <button onclick="window.location.href='ouvidores.html'" class="sidebar-btn active">MANIFESTAÇÕES E<br>ACOMPANHAMENTOS</button>
-            <button class="sidebar-btn" id="noticiasBtn">NOTÍCIAS</button>
+            <button class="sidebar-btn" id="noticiasLink">NOTÍCIAS</button>
         </nav>
 
         <main class="main-content">
@@ -106,9 +106,10 @@
         });
 
         // ---------------------- Notícias ----------------------
-        document.getElementById('noticiasBtn').onclick = function () {
-            document.getElementById('processosIframe').src = "https://www.falamatao.com.br/";
-        };
+        document.getElementById("noticiasLink").onclick = function (e) {
+      e.preventDefault();
+      window.open("https://www.falamatao.com.br/", "_blank");
+    };
     </script>
 <!-- CONTATO -->
   <section id="contato">

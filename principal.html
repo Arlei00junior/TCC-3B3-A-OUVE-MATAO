@@ -18,27 +18,22 @@
     <div class="header-links">
       <a href="termos.html">TERMOS E POLÍTICAS</a>
       <a href="sobre.html">SOBRE NÓS</a>
-
     </div>
   </div>
 
   <div class="container">
     <aside class="sidebar-professional" role="navigation" aria-label="Navegação principal">
-
-
-      <!-- profile block (organized) -->
       <div class="sidebar-profile" role="region" aria-label="Perfil do usuário">
         <a href="perfil.html" class="profile-link">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Avatar" class="profile-avatar" />
+          <img src="img/perfil-padrao.jfif" alt="Avatar" class="profile-avatar" />
           <div class="profile-meta">
             <div class="name sidebar-profile-name">USUÁRIO</div>
-            <div class="role">Morador</div>
+            <div class="role">Residente</div>
           </div>
         </a>
         <button id="sidebar-logout-btn" class="logout-small" title="Sair">Sair</button>
       </div>
 
-      <!-- checkbox must be a sibling before the nav so CSS can toggle -->
       <input type="checkbox" id="burger" class="burger-checkbox" aria-hidden="false" />
       <label class="burger" for="burger" aria-label="Abrir menu">
         <span></span>
@@ -62,24 +57,18 @@
           <span class="icon">📂</span>
           <span>Status de Demandas</span>
         </button>
-
-
       </nav>
     </aside>
 
     <main class="main-content">
-      <h1 id="saudacao">Olá, <strong class="profile-name sidebar-profile-name">USUÁRIO</strong>! O que temos para hoje?
-      </h1>
-
+      <h1 id="saudacao">Olá, <strong class="profile-name sidebar-profile-name">USUÁRIO</strong>! O que temos para hoje?</h1>
 
       <form class="form-section">
         <div class="form-group">
           <label class="form-label"><span class="required">*</span> Bairro:</label>
-          <input type="text" id="bairroInput" required maxlength="100" placeholder="Digite seu bairro"
-            style="margin-bottom:8px;" />
+          <input type="text" id="bairroInput" required maxlength="100" placeholder="Digite seu bairro" style="margin-bottom:8px;" />
           <label class="form-label"><span class="required">*</span> Manifestação:</label>
-          <textarea id="manifestacaoInput" maxlength="6000" required
-            placeholder="Escreva até 6.000 caracteres"></textarea>
+          <textarea id="manifestacaoInput" maxlength="6000" required placeholder="Escreva até 6.000 caracteres"></textarea>
           <div class="form-hint">* Escreva até 6.000 caracteres</div>
         </div>
 
@@ -92,7 +81,7 @@
               A Lei nº 9.784/1999 define as regras para os processos administrativos do governo federal,
               garantindo justiça, transparência e eficiência. Segundo essa norma, têm direito à prioridade
               idosos (60 anos ou mais), pessoas com deficiência, pessoas com doenças graves e outros casos
-              previstos em lei. Se o solicitante se encaixar em algum desses critérios, seu pedido será
+              previstos em lei. Se a solicitante se encaixar em algum desses critérios, seu pedido será
               analisado mais rapidamente pela administração pública. O governo tem 30 dias para responder,
               podendo prorrogar. Se a decisão for negativa, é possível entrar com um recurso, que deve ser
               analisado em até 5 dias.
@@ -101,21 +90,6 @@
 
           <label><input type="radio" name="prioridade" value="sim" /> Sim</label>
           <label><input type="radio" name="prioridade" value="nao" /> Não</label>
-        </div>
-        <div class="upload-box form-group" id="uploadBox">
-          <input id="fileInput" type="file" multiple
-            accept=".aac,.jpg,.mp3,.mp4,.mov,.ogg,.pdf,.png,.rar,.xls,.xlsx,.zip" style="display:none;" />
-          <div id="uploadPreview"
-            style="min-height:90px; display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:center; margin-bottom:10px;">
-          </div>
-          <button type="button" id="chooseFileBtn"
-            style="background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%); color: #fff; border: none; border-radius: 25px; padding: 12px 35px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 10px;">Escolher
-            Arquivos</button>
-          <div class="upload-hint">
-            Selecione os arquivos desejados. Áudio, fotos, pdfs, planilhas, vídeos ou arquivos compactados. Até 4
-            (quatro).<br />
-            .aac, .jpg, .mp3, .mp4, .mov, .ogg, .pdf, .png, .rar, .xls, .xlsx, .zip
-          </div>
         </div>
 
         <button type="submit" class="submit-btn">Enviar</button>
@@ -169,105 +143,8 @@
     document.querySelector('.profile-name').textContent = usuarioNome.toUpperCase();
     document.getElementById('saudacao').innerHTML = `Olá, <strong>${usuarioNome}</strong>! O que temos para hoje?`;
 
-    // ---------------------- Upload ----------------------
-    const form = document.querySelector('.form-section');
-    const fileInput = document.getElementById('fileInput');
-    const chooseFileBtn = document.getElementById('chooseFileBtn');
-    const uploadPreview = document.getElementById('uploadPreview');
-    let filesArr = [];
-
-    chooseFileBtn.onclick = () => fileInput.click();
-
-    fileInput.onchange = () => {
-      const newFiles = Array.from(fileInput.files);
-      filesArr = filesArr.concat(newFiles).slice(0, 4);
-      renderPreviews();
-      fileInput.value = '';
-    };
-
-    function renderPreviews() {
-      uploadPreview.innerHTML = '';
-      filesArr.forEach((file, idx) => {
-        const fileDiv = document.createElement('div');
-        fileDiv.style.position = 'relative';
-        fileDiv.style.width = '90px';
-        fileDiv.style.height = '90px';
-        fileDiv.style.background = '#f3f3f3';
-        fileDiv.style.borderRadius = '8px';
-        fileDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
-        fileDiv.style.display = 'flex';
-        fileDiv.style.alignItems = 'center';
-        fileDiv.style.justifyContent = 'center';
-        fileDiv.style.overflow = 'hidden';
-
-        const removeBtn = document.createElement('button');
-        removeBtn.innerHTML = '×';
-        removeBtn.title = 'Remover';
-        removeBtn.style.position = 'absolute';
-        removeBtn.style.top = '4px';
-        removeBtn.style.right = '4px';
-        removeBtn.style.background = '#fff';
-        removeBtn.style.border = 'none';
-        removeBtn.style.borderRadius = '50%';
-        removeBtn.style.width = '22px';
-        removeBtn.style.height = '22px';
-        removeBtn.style.fontSize = '1.2rem';
-        removeBtn.style.cursor = 'pointer';
-        removeBtn.onclick = () => {
-          filesArr.splice(idx, 1);
-          renderPreviews();
-        };
-        fileDiv.appendChild(removeBtn);
-
-        if (file.type.startsWith('image/')) {
-          const img = document.createElement('img');
-          img.src = URL.createObjectURL(file);
-          img.style.maxWidth = '100%';
-          img.style.maxHeight = '100%';
-          img.style.objectFit = 'cover';
-          img.title = file.name;
-          fileDiv.appendChild(img);
-        } else {
-          const icon = document.createElement('div');
-          icon.style.fontSize = '2.2rem';
-          icon.style.color = '#13818b';
-          icon.style.textAlign = 'center';
-          icon.innerHTML = getFileIcon(file.name);
-          fileDiv.appendChild(icon);
-        }
-
-        const viewBtn = document.createElement('button');
-        viewBtn.innerHTML = '<img src="img/olho-aberto.png" alt="Visualizar" style="width:16px;height:16px;">';
-        viewBtn.title = 'Visualizar';
-        viewBtn.style.position = 'absolute';
-        viewBtn.style.bottom = '4px';
-        viewBtn.style.right = '4px';
-        viewBtn.style.background = '#fff';
-        viewBtn.style.border = 'none';
-        viewBtn.style.borderRadius = '50%';
-        viewBtn.style.width = '22px';
-        viewBtn.style.height = '22px';
-        viewBtn.style.cursor = 'pointer';
-        viewBtn.style.boxShadow = '0 1px 4px rgba(0,0,0,0.10)';
-        viewBtn.onclick = () => {
-          window.open(URL.createObjectURL(file));
-        };
-        fileDiv.appendChild(viewBtn);
-        uploadPreview.appendChild(fileDiv);
-      });
-    }
-
-    function getFileIcon(name) {
-      const ext = name.split('.').pop().toLowerCase();
-      if (['pdf'].includes(ext)) return '📄';
-      if (['xls', 'xlsx'].includes(ext)) return '📊';
-      if (['mp3', 'aac', 'ogg'].includes(ext)) return '🎵';
-      if (['mp4', 'mov'].includes(ext)) return '🎬';
-      if (['zip', 'rar'].includes(ext)) return '🗜️';
-      return '📁';
-    }
-
     // ---------------------- Envio ----------------------
+    const form = document.querySelector('.form-section');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -280,14 +157,12 @@
         return;
       }
 
-      // ✅ Inclui o nome do usuário logado na demanda
       const demanda = {
         usuario_id: String(usuarioId),
-        usuario_nome: usuarioNome, // <-- novo campo
+        usuario_nome: usuarioNome,
         bairro,
         manifestacao,
         prioridade,
-        arquivos: filesArr.length ? filesArr.map(f => f.name) : [],
         categoria: null,
         status: 'AGUARDANDO RESPOSTA',
         resposta: null
@@ -299,14 +174,11 @@
         if (error) throw error;
         alert('✅ Demanda enviada com sucesso!');
         form.reset();
-        filesArr = [];
-        renderPreviews();
       } catch (err) {
         console.error('❌ Erro ao enviar demanda:', err);
         alert('Erro ao enviar demanda. Veja o console (F12) para detalhes.');
       }
     });
-
 
     // ---------------------- Logout ----------------------
     document.getElementById('logout-btn')?.addEventListener('click', () => {
@@ -315,9 +187,6 @@
       window.location.href = 'login.html';
     });
 
-
-    /*=================================================================*/
-
     // Keep existing behaviour
     document.getElementById("processosBtn").onclick = function () {
       document.querySelectorAll('.sidebar-professional .nav-link').forEach(n => n.classList.remove('active'));
@@ -325,24 +194,15 @@
       document.querySelector(".main-content").innerHTML = `
           <iframe src="processos.html" style="width:100%;height:80vh;border:none;" title="Status de Demandas"></iframe>
         `;
-      // close mobile menu if open
       const cb = document.getElementById('burger');
       if (cb) cb.checked = false;
     };
 
     document.getElementById("noticiasLink").onclick = function (e) {
       e.preventDefault();
-      document.querySelectorAll('.sidebar-professional .nav-link').forEach(n => n.classList.remove('active'));
-      this.classList.add('active');
-      document.querySelector(".main-content").innerHTML = `
-          <iframe src="https://www.falamatao.com.br/" style="width:100%;height:80vh;border:none;" title="Notícias"></iframe>
-        `;
-      // close mobile menu if open
-      const cb = document.getElementById('burger');
-      if (cb) cb.checked = false;
+      window.open("https://www.falamatao.com.br/", "_blank");
     };
 
-    // close menu on any nav-link click (mobile UX)
     document.addEventListener('click', function (e) {
       const isNavLink = e.target.closest('.sidebar-professional nav .nav-link');
       if (isNavLink) {
@@ -351,7 +211,6 @@
       }
     });
 
-    // sidebar logout (keeps UX consistent with header logout)
     document.getElementById('sidebar-logout-btn')?.addEventListener('click', function () {
       sessionStorage.removeItem('usuario_populacao');
       alert('✅ Logout realizado com sucesso!');
@@ -367,12 +226,10 @@
         return (parts[0] + ' ' + parts[1]).toUpperCase();
       }
 
-      // tenta priorizar o nome já exibido no header
       const headerName = document.querySelector('.profile-name')?.textContent;
       let nomeParaExibir = headerName?.trim();
 
       if (!nomeParaExibir) {
-        // se não houver, tenta sessionStorage
         try {
           const u = JSON.parse(sessionStorage.getItem('usuario_populacao') || 'null');
           nomeParaExibir = u?.nome || u?.nome_completo || u?.cpf || 'Usuário';
@@ -384,11 +241,6 @@
       const primeiroSegundo = firstTwoNames(nomeParaExibir);
       document.querySelectorAll('.sidebar-profile-name').forEach(el => el.textContent = primeiroSegundo);
     })();
-
-
-    /* ==========================================================
- suadação com o nome do usuário já logado
-========================================================== */
 
     window.addEventListener('load', function () {
       function firstTwoNames(str) {
@@ -417,9 +269,6 @@
         saudacaoEl.innerHTML = `Olá, <strong class="sidebar-profile-name">${curto}</strong>! O que temos para hoje?`;
       }
     });
-
   </script>
-
 </body>
-
 </html>
