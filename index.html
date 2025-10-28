@@ -11,8 +11,16 @@
 
 <body class="home-page">
 
+    <!--
+        Página inicial (index.html)
+        Blocos comentados para manutenção:
+        - mobile-sidebar / header: navegação e links (estático, não altera dados)
+        - banner: conteúdo informativo e botão de início que redireciona para cadastro
+        - contato: informações de contato (estático)
+        - script.js: comportamento de transição de página (visual) e interceptação de links para animação; não altera banco de dados
+    -->
 
-    <!-- HEADER -->
+        <!-- HEADER -->
     <!-- MENU LATERAL RESPONSIVO PARA MOBILE -->
     <nav class="mobile-sidebar">
         <div class="mobile-header">
@@ -27,6 +35,10 @@
             <a href="sobre.html">SOBRE NÓS</a>
         </div>
     </nav>
+    <!-- Botão flutuante de acessibilidade -->
+<button id="btnAcessibilidade" title="Ativar leitura de tela">
+  🔊
+</button>
 
     <header>
         <div class="logo">
@@ -90,6 +102,8 @@
         <img src="img/logo-header.png" alt="Logo Ouve Matão" />
     </div>
     <script src="script.js"></script>
+    <script src="acessibilidade.js"></script>
+
 </body>
 
 </html>

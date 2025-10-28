@@ -109,8 +109,13 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     /* Toasts */
@@ -140,11 +145,17 @@
     }
 
     @keyframes slideIn {
-      to { opacity: 1; transform: translateX(0); }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     @keyframes fadeOut {
-      to { opacity: 0; transform: translateX(100%); }
+      to {
+        opacity: 0;
+        transform: translateX(100%);
+      }
     }
 
     /* Mobile */
@@ -164,6 +175,12 @@
 <body class="perfil-page">
   <div class="perfil-container">
     <h1>Meu Perfil</h1>
+       <!-- Botão flutuante de acessibilidade -->
+    <button id="btnAcessibilidade" title="Ativar leitura de tela">
+      🔊
+    </button>
+
+    <script src="acessibilidade.js"></script>
 
     <!-- DADOS -->
     <div class="dados-perfil">
@@ -207,19 +224,26 @@
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2cmJ4aHZ2ZW9nanN1bm5vcnl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUwMDA4MjIsImV4cCI6MjA3MDU3NjgyMn0.oKca_CWbxV0eQMseGuv-ZUGTm-F-Ya-0nXM3n-VAk2A";
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Função global para exibir toasts estilizados
+    // message: texto a exibir
+    // type: 'success' | 'error' (afeta a classe CSS aplicada)
     function showToast(message, type = 'success') {
       const container = document.getElementById('toasts-container');
       const toast = document.createElement('div');
+      // Aplicar classe de erro se necessário
       toast.className = 'toast' + (type === 'error' ? ' error' : '');
       toast.textContent = message;
       container.appendChild(toast);
+      // Remove a toast automaticamente após 4s
       setTimeout(() => container.removeChild(toast), 4000);
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
+      // Recupera o usuário (população ou ouvidor) salvo na sessão
       let usuario = JSON.parse(sessionStorage.getItem('usuario_populacao')) ||
-                    JSON.parse(sessionStorage.getItem('usuario_ouvidor'));
+        JSON.parse(sessionStorage.getItem('usuario_ouvidor'));
 
+      // Se não houver usuário, redireciona para login
       if (!usuario) return window.location.href = 'login.html';
 
       const emailInput = document.getElementById('email');
@@ -228,20 +252,23 @@
       const loaderDados = document.getElementById('loader-dados');
       const loaderSenha = document.getElementById('loader-senha');
 
-      // Exibir dados atuais
+      // Exibir dados atuais nos inputs (preenchimento inicial)
       emailInput.value = usuario.email || '';
       telefoneInput.value = usuario.telefone || '';
 
-      // Salvar dados
+      // ---------- Evento: salvar dados (email, telefone) ----------
+      // Quando o usuário clica em 'Salvar Dados', atualizamos a tabela 'usuarios' no Supabase
       document.getElementById('salvar-dados').addEventListener('click', async () => {
         const novoEmail = emailInput.value.trim();
         const novoTelefone = telefoneInput.value.trim();
 
         loaderDados.style.display = 'inline-block';
         try {
+          // Atualiza registro do usuário
           const { error } = await supabase.from('usuarios').update({ email: novoEmail, telefone: novoTelefone }).eq('id', usuario.id);
           if (error) throw error;
 
+          // Atualiza versão em sessionStorage
           usuario.email = novoEmail;
           usuario.telefone = novoTelefone;
           const tipo = usuario.tipo_usuario === 'populacao' ? 'usuario_populacao' : 'usuario_ouvidor';
@@ -253,12 +280,14 @@
         } finally { loaderDados.style.display = 'none'; }
       });
 
-      // Alterar senha
+      // ---------- Evento: alterar senha ----------
+      // Valida a senha atual, confirma a nova senha e atualiza no Supabase
       document.getElementById('alterar-senha').addEventListener('click', async () => {
         const senhaAtual = document.getElementById('senha-atual').value.trim();
         const novaSenha = document.getElementById('nova-senha').value.trim();
         const confirmar = document.getElementById('confirmar-senha').value.trim();
 
+        // Validações locais antes de chamar API
         if (senhaAtual !== usuario.senha) return showToast('Senha atual incorreta!', 'error');
         if (novaSenha.length < 6) return showToast('Nova senha deve ter pelo menos 6 caracteres!', 'error');
         if (novaSenha !== confirmar) return showToast('Confirmação não confere!', 'error');
@@ -268,6 +297,7 @@
           const { error } = await supabase.from('usuarios').update({ senha: novaSenha }).eq('id', usuario.id);
           if (error) throw error;
 
+          // Atualiza sessionStorage e informa usuário
           usuario.senha = novaSenha;
           const tipo = usuario.tipo_usuario === 'populacao' ? 'usuario_populacao' : 'usuario_ouvidor';
           sessionStorage.setItem(tipo, JSON.stringify(usuario));

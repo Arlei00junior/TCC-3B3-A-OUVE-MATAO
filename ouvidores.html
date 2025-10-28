@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/toast.css">
     <style>
         .logout-button {
             padding: 8px 16px;
@@ -40,7 +41,7 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-    
+
 
         .acessar-btn:hover {
             background: #0e5e65;
@@ -50,7 +51,7 @@
             .main-content h1 {
                 font-size: 1.5rem;
             }
-        
+
         }
     </style>
 </head>
@@ -70,10 +71,17 @@
             </div>
         </div>
     </div>
+       <!-- Botão flutuante de acessibilidade -->
+    <button id="btnAcessibilidade" title="Ativar leitura de tela">
+      🔊
+    </button>
+
+    <script src="acessibilidade.js"></script>
 
     <div class="container">
         <nav class="sidebar">
-            <button onclick="window.location.href='ouvidores.html'" class="sidebar-btn active">MANIFESTAÇÕES E<br>ACOMPANHAMENTOS</button>
+            <button onclick="window.location.href='ouvidores.html'" class="sidebar-btn active">MANIFESTAÇÕES
+                E<br>ACOMPANHAMENTOS</button>
             <button class="sidebar-btn" id="noticiasLink">NOTÍCIAS</button>
         </nav>
 
@@ -81,7 +89,8 @@
             <h1 id="saudacao">Olá, <strong>Usuário!</strong> Para hoje, temos:</h1>
 
             <!-- Aqui o iframe irá puxar processos-ouvidores -->
-            <iframe id="processosIframe" src="processos-ouvidores.html" style="width:100%;height: 150vh;border:none;"></iframe>
+            <iframe id="processosIframe" src="processos-ouvidores.html"
+                style="width:100%;height: 150vh;border:none;"></iframe>
 
         </main>
     </div>
@@ -90,8 +99,8 @@
         // --- Pega dados do usuário logado ---
         const usuarioObj = JSON.parse(sessionStorage.getItem('usuario_ouvidor'));
         if (!usuarioObj) {
-            alert('Você precisa fazer login para acessar esta página.');
-            window.location.href = 'login-ouvidores.html';
+            showToast('Você precisa fazer login para acessar esta página.', 'error');
+            setTimeout(() => window.location.href = 'login-ouvidores.html', 900);
         }
 
         const usuarioNome = usuarioObj?.nome || usuarioObj?.nome_completo || usuarioObj?.cpf || 'Usuário';
@@ -101,39 +110,42 @@
         // ---------------------- Logout ----------------------
         document.getElementById('logout-btn')?.addEventListener('click', () => {
             localStorage.removeItem('usuario_ouvidor');
-            alert("✅ Logout realizado com sucesso!");
-            window.location.href = "login-ouvidores.html";
+            showToast('Logout realizado com sucesso!');
+            setTimeout(() => window.location.href = 'login-ouvidores.html', 800);
         });
 
         // ---------------------- Notícias ----------------------
         document.getElementById("noticiasLink").onclick = function (e) {
-      e.preventDefault();
-      window.open("https://www.falamatao.com.br/", "_blank");
-    };
+            e.preventDefault();
+            window.open("https://www.falamatao.com.br/", "_blank");
+        };
     </script>
-<!-- CONTATO -->
-  <section id="contato">
-    <div class="info">
-      <h1>Contato</h1>
-      <p>Rua Alegre, 123, Cidade Brasileira</p>
-      <p>Tel: (12) 3456-7890</p>
-      <p>ola@grandesite.com.br</p>
-    </div>
-    <div class="social">
-      <div class="social-content">
-        <h2>Siga a gente<br />nas redes sociais</h2>
-        <div class="redes">
-          <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
-          <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
-          <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
+    <!-- CONTATO -->
+    <section id="contato">
+        <div class="info">
+            <h1>Contato</h1>
+            <p>Rua Alegre, 123, Cidade Brasileira</p>
+            <p>Tel: (12) 3456-7890</p>
+            <p>ola@grandesite.com.br</p>
         </div>
-        <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
-      </div>
-    </div>
-  </section>
+        <div class="social">
+            <div class="social-content">
+                <h2>Siga a gente<br />nas redes sociais</h2>
+                <div class="redes">
+                    <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
+                    <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
+                    <a href="#"><img src="img/youtube.svg" alt="YouTube" /></a>
+                </div>
+                <img src="img/logo-header.png" alt="Ouve Matão" class="logo-ouvidoria" />
+            </div>
+        </div>
+    </section>
 
-  <div id="pageTransitionLogo" class="page-transition-logo hide">
-    <img src="img/logo-header.png" alt="Logo Ouve Matão" />
-  </div>
+    <div id="pageTransitionLogo" class="page-transition-logo hide">
+        <img src="img/logo-header.png" alt="Logo Ouve Matão" />
+    </div>
+    <div id="toasts-container"></div>
+    <script src="script/toast.js"></script>
 </body>
+
 </html>

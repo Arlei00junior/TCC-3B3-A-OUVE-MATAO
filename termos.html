@@ -11,6 +11,15 @@
 </head>
 
 <body class="termos-page">
+    <!--
+            Página de Termos e Políticas (termos.html)
+            Blocos principais:
+            - header / nav mobile: navegação (estático)
+            - estilos inline: regras CSS específicas desta página
+            - termos-container: conteúdo dos termos (estático) — não altera DB
+            - script.js: script global de transições (importado no final)
+            Comentário: esta página é somente informativa; não altera dados.
+        -->
 
     <!-- HEADER -->
     <!-- MENU LATERAL RESPONSIVO PARA MOBILE -->
@@ -40,6 +49,11 @@
         </nav>
     </header>
     <style>
+        /* Base page styles
+           - Aplica fundo e tipografia à página inteira.
+           - Modificar fonte/global aqui se precisar alterar o look geral.
+           - Observação: o seletor usa "body .termos-page" para ser específico à esta página.
+        */
         body .termos-page {
             background: #f4f6fa;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -47,8 +61,12 @@
             padding: 0;
         }
 
-
-
+        /* Container principal dos termos
+           - max-width controla largura máxima do conteúdo.
+           - margin top (150px) posiciona o cartão abaixo do header.
+           - padding interno, background branco, borda arredondada e sombra.
+           - Ajuste border-radius / box-shadow para variar profundidade visual.
+        */
         .termos-container {
             max-width: 980px;
             margin: 150px auto 0 auto;
@@ -58,6 +76,10 @@
             box-shadow: 0 4px 32px rgba(20, 48, 74, 0.12);
         }
 
+        /* Título principal da página de termos
+           - font-size e weight controlam hierarquia visual.
+           - margin-bottom separa do conteúdo seguinte.
+        */
         .termos-title {
             font-size: 2.7rem;
             margin-bottom: 44px;
@@ -66,10 +88,18 @@
             letter-spacing: 1px;
         }
 
+        /* Espaçamento entre seções de termos
+           - centraliza ritmo vertical do documento.
+           - alterar margin-bottom para ajustar densidade do conteúdo.
+        */
         .termos-section {
             margin-bottom: 44px;
         }
 
+        /* Cabeçalhos internos das seções
+           - Tamanho e peso menores que o título principal, mas destacados.
+           - Mantém consistência de cor com a identidade visual.
+        */
         .termos-section h2 {
             font-size: 1.4rem;
             color: #14304a;
@@ -77,22 +107,40 @@
             font-weight: 600;
         }
 
+        /* Parágrafos dentro das seções
+           - line-height para legibilidade; font-size para conforto de leitura.
+           - Ajuste these valores se precisar de mais/menos densidade textual.
+        */
         .termos-section p {
             font-size: 1.12rem;
             color: #444;
             line-height: 1.75;
         }
 
+        /* Links padrão
+           - cor e sublinhado para indicar interatividade.
+           - transition para suavizar hover.
+           - Se quiser usar uma variável de cor, alterar aqui centraliza mudanças.
+        */
         a {
             color: #14304a;
             text-decoration: underline;
             transition: color 0.2s;
         }
 
+        /* Estado hover para links
+           - destaque em amarelo para feedback visual.
+           - Observação: existe uma segunda regra a:hover mais abaixo — manter uma só para evitar conflitos.
+        */
         a:hover {
             color: #f9c846;
         }
 
+        /* Responsividade: regras para telas pequenas (primeiro breakpoint)
+           - Reduz padding do container e tamanho do título.
+           - Ajusta header para empilhar elementos em mobile.
+           - Ajuste o breakpoint se o layout exigir.
+        */
         @media (max-width: 700px) {
             .termos-container {
                 padding: 24px 10px;
@@ -112,6 +160,8 @@
                 gap: 18px;
             }
         }
+
+   
 
         a:hover {
             color: #f9c846;
@@ -140,6 +190,12 @@
     </style>
     <main id="termos" class="termos-container">
         <h1 class="termos-title" style="text-align:center; margin-top: 32px;">Termos e Políticas</h1>
+        <!-- Botão flutuante de acessibilidade -->
+        <button id="btnAcessibilidade" title="Ativar leitura de tela">
+            🔊
+        </button>
+
+        <script src="acessibilidade.js"></script>
 
         <section class="termos-section">
             <h2>1. Introdução e Objetivo</h2>

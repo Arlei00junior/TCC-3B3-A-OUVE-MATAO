@@ -302,7 +302,7 @@ header {
   }
 
   .cadastro-page .input-group .radio-flex {
-    flex-direction: column !important;
+    flex-direction: row !important;
     gap: 10px !important;
     padding: 12px 10px !important;
   }
@@ -806,4 +806,30 @@ margin-top: -0.05rem !important;
     border-left: 4px solid #fff !important;
     height: 22% !important;
   }
+}
+/*btn de acessibilidade audio*/
+#btnAcessibilidade {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #0055aa;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 26px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+#btnAcessibilidade:hover {
+  background-color: #007bff;
+  transform: scale(1.1);
+}
+
+#btnAcessibilidade.ativo {
+  background-color: #ff8800;
 }

@@ -1,14 +1,19 @@
 /* ==========================================================
 pagina-principal
   (Estilos da página inicial)
+  Comentários: bloco principal contendo estilos globais para a
+  página inicial. Ajustar fontes e cores aqui para alterar o
+  tema global. Considere migrar cores para variáveis CSS.
 ========================================================== */
 
+/* Reset básico e fonte padrão */
 body {
   margin: 0;
   font-family: "Montserrat", Arial, sans-serif;
   background: #f7f7f7;
 }
 
+/* Header principal: área superior com logo e links */
 .header {
   background: #13818b;
   color: #fff;
@@ -19,16 +24,19 @@ body {
   height: 100px;
 }
 
+/* Imagem da logo: limitar altura para manter header consistente */
 .logo img {
   max-height: 70px;
 }
 
+/* Área de links do cabeçalho: alinhamento e espaçamento */
 .header-links {
   display: flex;
   align-items: center;
   gap: 32px;
 }
 
+/* Estilo dos links do header: peso e sublinhado para destaque */
 .header-links a {
   color: #fff;
   font-weight: 700;
@@ -37,12 +45,14 @@ body {
   margin-right: 16px;
 }
 
+/* Área de perfil no header: avatar + nome */
 .profile {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+/* Avatar do perfil: círculo com borda */
 .profile-img {
   width: 40px;
   height: 40px;
@@ -50,17 +60,21 @@ body {
   border: 2px solid #fff;
 }
 
+/* Nome do perfil: maiúsculas e peso forte */
 .profile-name {
   font-size: 0.93rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
+/* Container principal que envolve sidebar + conteúdo */
 .container {
   display: flex;
   min-height: calc(100vh - 70px);
 }
 
+/* Sidebar padrão: largura fixa e fundo primário.
+   Observação: quando for tornar responsiva, deduzir largura aqui. */
 .sidebar {
   width: 240px;
   background: #13818b;
@@ -69,6 +83,7 @@ body {
   padding-top: 20px;
 }
 
+/* Botões dentro da sidebar: estilo base, clicável e com transição */
 .sidebar-btn {
   background: #0e5e66;
   color: #fff;
@@ -82,7 +97,9 @@ body {
   text-align: left;
   transition: background 0.2s;
 }
-/* tornar botões fixos dentro da sidebar e evitar rolagem lateral da página */
+
+/* Ajustes para evitar overflow horizontal e manter botões fixos.
+   Use box-sizing para previsibilidade de padding/border. */
 .sidebar {
   box-sizing: border-box;
   padding: 20px 12px;
@@ -90,7 +107,7 @@ body {
   overflow-x: hidden; /* previne rolagem horizontal da página */
 }
 
-/* estado ativo/hover */
+/* Estado ativo / hover dos botões da sidebar */
 .sidebar-btn.active,
 .sidebar-btn:active,
 .sidebar-btn:hover {
@@ -98,7 +115,7 @@ body {
   color: #13818b;
 }
 
-/* garantir que os botões cabem na sidebar e encolhem corretamente */
+/* Garantir que botões encolham corretamente em containers flex */
 .sidebar-btn {
   box-sizing: border-box;
   width: 100%; /* ocupa a largura disponível da sidebar */
@@ -114,7 +131,8 @@ body {
   min-width: 0; /* permite encolhimento em flex containers */
 }
 
-/* em telas muito pequenas: manter scroll interno na sidebar, evitar scroll lateral na página */
+/* Comportamento em telas muito pequenas: permitir scroll interno na sidebar
+   em vez de permitir scroll horizontal na página inteira */
 @media (max-width: 600px) {
   .sidebar {
     overflow-x: auto; /* scroll apenas na própria sidebar */
@@ -122,6 +140,7 @@ body {
     padding: 8px;
   }
 
+  /* Em mobile, transformar botões em itens linha com truncamento */
   .sidebar-btn {
     white-space: nowrap;
     overflow: hidden;
@@ -132,6 +151,7 @@ body {
   }
 }
 
+/* Área principal do conteúdo: centralizada e em coluna */
 .main-content {
   flex: 1;
   padding: 40px 0 0 0;
@@ -140,6 +160,7 @@ body {
   align-items: center;
 }
 
+/* Título principal: tamanho grande e centralizado */
 h1 {
   font-size: 2.6rem;
   font-weight: 400;
@@ -147,10 +168,12 @@ h1 {
   text-align: center;
 }
 
+/* Forçar peso maior em trechos fortes dentro do h1 */
 h1 strong {
   font-weight: 700;
 }
 
+/* Seção do formulário: cartão branco com sombra e padding */
 .form-section {
   background: #fff;
   border-radius: 10px;
@@ -161,10 +184,12 @@ h1 strong {
   margin-bottom: 24px;
 }
 
+/* Grupo de campos do formulário: espaçamento vertical entre campos */
 .form-group {
   margin-bottom: 22px;
 }
 
+/* Label do formulário: destaque e espaçamento abaixo */
 .form-label {
   font-weight: 700;
   font-size: 1.1rem;
@@ -172,11 +197,13 @@ h1 strong {
   display: block;
 }
 
+/* Indicador de campo obrigatório: cor de alerta */
 .required {
   color: #e53935;
   margin-right: 3px;
 }
 
+/* Textarea padrão: ocupa largura total, pode redimensionar verticalmente */
 textarea {
   width: 100%;
   min-height: 120px;
@@ -188,12 +215,14 @@ textarea {
   font-family: inherit;
 }
 
+/* Mensagem de erro/ajuda: estilo em vermelho para prioridade */
 .form-hint {
   color: #e53935;
   font-size: 0.95rem;
   margin-top: 4px;
 }
 
+/* Grupo de prioridade: fundo leve e alinhamento horizontal */
 .priority-group {
   background: #f7f7f7;
   border-radius: 7px;
@@ -204,16 +233,19 @@ textarea {
   font-size: 1rem;
 }
 
+/* Links dentro do grupo de prioridade: cor principal e sublinhado */
 .priority-group a {
   color: #13818b;
   text-decoration: underline;
 }
 
+/* Labels dentro do grupo: leve espaçamento à esquerda */
 .priority-group label {
   margin-left: 10px;
   font-weight: 500;
 }
 
+/* Caixa de upload: fundo neutro e padding */
 .upload-box {
   background: #f7f7f7;
   border-radius: 7px;
@@ -221,11 +253,13 @@ textarea {
   margin-bottom: 10px;
 }
 
+/* Botão de escolha de arquivo centralizado dentro do upload */
 #chooseFileBtn {
   display: block;
   margin: 0 auto 10px auto;
 }
 
+/* Texto de ajuda no upload: centralizado e discreto */
 .upload-hint {
   font-size: 0.95rem;
   color: #333;
@@ -233,6 +267,7 @@ textarea {
   text-align: center;
 }
 
+/* Botão de submissão: gradiente, arredondado e com sombra */
 .submit-btn {
   display: block;
   margin: 0 auto 0 auto;
@@ -249,6 +284,8 @@ textarea {
   box-shadow: 0 2px 8px rgba(19, 129, 139, 0.1);
 }
 
+/* Layout responsivo para telas médias/pequenas:
+   transforma sidebar em linha e ajusta tamanhos de formulário */
 @media (max-width: 900px) {
   .container {
     flex-direction: column;
@@ -273,10 +310,14 @@ textarea {
     width: 98vw;
   }
 }
+
 /* ===========================
 Mobile styles
+   Comentários: ajustes específicos para telas <600px. Manter
+   consistência de espaçamentos reduzidos e controlar overflow.
 =========================== */
 @media (max-width: 600px) {
+  /* Header em coluna para caber em telas pequenas */
   .header {
     flex-direction: column;
     height: auto;
@@ -284,10 +325,12 @@ Mobile styles
     position: relative;
   }
 
+  /* Logo reduzida */
   .logo img {
     max-height: 50px;
   }
 
+  /* Menu de links escondido por padrão, aparece quando .active */
   .header-links {
     display: none;
     flex-direction: column;
@@ -306,6 +349,7 @@ Mobile styles
     display: flex;
   }
 
+  /* Ícone de menu visível em mobile */
   .menu-icon {
     display: inline-block;
     font-size: 2rem;
@@ -318,6 +362,7 @@ Mobile styles
     padding: 8px;
   }
 
+  /* Perfil centralizado no topo */
   .profile {
     margin-top: 10px;
     justify-content: center;
@@ -328,6 +373,7 @@ Mobile styles
     min-height: auto;
   }
 
+  /* Sidebar horizontal e scrollável em mobile */
   .sidebar {
     width: 100%;
     flex-direction: row;
@@ -381,8 +427,12 @@ Mobile styles
 
 /* ==========================================================
 sidebar e buttons
+  Comentários: estilo alternativo de sidebar "profissional".
+  Usado para layouts mais complexos; possui nav interna e
+  comportamento diferente em responsivo.
 ========================================================== */
-/* Sidebar profissional (coloque isto no seu CSS global se preferir) */
+
+/* Container da sidebar "profissional": gradiente e sombra */
 .sidebar-professional {
   width: 250px;
   min-width: 200px;
@@ -399,6 +449,7 @@ sidebar e buttons
   color: #02373d;
 }
 
+/* Marca/branding dentro da sidebar profissional */
 .sidebar-professional .brand {
   display: flex;
   gap: 10px;
@@ -419,7 +470,7 @@ sidebar e buttons
   font-size: 0.95rem;
 }
 
-/* Profile area inside sidebar */
+/* Área de profile dentro da sidebar professional */
 .sidebar-profile {
   display: flex;
   gap: 12px;
@@ -458,6 +509,7 @@ sidebar e buttons
   min-width: 0;
 }
 
+/* Nome do usuário: truncar para evitar overflow */
 .sidebar-profile .profile-meta .name {
   font-weight: 700;
   font-size: 0.95rem;
@@ -472,6 +524,7 @@ sidebar e buttons
   color: rgba(255, 255, 255, 0.85);
 }
 
+/* Pequeno botão de logout estilizado */
 .sidebar-profile .logout-small {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -486,6 +539,7 @@ sidebar e buttons
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* Navegação interna da sidebar profissional: coluna com gap */
 .sidebar-professional nav {
   display: flex;
   flex-direction: column;
@@ -493,6 +547,7 @@ sidebar e buttons
   margin-top: 6px;
 }
 
+/* Links de navegação: estilo base com ícone */
 .sidebar-professional .nav-link {
   display: flex;
   align-items: center;
@@ -507,6 +562,7 @@ sidebar e buttons
   border: 1px solid transparent;
 }
 
+/* Icone dentro do link: caixa com fundo leve */
 .sidebar-professional .nav-link .icon {
   width: 26px;
   height: 26px;
@@ -519,12 +575,14 @@ sidebar e buttons
   flex-shrink: 0;
 }
 
+/* Hover nos links: leve elevação e fundo claro */
 .sidebar-professional .nav-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(3, 21, 26, 0.06);
   background: linear-gradient(90deg, #f0f8f9 0%, #ffffff 100%);
 }
 
+/* Estado ativo: gradiente forte e destaque */
 .sidebar-professional .nav-link.active {
   background: linear-gradient(90deg, #6a82fb 0%, #13818b 100%);
   color: #fff;
@@ -537,11 +595,18 @@ sidebar e buttons
   color: #fff;
 }
 
-/* Burger styles (adapted from Uiverse by Cevorob) */
+/* ==========================================================
+Burger styles (menu hamburguer)
+  Comentários: checkbox + botão estilizado para criar menu
+  animado sem JS. A checkbox controla o estado do menu.
+========================================================== */
+
+/* Checkbox escondida que controla o estado do burger */
 .burger-checkbox {
   display: none;
 }
 
+/* Caixa do burger: escondida por padrão em desktop */
 .burger {
   position: relative;
   width: 40px;
@@ -552,6 +617,7 @@ sidebar e buttons
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Barras do burger: três spans representando linhas */
 .burger span {
   display: block;
   position: absolute;
@@ -580,6 +646,7 @@ sidebar e buttons
   transform: translateY(-100%);
 }
 
+/* Estados quando o checkbox está checado: animações do X */
 .burger-checkbox:checked + .burger span:nth-of-type(1) {
   transform: rotate(45deg);
   top: 0px;
@@ -597,7 +664,11 @@ sidebar e buttons
   left: 5px;
 }
 
-/* Responsive behaviour: show burger and collapse nav into a panel */
+/* ==========================================================
+Responsive behaviour for sidebar-professional
+  Comentários: transforma a sidebar em linha e converte o nav
+  em um painel flutuante controlado pela checkbox do burger.
+========================================================== */
 @media (max-width: 900px) {
   .sidebar-professional {
     width: 100%;
@@ -610,12 +681,13 @@ sidebar e buttons
     align-items: center;
   }
 
+  /* Mostrar botão burger em telas menores */
   .burger {
     display: block;
     margin-left: auto;
   }
 
-  /* Hide original nav on small screens; show when checkbox is checked */
+  /* Esconder nav por padrão e exibir quando checkbox marcada */
   .sidebar-professional nav {
     display: none;
     position: absolute;
@@ -631,11 +703,12 @@ sidebar e buttons
     z-index: 300;
   }
 
+  /* Checkbox controla a exibição do nav (sem JS) */
   .burger-checkbox:checked ~ nav {
     display: flex;
   }
 
-  /* Adjust link colors for dark background */
+  /* Ajustes de cores para fundo escuro do painel */
   .sidebar-professional .nav-link {
     color: #ffffff;
     background: rgba(255, 255, 255, 0.03);
@@ -658,9 +731,12 @@ sidebar e buttons
 }
 
 /* ==========================================================
-formulario de processos
+formulario de processos - tooltips e helpers
+  Comentários: pequenas dicas/tooltip para campos de prioridade.
+  Implementação pura em CSS com :hover e :focus.
 ========================================================== */
 
+/* Container para tooltip, permite posicionamento relativo */
 .priority-tooltip {
   position: relative;
   display: inline-flex;
@@ -670,6 +746,7 @@ formulario de processos
   flex-wrap: wrap;
 }
 
+/* Link que ativa o tooltip (hover/focus) */
 .tooltip-link {
   position: relative;
   color: #13818b;
@@ -677,6 +754,7 @@ formulario de processos
   cursor: pointer;
 }
 
+/* Conteúdo do tooltip: oculto por padrão, posicionado abaixo */
 .tooltip-content {
   display: none;
   position: absolute;
@@ -695,11 +773,13 @@ formulario de processos
   word-break: break-word;
 }
 
+/* Mostrar tooltip quando o link recebe hover ou foco (acessibilidade) */
 .tooltip-link:hover .tooltip-content,
 .tooltip-link:focus .tooltip-content {
   display: block;
 }
 
+/* Ajustes de tooltip em telas pequenas: largura máxima e padding reduzidos */
 @media (max-width: 600px) {
   .tooltip-content {
     min-width: 180px;

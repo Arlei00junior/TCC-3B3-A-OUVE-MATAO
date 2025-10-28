@@ -5,6 +5,7 @@
   <title>Processos Ouvidores</title>
   <script type="module" src="supabase.js"></script>
   <link rel="stylesheet" href="css/processos-ouvidores.css">
+  <link rel="stylesheet" href="css/toast.css">
  
 </head>
 <body>
@@ -189,10 +190,10 @@
         .eq("id", id);
 
       if (error) {
-        alert("Erro ao salvar alterações.");
-        console.error(error);
+          showToast('Erro ao salvar alterações.', 'error');
+          console.error(error);
       } else {
-        alert("Atualizações salvas com sucesso!");
+          showToast('Atualizações salvas com sucesso!');
         modalBg.style.display = "none";
         carregarDemandas();
       }
@@ -203,5 +204,7 @@
 
     carregarDemandas();
   </script>
+  <div id="toasts-container"></div>
+  <script src="script/toast.js"></script>
 </body>
 </html>

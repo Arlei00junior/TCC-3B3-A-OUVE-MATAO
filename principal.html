@@ -20,6 +20,12 @@
       <a href="sobre.html">SOBRE NÓS</a>
     </div>
   </div>
+    <!-- Botão flutuante de acessibilidade -->
+    <button id="btnAcessibilidade" title="Ativar leitura de tela">
+      🔊
+    </button>
+
+    <script src="acessibilidade.js"></script>
 
   <div class="container">
     <aside class="sidebar-professional" role="navigation" aria-label="Navegação principal">
@@ -213,7 +219,6 @@
 
     document.getElementById('sidebar-logout-btn')?.addEventListener('click', function () {
       sessionStorage.removeItem('usuario_populacao');
-      alert('✅ Logout realizado com sucesso!');
       window.location.href = 'login.html';
     });
 

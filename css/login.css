@@ -1,135 +1,197 @@
-/* LOGIN PAGE */
+/* ===========================
+    Página de Login - cores e fundo geral
+    =========================== */
 .login-page {
-    background-color: #10848b;
+     background-color: #10848b;
 }
 
+/* ===========================
+    Container principal - usa flex para centralizar conteúdo
+    Ocupa toda a altura da viewport
+    =========================== */
 .login-page .container {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
+     display: flex;
+     height: 100vh;
+     align-items: center;
+     justify-content: center;
 }
 
+/* ===========================
+    Lado esquerdo - área para logo e links
+    Flex 1 para dividir o espaço com a direita
+    =========================== */
 .login-page .left-side {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
 }
 
+/* ===========================
+    Logo - controla largura máxima e espaçamento inferior
+    =========================== */
 .login-page .logo {
-    width: 600px;
-    max-width: 90%;
-    margin-bottom: 20px;
+     width: 600px;
+     max-width: 90%;
+     margin-bottom: 20px;
 }
 
+/* ===========================
+    Grupo de links (ex.: ajuda, termos) com espaçamento entre eles
+    =========================== */
 .login-page .links {
-    margin-top: 60px;
-    display: flex;
-    gap: 40px;
+     margin-top: 60px;
+     display: flex;
+     gap: 40px;
 }
 
+/* ===========================
+    Estilo dos links do lado esquerdo
+    Cor branca, negrito e sublinhado
+    =========================== */
 .login-page .links a {
-    color: #fff;
-    font-weight: bold;
-    text-decoration: underline;
-    font-size: 18px;
+     color: #fff;
+     font-weight: bold;
+     text-decoration: underline;
+     font-size: 18px;
 }
 
+/* ===========================
+    Lado direito - contém o formulário e centraliza vertical/horizontalmente
+    =========================== */
 .login-page .right-side {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+     flex: 1;
+     display: flex;
+     justify-content: center;
+     align-items: center;
 }
 
+/* ===========================
+    Caixa do formulário - fundo branco, padding, borda arredondada,
+    sombra e largura mínima/máxima; layout em coluna com espaçamento
+    =========================== */
 .login-page .login-form {
-    background: #fff;
-    padding: 84px 63px;
-    border-radius: 27px;
-    box-shadow: 0 20px 76px rgba(0, 0, 0, 0.15);
-    min-width: 540px;
-    max-width: 600px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+     background: #fff;
+     padding: 84px 63px;
+     border-radius: 27px;
+     box-shadow: 0 20px 76px rgba(0, 0, 0, 0.15);
+     min-width: 540px;
+     max-width: 600px;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     gap: 40px;
 }
 
+/* ===========================
+    Título do formulário - cor e alinhamento
+    =========================== */
 .login-page .form-heading {
-    font-size: 28px;
-    font-weight: bold;
-    color: #10848b;
-    text-align: center;
-    margin-bottom: 10px;
+     font-size: 28px;
+     font-weight: bold;
+     color: #10848b;
+     text-align: center;
+     margin-bottom: 10px;
 }
 
+/* ===========================
+    Grupo de input - posicionamento relativo para suportar label sobreposto
+    =========================== */
 .login-page .input-group {
-    position: relative;
-    margin-bottom: 18px;
+     position: relative;
+     margin-bottom: 18px;
 }
 
+/* ===========================
+    Estilo dos campos de input - padding, borda, arredondamento e transição
+    =========================== */
 .login-page .input-group input {
-    width: 100%;
-    padding: 12px 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.2s;
+     width: 100%;
+     padding: 12px 10px;
+     border: 1px solid #ccc;
+     border-radius: 8px;
+     font-size: 16px;
+     outline: none;
+     transition: border-color 0.2s;
 }
 
+/* ===========================
+    Estado focus do input - muda a cor da borda para destaque
+    =========================== */
 .login-page .input-group input:focus {
-    border-color: #10848b;
+     border-color: #10848b;
 }
 
+/* ===========================
+    Label do input posicionado sobre a borda superior do campo
+    Usa background branco para "recortar" sobre o input
+    =========================== */
 .login-page .label {
-    position: absolute;
-    left: 12px;
-    top: -10px;
-    background: #fff;
-    padding: 0 4px;
-    font-size: 13px;
-    color: #10848b;
+     position: absolute;
+     left: 12px;
+     top: -10px;
+     background: #fff;
+     padding: 0 4px;
+     font-size: 13px;
+     color: #10848b;
 }
 
+/* ===========================
+    Link "esqueceu a senha" - alinhado à direita e ajustado verticalmente
+    =========================== */
 .login-page .forgot-password {
-    text-align: right;
-    margin-bottom: 10px;
-    margin-top: -45px;
+     text-align: right;
+     margin-bottom: 10px;
+     margin-top: -45px;
 }
 
+/* ===========================
+    Estilo do link "esqueceu a senha" - cor e sublinhado
+    =========================== */
 .login-page .forgot-password a {
-    color: #10848b;
-    font-size: 14px;
-    text-decoration: underline;
+     color: #10848b;
+     font-size: 14px;
+     text-decoration: underline;
 }
 
+/* ===========================
+    Botão de submit - cor de fundo, cor do texto, borda removida,
+    arredondamento e cursor pointer; transição para hover
+    =========================== */
 .login-page .submit {
-    background: #10848b;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
+     background: #10848b;
+     color: #fff;
+     border: none;
+     border-radius: 8px;
+     padding: 12px;
+     font-size: 18px;
+     font-weight: bold;
+     cursor: pointer;
+     transition: background 0.2s;
 }
 
+/* ===========================
+    Estado hover do botão - cor mais escura para feedback visual
+    =========================== */
 .login-page .submit:hover {
-    background: #0a5a5e;
+     background: #0a5a5e;
 }
 
+/* ===========================
+    Link de cadastro - alinhamento e cor do texto do bloco
+    =========================== */
 .login-page .signup-link {
-    text-align: center;
-    font-size: 15px;
-    color: #333;
+     text-align: center;
+     font-size: 15px;
+     color: #333;
 }
 
+/* ===========================
+    Estilo do link de cadastro dentro do bloco - cor e negrito
+    =========================== */
 .login-page .signup-link a {
-    color: #10848b;
-    text-decoration: underline;
-    font-weight: bold;
+     color: #10848b;
+     text-decoration: underline;
+     font-weight: bold;
 }

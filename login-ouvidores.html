@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/toast.css">
   <title>Login Ouvidores - Ouve Matão</title>
 </head>
 
@@ -19,6 +20,12 @@
         <a href="sobre.html">SOBRE NÓS</a>
       </div>
     </div>
+    <!-- Botão flutuante de acessibilidade -->
+    <button id="btnAcessibilidade" title="Ativar leitura de tela">
+      🔊
+    </button>
+
+    <script src="acessibilidade.js"></script>
 
     <!-- Direita -->
     <div class="right-side">
@@ -62,10 +69,22 @@
       </div>
     </div>
   </section>
+  <!-- Toast container -->
+  <div id="toasts-container"></div>
+
+  <!-- Toast script -->
+  <script src="script/toast.js"></script>
 
   <!-- Script de login com máscara de CPF -->
   <script type="module">
     import { supabase } from './supabase.js';
+    /*
+      Script de login para ouvidores (login-ouvidores.html)
+      - Máscara de CPF (formatação enquanto digita)
+      - Submissão do formulário: consulta Supabase por tipo_usuario='ouvidor'
+      - Salva 'usuario_ouvidor' na sessionStorage em caso de sucesso
+      - Função utilitária para mostrar/ocultar senha (ícone de olho)
+    */
 
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('login-ouvidores-form');
@@ -76,7 +95,7 @@
         return;
       }
 
-      // 🔹 Máscara de CPF
+      // Máscara de CPF (apenas UX)
       cpfInput.addEventListener('input', function () {
         let value = cpfInput.value.replace(/\D/g, ''); // remove tudo que não é número
         if (value.length > 11) value = value.slice(0, 11);
@@ -90,6 +109,8 @@
         }
         cpfInput.value = value;
       });
+
+      // Evento de submit: autentica ouvidor
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -106,25 +127,24 @@
             .single();
 
           if (error || !data) {
-            alert("❌ CPF ou senha inválidos para ouvidor!");
+            showToast('CPF ou senha inválidos para ouvidor!', 'error');
             return;
           }
 
-          // 🔹 Salva apenas durante a sessão
+          // Salva apenas durante a sessão
           sessionStorage.setItem('usuario_ouvidor', JSON.stringify(data));
 
-          alert("✅ Login realizado com sucesso!");
-          window.location.href = "ouvidores.html";
+          showToast('Login realizado com sucesso!');
+          setTimeout(() => window.location.href = 'ouvidores.html', 800);
 
         } catch (err) {
           console.error("Erro inesperado:", err);
-          alert("❌ Ocorreu um erro no login!");
+          showToast('Ocorreu um erro no login!', 'error');
         }
       });
     });
 
-
-
+    // Adiciona ícone de olho ao campo de senha do ouvidor (UX)
     (function () {
       const input = document.getElementById('password-ouvidor');
       if (!input) return;

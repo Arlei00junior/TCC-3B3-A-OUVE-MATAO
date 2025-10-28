@@ -1,0 +1,84 @@
+/*
+    toast.css
+    ----------------
+    Estilos compartilhados para as mensagens "toast" (notificações pequenas no canto da tela).
+    - Define o container fixo onde os toasts aparecem (#toasts-container).
+    - Estilos para o próprio toast (.toast) e variações (.toast.error).
+    - Pequena animação de entrada/saída e um loader usado em ações assíncronas.
+    Observação: este arquivo é incluído em várias páginas para garantir consistência visual.
+*/
+
+/* Loader circular usado dentro de um toast para indicar carregamento assíncrono.
+     - A borda superior tem cor distinta para criar o efeito de rotação visual.
+     - Mantido inline para alinhar com texto/ícones na mesma linha. */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #13818b;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Animação que gira o loader 360 graus de forma contínua. */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Container fixo que posiciona os toasts no canto superior direito da tela.
+     - z-index alto para ficar sobre a maioria dos elementos.
+     - Use este container para inserir elementos .toast dinamicamente. */
+#toasts-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* Estilo base do toast:
+     - Cor de fundo, espaçamento, arredondamento e sombra.
+     - Começa fora da tela (translateX(100%)) e com opacity 0 para animação de entrada.
+     - Duas animações: slideIn para entrada e fadeOut programado para saída.
+     - font-weight para destacar o texto. */
+.toast {
+    background-color: #13818b;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.5s forwards, fadeOut 0.5s 3.5s forwards;
+    font-weight: 600;
+}
+
+/* Variação do toast para mensagens de erro.
+     - Apenas altera a cor de fundo; mantém restante do comportamento. */
+.toast.error {
+    background-color: #e74c3c;
+}
+
+/* Animação de entrada: faz o toast aparecer deslizando da direita e tornando-se opaco. */
+@keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Animação de saída: retorna o toast para a direita e reduz a opacidade.
+     - A duração/atraso do fadeOut é controlado pela propriedade animation no .toast. */
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateX(100%); }
+}
+
+/* Ajustes responsivos para telas pequenas:
+     - Move o container para ocupar margens laterais e reduz espaçamento superior.
+     - Toasts podem ter largura flexível (min-width: auto) em vez de fixa. */
+@media (max-width: 600px) {
+    #toasts-container { left: 10px; right: 10px; top: 10px; }
+    .toast { min-width: auto; }
+}

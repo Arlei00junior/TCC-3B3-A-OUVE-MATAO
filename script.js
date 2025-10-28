@@ -1,3 +1,11 @@
+/*
+  script.js - Comportamento global do site
+  - Intercepta cliques em links internas para mostrar a animação de transição
+  - Botão .btn-start: mostra a transição e redireciona para cadastro.html
+  Observação: este script trata apenas de UX/rota; não altera dados no servidor.
+*/
+
+// Botão principal de início que apresenta transição para a página de cadastro
 const btnStart = document.querySelector(".btn-start");
 if (btnStart) {
     btnStart.addEventListener("click", e => {
@@ -9,6 +17,9 @@ if (btnStart) {
         }, 1600);
     });
 }
+
+// Intercepta links internos (mesmo domínio) que não apontam para o mesmo path
+// para tocar a animação de transição antes de navegar.
 const links = document.querySelectorAll("a[href]");
 
 links.forEach(link => {
@@ -22,7 +33,7 @@ links.forEach(link => {
             const transition = document.getElementById("pageTransitionLogo");
             transition.classList.remove("hide");
 
-            // Espera 1.5 segundos para trocar de página
+            // Espera 1.6 segundos para trocar de página (tempo da animação)
             setTimeout(() => {
                 window.location.href = link.href;
             }, 1600);

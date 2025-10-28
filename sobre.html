@@ -10,24 +10,39 @@
 </head>
 
 <body class="sobre-page">
-
+    <!--
+            Página "Sobre Nós" (sobre.html)
+            Blocos:
+            - header / mobile-sidebar: navegação e links (estático)
+            - banner-sobre: texto informativo sobre a organização (conteúdo estático)
+            - contato: seção estática de contato
+            - script.js: script global de transições (importado no final)
+            Observação: esta página não altera dados no servidor; é informativa.
+        -->
 
     <!-- HEADER -->
     <header>
-    <!-- HEADER -->
-    <!-- MENU LATERAL RESPONSIVO PARA MOBILE -->
-    <nav class="mobile-sidebar">
-        <div class="mobile-header">
-            <button class="menu-toggle" aria-label="Abrir menu" onclick="document.querySelector('.mobile-sidebar-menu').classList.toggle('open')">
-                <span class="menu-icon">&#9776;</span>
-            </button>
-        </div>
-        <div class="mobile-sidebar-menu">
-            <a href="login.html">FAÇA LOGIN</a>
-            <a href="#termos">TERMOS E POLÍTICAS</a>
-            <a href="sobre.html">SOBRE NÓS</a>
-        </div>
-    </nav>
+        <!-- HEADER -->
+        <!-- MENU LATERAL RESPONSIVO PARA MOBILE -->
+        <nav class="mobile-sidebar">
+            <div class="mobile-header">
+                <button class="menu-toggle" aria-label="Abrir menu"
+                    onclick="document.querySelector('.mobile-sidebar-menu').classList.toggle('open')">
+                    <span class="menu-icon">&#9776;</span>
+                </button>
+            </div>
+            <div class="mobile-sidebar-menu">
+                <a href="login.html">FAÇA LOGIN</a>
+                <a href="#termos">TERMOS E POLÍTICAS</a>
+                <a href="sobre.html">SOBRE NÓS</a>
+            </div>
+        </nav>
+        <!-- Botão flutuante de acessibilidade -->
+        <button id="btnAcessibilidade" title="Ativar leitura de tela">
+            🔊
+        </button>
+
+        <script src="acessibilidade.js"></script>
 
         <div class="logo">
             <img src="img/logo-header.png" alt="Logo" />
@@ -71,7 +86,7 @@
                     referência em ouvidoria no Brasil, contribuindo para uma
                     sociedade mais justa e participativa.
 
-                    
+
             </div>
         </div>
     </section>
@@ -103,7 +118,7 @@
         <img src="img/logo-header.png" alt="Logo Ouve Matão" />
     </div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

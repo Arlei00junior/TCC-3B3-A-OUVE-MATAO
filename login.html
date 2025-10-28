@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/toast.css">
   <title>Login - Ouve Matão</title>
 </head>
 
@@ -19,6 +20,12 @@
         <a href="sobre.html">SOBRE NÓS</a>
       </div>
     </div>
+     <!-- Botão flutuante de acessibilidade -->
+    <button id="btnAcessibilidade" title="Ativar leitura de tela">
+      🔊
+    </button>
+
+    <script src="acessibilidade.js"></script>
 
     <!-- Direita: Caixa de login -->
     <div class="right-side">
@@ -30,10 +37,10 @@
         </div>
         <div class="input-group">
           <input required placeholder="Digite sua senha definida" name="password" id="password" type="password" />
-            <label class="label" for="password">Senha</label>
-            
+          <label class="label" for="password">Senha</label>
+
         </div>
-        
+
         <button class="submit" type="submit">Acessar</button>
         <div class="signup-link">
           Não tem cadastro? <a href="cadastro.html">Clique aqui</a><br />
@@ -63,21 +70,34 @@
       </div>
     </div>
   </section>
+  <!-- Toast container -->
+  <div id="toasts-container"></div>
+
+  <!-- Toast script -->
+  <script src="script/toast.js"></script>
 
   <!-- Script de login com máscara de CPF -->
   <script type="module">
     import { supabase } from './supabase.js';
+    /*
+      Script de login (página login.html)
+      - Máscara de CPF: formata enquanto o usuário digita
+      - Redirecionamento automático se já estiver logado
+      - Submissão do formulário: consulta Supabase (tabela 'usuarios') e salva sessionStorage em caso de sucesso
+      - Tratamento de erros com showToast
+    */
 
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('login-form');
       const cpfInput = document.getElementById('cpf');
 
+      // Verifica existência do form
       if (!form) {
         console.error("Formulário não encontrado!");
         return;
       }
 
-      // 🔹 Máscara suave de CPF
+      // Máscara suave de CPF (formatação local de exibição)
       cpfInput.addEventListener('input', function () {
         let value = cpfInput.value.replace(/\D/g, ''); // remove tudo que não é número
         if (value.length > 11) value = value.slice(0, 11);
@@ -92,13 +112,14 @@
         cpfInput.value = value;
       });
 
-      // 🔹 Se já estiver logado como população, redireciona
+      // Se já estiver logado como população, redireciona automaticamente (não altera DB)
       const usuarioLogado = JSON.parse(sessionStorage.getItem('usuario_populacao'));
       if (usuarioLogado && usuarioLogado.tipo_usuario === 'populacao') {
         window.location.href = 'principal.html';
         return;
       }
 
+      // Evento de submit do formulário
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -106,6 +127,7 @@
         const senha = document.getElementById('password').value.trim();
 
         try {
+          // Consulta única ao Supabase
           const { data, error } = await supabase
             .from('usuarios')
             .select('*')
@@ -115,52 +137,60 @@
             .single();
 
           if (error || !data) {
-            alert("❌ CPF ou senha inválidos!");
+            // Mensagem de erro ao usuário (visual)
+            showToast('CPF ou senha inválidos!', 'error');
             return;
           }
 
-          // 🔹 Salva apenas durante a sessão do navegador
+          // Salva apenas durante a sessão do navegador (sessionStorage)
           sessionStorage.setItem('usuario_populacao', JSON.stringify(data));
 
-          alert("✅ Login realizado com sucesso!");
-          window.location.href = "principal.html";
+          // Feedback de sucesso e redirecionamento curto para principal.html
+          showToast('Login realizado com sucesso!');
+          setTimeout(() => window.location.href = 'principal.html', 800);
 
         } catch (err) {
           console.error("Erro inesperado:", err);
-          alert("❌ Ocorreu um erro no login!");
+          showToast('Ocorreu um erro no login!', 'error');
         }
       });
     });
 
-     (function () {
-              function addEyeIcon(input) {
-              if (!input) return;
-              const wrapper = input.parentElement;
-              wrapper.style.position = 'relative';
-              const eye = document.createElement('img');
-              eye.src = 'img/olho-fechado.png';
-              eye.alt = 'Mostrar senha';
-              Object.assign(eye.style, {
-                position: 'absolute',
-                right: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                cursor: 'pointer',
-                width: '24px',
-                height: '24px'
-              });
-              eye.addEventListener('click', () => {
-                input.type = input.type === 'password' ? 'text' : 'password';
-                eye.src = input.type === 'password' ? 'img/olho-fechado.png' : 'img/olho-aberto.png';
-              });
-              wrapper.appendChild(eye);
-              }
+    /*
+      Função utilitária: adiciona ícone de olho para mostrar/ocultar senha
+      - Recebe um input de senha
+      - Não altera dados, apenas comportamento visual
+    */
+    (function () {
+      function addEyeIcon(input) {
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.style.position = 'relative';
+        const eye = document.createElement('img');
+        eye.src = 'img/olho-fechado.png';
+        eye.alt = 'Mostrar senha';
+        Object.assign(eye.style, {
+          position: 'absolute',
+          right: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          cursor: 'pointer',
+          width: '24px',
+          height: '24px'
+        });
+        eye.addEventListener('click', () => {
+          input.type = input.type === 'password' ? 'text' : 'password';
+          eye.src = input.type === 'password' ? 'img/olho-fechado.png' : 'img/olho-aberto.png';
+        });
+        wrapper.appendChild(eye);
+      }
 
-              document.addEventListener('DOMContentLoaded', () => {
-              addEyeIcon(document.getElementById('password'));
-              addEyeIcon(document.getElementById('confirmPassword'));
-              });
-            })();
+      document.addEventListener('DOMContentLoaded', () => {
+        addEyeIcon(document.getElementById('password'));
+        addEyeIcon(document.getElementById('confirmPassword'));
+      });
+    })();
   </script>
 </body>
+
 </html>

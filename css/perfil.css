@@ -1,3 +1,13 @@
+/* 
+  perfil.css
+  ----------------
+  Estilos da página de edição de perfil (perfil.html).
+  Comentários por bloco para facilitar futuras manutenções.
+*/
+
+/* Container principal do cartão de perfil
+   - Define largura máxima, centralização, preenchimento, cantos arredondados e sombra.
+   - Ao ajustar espaçamento/global, rever max-width, padding e box-shadow. */
 .perfil-container {
   max-width: 500px;
   margin: 40px auto;
@@ -7,17 +17,24 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
+/* Título dentro do cartão
+   - Centraliza o texto, controla espaçamento inferior e cor do título. */
 .perfil-container h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #2c3e50;
 }
 
+/* Bloco do avatar/foto de perfil
+   - Alinha conteúdo ao centro e controla espaçamento inferior entre seções. */
 .foto-perfil {
   text-align: center;
   margin-bottom: 20px;
 }
 
+/* Imagem do avatar
+   - Define tamanho fixo, deixa a imagem circular, mantém proporção (object-fit)
+     e aplica borda para destaque. Ajuste width/height para tamanhos diferentes. */
 .foto-perfil img {
   width: 120px;
   height: 120px;
@@ -27,11 +44,17 @@
   margin-bottom: 10px;
 }
 
+/* Input de envio/alteração da foto
+   - Exibe o input centralizado. Se quiser ocultar e usar botão customizado,
+     manter display:block e controlar via JS. */
 .foto-perfil input {
   display: block;
   margin: 10px auto;
 }
 
+/* Estilo base para botões
+   - Cor de fundo principal, cor do texto, remoção de borda, padding, cantos arredondados,
+     cursor pointer e transição suave. Para tema, altere #004aad. */
 button {
   background: #004aad;
   color: white;
@@ -43,20 +66,29 @@ button {
   transition: 0.3s;
 }
 
+/* Estado hover do botão
+   - Escurece a cor de fundo ao passar o mouse para feedback visual. */
 button:hover {
   background: #003380;
 }
 
+/* Blocos de formulário para dados e senha
+   - Espaçamento inferior entre seções para separar visualmente. */
 .dados-perfil, .senha-perfil {
   margin-bottom: 20px;
 }
 
+/* Labels dos inputs
+   - Exibe em bloco para quebrar linha, adiciona margem superior e ênfase no texto. */
 label {
   display: block;
   margin-top: 10px;
   font-weight: bold;
 }
 
+/* Inputs de texto e similares
+   - Largura total do container, padding, borda e cantos arredondados.
+     Para acessibilidade, não remover contraste de borda sem alternativa visual. */
 input {
   width: 100%;
   padding: 8px;
@@ -65,6 +97,8 @@ input {
   margin-top: 5px;
 }
 
+/* Área do link/ação de voltar
+   - Centra o conteúdo e adiciona espaçamento superior. */
 .voltar {
   text-align: center;
   margin-top: 20px;

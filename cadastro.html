@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/toast.css">
     <title>Cadastro - Ouve Matão</title>
 </head>
 
@@ -20,6 +21,12 @@
                     <a href="sobre.html">SOBRE NÓS</a>
                 </div>
             </div>
+            <!-- Botão flutuante de acessibilidade -->
+            <button id="btnAcessibilidade" title="Ativar leitura de tela">
+                🔊
+            </button>
+
+            <script src="acessibilidade.js"></script>
 
             <!-- Direita: Caixa de cadastro -->
             <div class="right-side">
@@ -55,18 +62,25 @@
 
                     <div class="input-group">
                         <label class="label" style="top: -18px;">Sexo</label>
-                        <div class="radio-flex" style="display: flex; gap: 20px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
-                            <input type="radio" name="sexo" value="feminino" required style="accent-color: #008080; width: 22px; height: 22px;"> Feminino
-                            <input type="radio" name="sexo" value="masculino" required style="accent-color: #008080; width: 22px; height: 22px;"> Masculino
-                            <input type="radio" name="sexo" value="intersexo" required style="accent-color: #008080; width: 22px; height: 22px;"> Intersexo
+                        <div class="radio-flex"
+                            style="display: flex; gap: 20px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
+                            <input type="radio" name="sexo" value="feminino" required
+                                style="accent-color: #008080; width: 22px; height: 22px;"> Feminino
+                            <input type="radio" name="sexo" value="masculino" required
+                                style="accent-color: #008080; width: 22px; height: 22px;"> Masculino
+                            <input type="radio" name="sexo" value="intersexo" required
+                                style="accent-color: #008080; width: 22px; height: 22px;"> Intersexo
                         </div>
                     </div>
 
                     <div class="input-group">
                         <label class="label" style="top: -18px;">Residente do município?</label>
-                        <div class="radio-flex" style="display: flex; gap: 30px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
-                            <input type="radio" name="reside_municipio" value="sim" style="accent-color: #008080; width: 22px; height: 22px;"> Sim
-                            <input type="radio" name="reside_municipio" value="nao" style="accent-color: #008080; width: 22px; height: 22px;"> Não
+                        <div class="radio-flex"
+                            style="display: flex; gap: 30px; align-items: center; background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; margin-top: 8px;">
+                            <input type="radio" name="reside_municipio" value="sim"
+                                style="accent-color: #008080; width: 22px; height: 22px;"> Sim
+                            <input type="radio" name="reside_municipio" value="nao"
+                                style="accent-color: #008080; width: 22px; height: 22px;"> Não
                         </div>
                     </div>
 
@@ -76,7 +90,8 @@
                     </div>
 
                     <div class="input-group">
-                        <input required placeholder="Confirme sua senha" name="confirm_password" id="confirm_password" type="password" />
+                        <input required placeholder="Confirme sua senha" name="confirm_password" id="confirm_password"
+                            type="password" />
                         <label class="label" for="confirm_password">Confirmar Senha</label>
                     </div>
 
@@ -87,6 +102,12 @@
                 </form>
             </div>
         </div>
+
+        <!-- Toast container -->
+        <div id="toasts-container"></div>
+
+        <!-- Toast script -->
+        <script src="script/toast.js"></script>
 
         <!-- Script principal -->
         <script type="module">
@@ -99,7 +120,12 @@
                 const cpfInput = document.getElementById('cpf');
                 const telefoneInput = document.getElementById('telefone');
 
-                // Mostrar/ocultar senha
+                /* Mostrar/ocultar senha
+                   - Recebe um input (campo de senha)
+                   - Cria um ícone de olho absoluto dentro do pai do input
+                   - Ao clicar, alterna entre 'password' e 'text' e troca a imagem
+                   Observação: mantém comportamento visual apenas, não altera dados.
+                */
                 function addEyeIcon(input) {
                     const wrapper = input.parentElement;
                     wrapper.style.position = 'relative';
@@ -123,6 +149,8 @@
                 addEyeIcon(confirmPassword);
 
                 // Máscara suave de CPF
+                // - Formata enquanto o usuário digita (xxx.xxx.xxx-xx)
+                // - Não altera valores permanentes; apenas melhora UX
                 cpfInput.addEventListener('input', function () {
                     let value = cpfInput.value.replace(/\D/g, '');
                     if (value.length > 11) value = value.slice(0, 11);
@@ -132,7 +160,10 @@
                     cpfInput.value = value;
                 });
 
-                // Validação de CPF
+                /* Validação de CPF (algoritmo tradicional)
+                   - Recebe string com possíveis caracteres e retorna true/false
+                   - Usada antes do submit para evitar cadastro com CPF inválido
+                */
                 function validarCPF(cpf) {
                     cpf = cpf.replace(/\D/g, '');
                     if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
@@ -149,7 +180,7 @@
                     return true;
                 }
 
-                // Máscara de telefone
+                // Máscara de telefone (formatação ao digitar)
                 telefoneInput.addEventListener('input', function () {
                     let value = telefoneInput.value.replace(/\D/g, '');
                     if (value.length > 11) value = value.slice(0, 11);
@@ -159,11 +190,29 @@
                     else telefoneInput.value = value.replace(/(\d{0,2})/, '($1');
                 });
 
-                // SUBMIT
+                // Atualiza elemento .role na página (se existir) quando usuário seleciona residente/não
+                function updateRolePreview() {
+                    const roleEl = document.querySelector('.role');
+                    if (!roleEl) return;
+                    const val = form.querySelector('input[name="reside_municipio"]:checked')?.value;
+                    const isResidente = String(val).toLowerCase() === 'sim';
+                    roleEl.textContent = isResidente ? 'Residente' : 'Não residente';
+                }
+
+                form.querySelectorAll('input[name="reside_municipio"]').forEach(r => r.addEventListener('change', updateRolePreview));
+                // chama ao carregar para refletir estado inicial
+                updateRolePreview();
+
+                // SUBMIT: Validação e envio do formulário de cadastro
+                // - Valida CPF localmente
+                // - Valida confirmação de senha
+                // - Monta objeto 'usuario' com os valores do formulário
+                // - Insere registro na tabela 'usuarios' do Supabase
+                // OBS: manipula somente a sessão e o banco; não altera arquivos locais
                 form.addEventListener('submit', async function (e) {
                     e.preventDefault();
-                    if (!validarCPF(cpfInput.value)) { alert('CPF inválido!'); cpfInput.focus(); return; }
-                    if (password.value !== confirmPassword.value) { alert('As senhas não coincidem!'); confirmPassword.focus(); return; }
+                    if (!validarCPF(cpfInput.value)) { showToast('CPF inválido!', 'error'); cpfInput.focus(); return; }
+                    if (password.value !== confirmPassword.value) { showToast('As senhas não coincidem!', 'error'); confirmPassword.focus(); return; }
 
                     const usuario = {
                         nome: document.getElementById('nome').value,
@@ -176,9 +225,10 @@
                         senha: password.value
                     };
 
+                    // Envia para o Supabase e trata resposta
                     const { data, error } = await supabase.from('usuarios').insert([usuario]);
-                    if (error) alert("❌ Erro ao cadastrar: " + error.message);
-                    else { alert("✅ Cadastro realizado com sucesso!"); window.location.href = "login.html"; }
+                    if (error) showToast('Erro ao cadastrar: ' + (error.message || ''), 'error');
+                    else { showToast('Cadastro realizado com sucesso!'); setTimeout(() => window.location.href = 'login.html', 900); }
                 });
             });
         </script>
@@ -212,4 +262,5 @@
         </div>
     </section>
 </body>
+
 </html>

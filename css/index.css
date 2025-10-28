@@ -1,14 +1,24 @@
 /* ==========================================================
-  HOME PAGE
-  (Banner principal da página inicial)
+  Home page - Banner principal
+  Comentários gerais:
+  - Blocos comentados explicam propósito, comportamentos responsivos
+  - Mantive a estrutura original e adicionei comentários por bloco
 ========================================================== */
+
+/* Bloco: Container do banner principal
+  - Define layout em linha (duas colunas) e altura total da janela
+  - margin-top para espaçamento abaixo do header fixo (80px)
+*/
 .home-page .banner {
   display: flex;
   height: 100vh;
   margin-top: 80px;
 }
 
-/* Lado esquerdo do banner (imagem) */
+/* Bloco: Lado esquerdo do banner (imagem)
+  - Ocupa 45% da largura da viewport
+  - Define imagem de fundo, ajuste de tamanho e posição
+*/
 .home-page .banner-left {
   width: 45vw;
   background-image: url("../img/banner_inicial.png");
@@ -17,7 +27,11 @@
   background-repeat: no-repeat;
 }
 
-/* Lado direito do banner (conteúdo) */
+/* Bloco: Lado direito do banner (conteúdo)
+  - Ocupa 55% da largura da viewport
+  - Caixa branca centrada verticalmente e horizontalmente
+  - Padding para espaçamento interno
+*/
 .home-page .banner-right {
   width: 55vw;
   background: white;
@@ -27,21 +41,28 @@
   padding: 5vh 3vw;
 }
 
-/* Texto do banner direito */
+/* Bloco: Texto dentro do lado direito do banner
+  - Define tamanho de fonte, espaçamento inferior e altura de linha
+*/
 .home-page .banner-right p {
   font-size: 1.9rem;
   margin-bottom: 3rem;
   line-height: 1.6;
 }
 
-/* Container do botão "Começar" */
+/* Bloco: Container do botão "Começar"
+  - Centraliza o botão horizontalmente
+*/
 .home-page .btn-start-container {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
 }
 
-/* Botão "Começar" */
+/* Bloco: Estilo do botão "Começar"
+  - Cor de fundo, cor do texto, paddings grandes para aparência de botão principal
+  - Borda arredondada para visual moderno e cursor para indicar clicável
+*/
 .home-page .btn-start {
   background-color: #0d7b87;
   color: white;
@@ -52,138 +73,150 @@
   cursor: pointer;
 }
 
+/* ==========================================================
+  MEDIA QUERIES - Ajustes para diferentes larguras de tela
+  Comentários: vários breakpoints para refinar tipografia e espaçamento.
+  Mantive breakpoints existentes e adicionei comentários explicativos.
+========================================================== */
+
+/* Breakpoint: até 1448px
+  - Redefine alguns tamanhos e paddings para telas menores que desktop large
+*/
 @media (max-width: 1448px) {
-  /* estilos para telas até 1448px */
+  /* Texto do lado direito: mantém legibilidade */
   .home-page .banner-right p {
-    font-size: 1.9rem;
-    margin-bottom: 3rem;
-    line-height: 1.6;
+   font-size: 1.9rem;
+   margin-bottom: 3rem;
+   line-height: 1.6;
   }
 
+  /* Espaçamento vertical do conteúdo do lado direito */
   .home-page .banner-right {
-    margin-top: 5rem;
-    margin-bottom: 3rem;
+   margin-top: 5rem;
+   margin-bottom: 3rem;
   }
 
+  /* Ajuste do botão para manter proporção em telas menores */
   .home-page .btn-start {
-    font-size: 1.4rem;
-    padding: 1.8rem 2.3rem;
+   font-size: 1.4rem;
+   padding: 1.8rem 2.3rem;
   }
 }
 
-/*------------------------------*/
+/* Breakpoint: até 1375px
+  - Ajustes similares para largura intermediária (redundante com 1366/1448, preservado para casos específicos)
+*/
 @media (max-width: 1375px) {
-  /* estilos para telas até 1375px */
   .home-page .banner-right p {
-    font-size: 1.8rem;
-    margin-bottom: 3rem;
-    line-height: 1.6;
+   font-size: 1.8rem;
+   margin-bottom: 3rem;
+   line-height: 1.6;
   }
 
   .home-page .banner-right {
-    margin-top: 5rem;
-    margin-bottom: 3rem;
+   margin-top: 5rem;
+   margin-bottom: 3rem;
   }
 
   .home-page .btn-start {
-    font-size: 1.4rem;
-    padding: 1.8rem 2.3rem;
+   font-size: 1.4rem;
+   padding: 1.8rem 2.3rem;
   }
 }
 
-/*-------------------------------*/
-/*------------------------------*/
+/* Breakpoint: até 1366px
+  - Ajuste para telas com largura 1366px (notebook comum)
+*/
 @media (max-width: 1366px) {
-  /* estilos para telas até 1366px */
   .home-page .banner-right p {
-    font-size: 1.8rem;
-    margin-bottom: 3rem;
-    line-height: 1.6;
+   font-size: 1.8rem;
+   margin-bottom: 3rem;
+   line-height: 1.6;
   }
 
   .home-page .banner-right {
-    margin-top: 5rem;
-    margin-bottom: 3rem;
+   margin-top: 5rem;
+   margin-bottom: 3rem;
   }
 
   .home-page .btn-start {
-    font-size: 1.4rem;
-    padding: 1.8rem 2.3rem;
+   font-size: 1.4rem;
+   padding: 1.8rem 2.3rem;
   }
 }
 
-/*-------------------------------*/
-/*------------------------------*/
+/* Breakpoint: até 1215px
+  - Reduz levemente a tipografia para telas menores que notebooks grandes
+*/
 @media (max-width: 1215px) {
-  /* estilos para telas até 1215px */
   .home-page .banner-right p {
-    font-size: 1.7rem;
-    margin-bottom: 3rem;
-    line-height: 1.6;
+   font-size: 1.7rem;
+   margin-bottom: 3rem;
+   line-height: 1.6;
   }
 
   .home-page .banner-right {
-    margin-top: 5rem;
-    margin-bottom: 3rem;
+   margin-top: 5rem;
+   margin-bottom: 3rem;
   }
 
   .home-page .btn-start {
-    font-size: 1.4rem;
-    padding: 1.8rem 2.3rem;
+   font-size: 1.4rem;
+   padding: 1.8rem 2.3rem;
   }
 }
 
-/*-------------------------------*/
-/*------------------------------*/
+/* Breakpoint: até 1147px
+  - Continua redução progressiva da tipografia e mantém paddings do botão
+*/
 @media (max-width: 1147px) {
-  /* estilos para telas até 1147px */
   .home-page .banner-right p {
-    font-size: 1.6rem;
-    margin-bottom: 3rem;
-    line-height: 1.6;
+   font-size: 1.6rem;
+   margin-bottom: 3rem;
+   line-height: 1.6;
   }
 
   .home-page .banner-right {
-    margin-top: 5rem;
-    margin-bottom: 3rem;
+   margin-top: 5rem;
+   margin-bottom: 3rem;
   }
 
   .home-page .btn-start {
-    font-size: 1.4rem;
-    padding: 1.8rem 2.3rem;
+   font-size: 1.4rem;
+   padding: 1.8rem 2.3rem;
   }
 }
 
-/*-------------------------------*/
-
+/* Breakpoint: até 1024px (tablets e telas menores)
+  - Transforma layout em coluna (imagem acima/conteúdo abaixo)
+  - Define altura relativa para cada seção e centraliza imagens de fundo
+  - Reseta margin/padding/box-sizing global para evitar inconsistências em dispositivos móveis
+  - Observação: aplicar * global aqui pode afetar outros componentes; avaliar se desejado
+*/
 @media (max-width: 1024px) {
   .home-page .banner {
-    flex-direction: column;
-    height: auto;
-    margin-top: 60px;
+   flex-direction: column;
+   height: auto;
+   margin-top: 60px;
   }
   .home-page .banner-left,
   .home-page .banner-right {
-    width: 100vw;
-    height: 60vh;
-    background-size: cover;
-    background-position: center;
+   width: 100vw;
+   height: 60vh;
+   background-size: cover;
+   background-position: center;
   }
+  /* Reset global aplicado localmente dentro do breakpoint */
   * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
   }
 }
 
-
-/*----------------------------------*/
-
-/*-----------------------------------*/
-
-
-
-
+/* Bloco: Ajustes finais de tipografia/padding fora dos breakpoints anteriores
+  - Serve como estilo padrão atualizado que pode ser sobrescrito pelos breakpoints acima
+*/
 .home-page .banner-right p {
   font-size: 1.6rem;
   margin-bottom: 2rem;
@@ -193,21 +226,26 @@
   padding: 1.2rem 2rem;
 }
 
+/* Breakpoint: até 600px (celulares)
+  - Reduz margin-top do banner
+  - Define min-height menor para cada lado e padding mais compacto
+  - Ajusta tipografia e botões para telas pequenas
+*/
 @media (max-width: 600px) {
   .home-page .banner {
-    margin-top: 40px;
+   margin-top: 40px;
   }
   .home-page .banner-left,
   .home-page .banner-right {
-    min-height: 30vh;
-    padding: 3vh 4vw;
+   min-height: 30vh;
+   padding: 3vh 4vw;
   }
   .home-page .banner-right p {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
+   font-size: 1.1rem;
+   margin-bottom: 1.2rem;
   }
   .home-page .btn-start {
-    font-size: 1rem;
-    padding: 1rem 1.5rem;
+   font-size: 1rem;
+   padding: 1rem 1.5rem;
   }
 }
