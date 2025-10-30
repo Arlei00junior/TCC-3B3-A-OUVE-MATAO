@@ -20,7 +20,7 @@
       text-align: center;
       font-size: 1.8rem;
       margin-bottom: 20px;
-      color: #0288d1;
+      color: #10848b;
     }
 
     /* ======== FILTROS ======== */
@@ -128,6 +128,17 @@
   </style>
 </head>
 <body>
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="script/vlibras.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
   <h1>Painel de Demandas</h1>
 
   <div class="filtros">
